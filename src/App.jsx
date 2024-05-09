@@ -8,10 +8,9 @@ import router from './routes.jsx';
 function App() {
 
   return (
-    <div>
-      <Home/>
+    <> 
       <RouterProvider router={router}/>
-    </div>
+    </>
   )
 }
 
