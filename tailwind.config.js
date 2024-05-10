@@ -27,6 +27,9 @@ export default {
         gray_8: "#343A40",
         gray_9: "#212529",
       },
+      fontFamily: {
+        pre: ["Pretendard", "sans-serif"],
+      },
     },
   },
   plugins: [],
