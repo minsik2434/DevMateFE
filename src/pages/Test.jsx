@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from './Login';
+import Signin from './Signin';
 import { useState, useRef } from 'react';
 function Test() {
   const [showModal, setShowModal] = useState(false);
@@ -17,7 +17,7 @@ function Test() {
             setShowModal(false);
           }
         }}>
-          <Login />
+          <Signin />
         </div>
       }
     </>
