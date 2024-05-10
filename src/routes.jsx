@@ -3,6 +3,9 @@ import RootLayout from "./pages/RootLayout";
 // import Test from "./pages/Test";
 import Landing from "./pages/Landing";
 
+import Test from "./pages/Test";
+import Signup from "./pages/Signup";
+// import Home from "./pages/Home";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,6 +15,14 @@ const router = createBrowserRouter([
         path: "/",
         element: <Landing />,
       },
+      {
+        path: "/test",
+        element: <Test />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
 
       //   {
       //     path: "/test",
@@ -20,5 +31,15 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+//         element: <RootLayout/>,
+//         children : [
+//             {
+//                 path: "/",
+//                 element: <Home />
+//             },
+
+//         ]
+//     }
+// ])
 
 export default router;
