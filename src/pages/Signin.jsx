@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Login() {
+function Signin() {
   return (
     <div className='laptop:w-[475px] laptop:h-[540px] mobile:w-[300px] mobile:h-[320px] px-[30px] py-[58px] bg-white rounded-xl'>
         <div>
@@ -41,4 +41,4 @@ function Login() {
   )
 }
 
-export default Login;
+export default Signin;
