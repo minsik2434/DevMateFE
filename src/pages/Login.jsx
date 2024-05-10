@@ -10,7 +10,10 @@ function Login() {
             <ul className='flex flex-col laptop:gap-[30px] mobile:gap-[14px]'>
                 <li>
                     <label className='sr-only' htmlFor='id'>id</label>  
-                    <input id="id" placeholder='Id' className='placeholder-[#2f2f2f] laptop:text-[14px] mobile:text-[10px] w-full border-[#d1d1d1] border laptop:px-[20px] laptop:py-[19px] mobile:px-[10px] mobile:py-[8px] rounded-md'/>
+                    <input id="id" placeholder='Id' 
+                        className='placeholder-[#2f2f2f] laptop:text-[14px] 
+                        mobile:text-[10px] w-full border-[#d1d1d1] border laptop:px-[20px] 
+                        laptop:py-[19px] mobile:px-[10px] mobile:py-[8px] rounded-md'/>
                 </li>
                 <li>
                     <label className='sr-only' htmlFor='pw'>pw</label>
