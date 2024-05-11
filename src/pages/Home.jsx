@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import EditorBox from "@/components/Editorbox";
 
 function Home() {
   return (
-    <div>
-      
+    <div className="flex justify-center w-[1920px] h-[1000px] bg-slate-500">
+      <div className="text-center">
+        <EditorBox />
+      </div>
     </div>
   )
 }

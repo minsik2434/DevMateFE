@@ -3,6 +3,7 @@ import RootLayout from "./pages/RootLayout";
 import Test from "./pages/Test";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
+import BoardDetail from "./pages/BoardDetail";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
 
             {
                 path: "/test",
-                element: <Test/>
+                element: <BoardDetail/>
             },
             {
                 path: "/signup",
