@@ -21,7 +21,6 @@ function EditorBox() {
             initialEditType='wysiwyg'
             hideModeSwitch
             useCommandShortcut={true}
-            style={{ borderRadius: '20px'}}
             plugins={[colorSyntax,[codeSyntaxHighlight, { highlighter: Prism }]]}
             />
     );
