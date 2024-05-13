@@ -13,12 +13,12 @@ function BoardList() {
             <p className="text-lg">큰일났습니다</p>
             <span className="text-sm mb-1">10분전</span>
           </div>
-          <p className="">
+          <p className="text-sm my-4">
             큰일났어요 도와주세요 큰일났어요 도와주세요 큰일났어요 도와주세요
             큰일났어요 도와주세요
           </p>
         </div>
-        <div className="flex items-center justify-between border-b-2 border-b-gray_4 pb-2 ml-2">
+        <div className="flex items-center justify-between border-b-2  border-b-gray_4 pb-10 ml-2">
           <div className="flex items-center gap-1">
             <img
               src={profile1}

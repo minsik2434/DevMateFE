@@ -1,29 +1,11 @@
 import React from "react";
 import logo from "@/assets/logo.svg";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import search from "@/assets/icon/search.svg";
-=======
 import { useState } from "react";
->>>>>>> 5428fa00303f9df19086d6ce39114da81324fc61
 
 function Header() {
   const [toggle, setToggle] = useState(false);
   return (
-<<<<<<< HEAD
-    <div className="flex items-center mx-24">
-      <Link to="/">
-        <h1>
-          <img src={logo} alt="데브 메이트 바로가기" className="w-36" />
-        </h1>
-      </Link>
-
-      <div className="relative">
-        <label htmlFor="search">
-          <img src={search} alt="검색" className="absolute" />
-        </label>
-        <input id="search" type="search" className="border rounded-full" />
-=======
     <div className="laptop:w-[1440px] tablet:w-[768px] mobile:w-[320px] mx-auto ">
       <div className="flex items-center justify-between laptop:mx-[10%] tablet:mx-[10%] mobile:mx-[10%]">
         <Link to="/">
@@ -130,7 +112,6 @@ function Header() {
             </div>
           )}
         </div>
->>>>>>> 5428fa00303f9df19086d6ce39114da81324fc61
       </div>
     </div>
   );
