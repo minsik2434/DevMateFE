@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function Signin() {
   return (
@@ -38,7 +38,7 @@ function Signin() {
             <button className='font-bold text-white laptop:text-[14px] mobile:text-[10px] bg-[#828282] w-full laptop:py-[17px] mobile:py-[7px] rounded-[5px]'>LOGIN</button>
         </div>
     </div>
-  )
+  );
 }
 
 export default Signin;
