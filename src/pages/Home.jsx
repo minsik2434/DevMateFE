@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom";
+import EditorBox from "@/components/Editorbox";
+import Viewerbox from "@/components/Viewerbox";
 
 function Home() {
+
   return (
-    <div>
-      
+    
+    <div className="">
+      <div>
+        <EditorBox />
+        <Viewerbox />
+      </div>
     </div>
   )
 }
