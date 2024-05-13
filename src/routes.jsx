@@ -5,6 +5,7 @@ import Landing from "./pages/Landing";
 
 import Test from "./pages/Test";
 import Signup from "./pages/Signup";
+import Board from "./pages/Board";
 // import Home from "./pages/Home";
 const router = createBrowserRouter([
   {
@@ -24,22 +25,12 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
 
-      //   {
-      //     path: "/test",
-      //     element: <Test />,
-      //   },
+      {
+        path: "/board",
+        element: <Board />,
+      },
     ],
   },
 ]);
-//         element: <RootLayout/>,
-//         children : [
-//             {
-//                 path: "/",
-//                 element: <Home />
-//             },
-
-//         ]
-//     }
-// ])
 
 export default router;

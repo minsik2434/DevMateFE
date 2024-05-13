@@ -7,7 +7,7 @@ function Header() {
   const [toggle, setToggle] = useState(false);
   return (
     <div className="laptop:w-[1440px] tablet:w-[768px] mobile:w-[320px] mx-auto ">
-      <div className="flex items-center justify-between laptop:mx-[15%] tablet:mx-[10%] mobile:mx-[10%]">
+      <div className="flex items-center justify-between laptop:mx-[10%] tablet:mx-[10%] mobile:mx-[10%]">
         <Link to="/">
           <h1>
             <img
