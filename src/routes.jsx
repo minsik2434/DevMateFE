@@ -7,6 +7,9 @@ import Test from "./pages/Test";
 import Signup from "./pages/Signup";
 import Board from "./pages/Board";
 // import Home from "./pages/Home";
+import Home from "./pages/Home";
+import BoardDetail from "./pages/BoardDetail";
+import Signin from "./pages/Signin";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,18 +19,26 @@ const router = createBrowserRouter([
         path: "/",
         element: <Landing />,
       },
-      {
-        path: "/test",
-        element: <Test />,
-      },
+      // {
+      //   path: "/test",
+      //   element: <Test />,
+      // },
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/signin",
+        element: <Signin />,
       },
 
       {
         path: "/board",
         element: <Board />,
+      },
+      {
+        path: "/test",
+        element: <BoardDetail />,
       },
     ],
   },
