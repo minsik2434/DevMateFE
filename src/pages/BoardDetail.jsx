@@ -5,14 +5,16 @@ import goodImg from '@/assets/good.png';
 import viewImg from '@/assets/view.png';
 import penImg from '@/assets/pen.png';
 import React from 'react'
+import Header from '@/components/Header';
 
 function BoardDetail() {
   return (
     <div>
-        <header className='h-[80px] mobile:h-[100px]'> {/* 헤더 예상 크기*/}
+        <header> {/* 헤더 예상 크기*/}
+            <Header />
         </header>
         <section className='flex justify-center'>
-            <div className='desktop:w-[80%] laptop:w-[80%] mobile:w-[80%] border-t border-[#9b9b9b] flex mobile:flex-col mobile:items-center'>
+            <div className='desktop:w-[80%] laptop:w-[80%] mobile:w-[95%] border-t border-[#9b9b9b] flex mobile:flex-col mobile:items-center'>
                 <div className='w-[67%] mobile:w-full border-r pt-[46px] pl-[20px] mobile:px-[10px] mobile:pt-[26px] border-[#9b9b9b] mobile:border-none'>
                     {/* 게시판 div*/}
                     <div className='w-[92%] mobile:w-full'> 

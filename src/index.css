@@ -5,6 +5,38 @@
   zoom: 1.5;
 } */
 
+/* toast-ui-editor css 변경 */
+@media (max-width: 1023px) {
+  .toastui-editor-contents p {
+    font-size: 15px;
+  }
+}
+@media (min-width: 1024px) {
+  .toastui-editor-contents p {
+    font-size: 20px;
+  }
+}
+
+:not(.auto-height) > .toastui-editor-defaultUI {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+:not(.auto-height) > .toastui-editor-defaultUI-toolbar {
+  border-radius: 20px 20px 0 0;
+}
+
+.toastui-editor-ww-container {
+  display: none;
+  overflow: hidden;
+  height: inherit;
+  background-color: #fff;
+  border-radius: 0 0 20px 20px;
+}
+
 /* 버튼 컨테이너 스타일 */
 .hamburger {
   width: 24px; /* 너비 조정 */
