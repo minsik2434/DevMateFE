@@ -7,6 +7,7 @@ import Test from "./pages/Test";
 import Signup from "./pages/Signup";
 import Board from "./pages/Board";
 // import Home from "./pages/Home";
+import Post from "./pages/Post";
 import Home from "./pages/Home";
 import BoardDetail from "./pages/BoardDetail";
 import Signin from "./pages/Signin";
@@ -37,9 +38,13 @@ const router = createBrowserRouter([
         element: <Board />,
       },
       {
-        path: "/test",
+        path: "/qna/:id",
         element: <BoardDetail />,
       },
+      {
+        path: "post/new",
+        element : <Post/>
+      }
     ],
   },
 ]);

@@ -10,13 +10,6 @@ import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/d
 import { useRef } from 'react';
 function EditorBox() {
 
-    const editorRef = useRef();
-    const getEditorValue = () => {
-      const markdownValue = editorRef.current.getInstance().getHTML();
-      console.log(markdownValue);
-    }
-
-
     const toolbar = [['heading', 'bold','italic','strike'],['hr','quote','ul','ol'],['code','codeblock']]
 
     return (
@@ -28,11 +21,9 @@ function EditorBox() {
                 toolbarItems={toolbar}
                 initialEditType='wysiwyg'
                 hideModeSwitch
-                useCommandShortcut={true}
+                useCommandShortcut={false}
                 plugins={[colorSyntax,[codeSyntaxHighlight, { highlighter: Prism }]]}
-                ref={editorRef}
             />
-            <button onClick={getEditorValue}>입력된 값 보기</button>
         </div>
     );
 }
