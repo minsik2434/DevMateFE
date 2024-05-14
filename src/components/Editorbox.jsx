@@ -7,17 +7,37 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import Prism from 'prismjs';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 function EditorBox() {
 
     const toolbar = [['heading', 'bold','italic','strike'],['hr','quote','ul','ol'],['code','codeblock']]
+
+    const [editorHeight, setEditorHeight] = useState('500px')
+
+    useEffect(() => {
+      const handleResize = () => {
+        const windowWidth = window.innerWidth
+        if (windowWidth <= 1024) {
+          setEditorHeight('300px')
+        } else {
+          setEditorHeight('500px')
+        }
+      }
+  
+      window.addEventListener('resize', handleResize)
+      handleResize()
+  
+      return () => {
+        window.removeEventListener('resize', handleResize)
+      }
+    }, [])
 
     return (
         <div>
             <Editor
                 initialValue=' '
                 previewStyle='vertical'
-                height='500px'
+                height={editorHeight}
                 toolbarItems={toolbar}
                 initialEditType='wysiwyg'
                 hideModeSwitch
