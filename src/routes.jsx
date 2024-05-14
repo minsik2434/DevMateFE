@@ -11,6 +11,7 @@ import Post from "./pages/Post";
 import Home from "./pages/Home";
 import BoardDetail from "./pages/BoardDetail";
 import Signin from "./pages/Signin";
+import StudyPost from "./pages/StudyPost";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,8 +43,12 @@ const router = createBrowserRouter([
         element: <BoardDetail />,
       },
       {
-        path: "post/new",
+        path: "post/qna/new",
         element : <Post/>
+      },
+      {
+        path: "post/study/new",
+        element : <StudyPost />
       }
     ],
   },
