@@ -4,7 +4,7 @@ import Header from '@/components/Header'
 import getStringedDate from '@/util/get_stringed_date.js';
 function StudyPost() {
     const date = new Date();
-    
+
   return (
     <div>
         <header>
@@ -69,7 +69,7 @@ function StudyPost() {
                                     <button className='font-bold bg-[#e0e0e0] px-[30px] mobile:px-[8px] py-[6px] mobile:py-[4px] rounded-full'>IOS</button>
                                 </li>
                             </ul>
-                            <select className='border border-black px-[4px] rounded-[5px]'>
+                            <select className='laptop:hidden desktop:hidden border border-black px-[4px] rounded-[5px]'>
                                 <option>FrontEnd</option>
                                 <option>BackEnd</option>
                                 <option>Planning</option>
