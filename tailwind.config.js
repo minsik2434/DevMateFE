@@ -14,7 +14,7 @@ export default {
       // => @media (min-width: 1280px) { ... }
 
       // 'mobile': '320px',
-      mobile: { min: "320px", max: "1024px" },
+      mobile: { min: "320px", max: "1023px" },
     },
     extend: {
       colors: {
