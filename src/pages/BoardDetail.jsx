@@ -18,7 +18,7 @@ function BoardDetail() {
                 <div className='w-[67%] mobile:w-full border-r pt-[46px] pl-[20px] mobile:px-[10px] mobile:pt-[26px] border-[#9b9b9b] mobile:border-none'>
                     {/* 게시판 div*/}
                     <div className='w-[92%] mobile:w-full'> 
-                        <h1 className='font-bold text-black desktop:text-[20px] laptop:text-[18px] mobile:text-[15px]'>큰일이 났습니다 도와주세요</h1>
+                        <h1 className='font-bold text-black desktop:text-[32px] laptop:text-[25px] mobile:text-[15px]'>큰일이 났습니다 도와주세요</h1>
                         <div className='flex gap-[30px] mobile:gap-[20px] desktop:text-[14px] laptop:text-[12px] mobile:text-[8px] desktop:mt-[18px] laptop:mt-[15px] mobile:mt-[10px]'>
                             <span className='font-bold text-[#9B9B9B]'>2024.05.01 작성</span>
                             <div>

@@ -12,7 +12,7 @@ function StudyPost() {
         </header>
         <section className='flex justify-center py-[50px]'>
           <div className='w-[60%] mobile:w-[95%]'>
-            <div className='w-full px-[60px] py-[16px] mobile:px-[16px] mobile:py-[10px] bg-[#6eceda] rounded-lg'>
+            <div className='w-full px-[60px] py-[16px] mobile:px-[16px] mobile:py-[10px] bg-[#EDEDED] rounded-lg'>
               <h2 className='text-[25px] mobile:text-[15px] font-bold'>스터디</h2>
               <p className='text-[15px] mobile:text-[10px] font-bold'>함께 공부해 목표를 이뤄보세요</p>
             </div>
@@ -49,7 +49,7 @@ function StudyPost() {
                     <li>
                         <div className='flex gap-[43px]'>
                             <span className='text-[20px] mobile:text-[15px] font-bold text-nowrap'>모집 분야</span>
-                            <ul className='mobile:hidden flex gap-[34px] mobile:gap-[10px] items-center text-[18px] mobile:text-[12px] flex-wrap'>
+                            <ul className='mobile:hidden flex gap-[20px] mobile:gap-[10px] items-center text-[18px] mobile:text-[12px] flex-wrap'>
                                 <li>
                                     <button className='font-bold bg-[#e0e0e0] px-[30px] mobile:px-[8px] py-[6px] mobile:py-[4px] rounded-full'>FrontEnd</button>
                                 </li>
