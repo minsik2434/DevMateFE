@@ -13,6 +13,7 @@ import BoardDetail from "./pages/BoardDetail";
 import Signin from "./pages/Signin";
 import StudyPost from "./pages/StudyPost";
 import StudyDetail from "./pages/StudyDetail";
+import Profile from "./pages/Profile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/study/:id",
         element: <StudyDetail/>
+      },
+      {
+        path: "/profile",
+        element: <Profile />
       }
     ],
   },
