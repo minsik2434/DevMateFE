@@ -14,6 +14,7 @@ import Signin from "./pages/Signin";
 import StudyPost from "./pages/StudyPost";
 import StudyDetail from "./pages/StudyDetail";
 import Profile from "./pages/Profile";
+import ProfileEdit from "./pages/ProfileEdit";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />
+      },
+      {
+        path : "/profile/edit",
+        element: <ProfileEdit />
       }
     ],
   },
