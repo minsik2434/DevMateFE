@@ -14,7 +14,7 @@ function Profile() {
             <Header/>
         </header>
         <section className='flex justify-center'>
-            <div className='w-[60%] mobile:w-[95%]'>
+            <div className='w-[60%] mobile:w-[95%] max-w-[1150px]'>
                 <div className='py-[52px] mobile:py-[40px] flex gap-[40px] mobile:gap-[13px] border-t border-[#9b9b9b] relative'>
                     <div className='min-w-[270px] mobile:min-w-[130px] h-[180px] mobile:h-[78px] border border-[#9b9b9b] px-[40px] py-[10px] rounded-md'>
                         <img src={profileDefaultImg} className='w-full h-full'></img>

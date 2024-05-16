@@ -14,7 +14,7 @@ function BoardDetail() {
             <Header />
         </header>
         <section className='flex justify-center'>
-            <div className='w-[80%] mobile:w-[95%] max-w-[1500px] laptop:min-w-[1024px] border-t border-[#9b9b9b] flex mobile:flex-col mobile:items-center'>
+            <div className='w-[80%] mobile:w-[95%] max-w-[1150px] laptop:min-w-[1024px] border-t border-[#9b9b9b] flex mobile:flex-col mobile:items-center'>
                 <div className='w-[67%] mobile:w-full border-r pt-[46px] mobile:px-[10px] mobile:pt-[26px] border-[#9b9b9b] mobile:border-none'>
                     {/* 게시판 div*/}
                     <div className='flex justify-start px-[20px] mobile:px-0'>

@@ -13,7 +13,7 @@ function StudyDetail() {
             <Header/>
         </header>
         <section className='flex justify-center py-[50px] mobile:py-[25px]'>
-            <div className='w-[60%] mobile:w-[95%]'>
+            <div className='w-[60%] mobile:w-[95%] max-w-[1150px]'>
                 <div className='w-full px-[60px] py-[16px] mobile:px-[16px] mobile:py-[10px] bg-[#EDEDED] rounded-lg'>
                     <h2 className='text-[25px] mobile:text-[15px] font-bold'>스터디</h2>
                     <p className='text-[15px] mobile:text-[10px] font-bold'>함께 공부해 목표를 이뤄보세요</p>
