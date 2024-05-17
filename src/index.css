@@ -79,3 +79,13 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
   z-index: 1000; /* 다른 요소 위에 표시 */
 }
+
+/* header {
+  position: fixed;
+  background: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  border-bottom: 1px solid #9b9b9b;
+} */
