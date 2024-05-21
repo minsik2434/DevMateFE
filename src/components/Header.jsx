@@ -6,8 +6,8 @@ import { useState } from "react";
 function Header() {
   const [toggle, setToggle] = useState(false);
   return (
-    <div className="laptop:w-[1440px] tablet:w-[768px] mobile:w-[320px] mx-auto ">
-      <div className="flex items-center justify-between laptop:mx-[10%] tablet:mx-[10%] mobile:mx-[10%]">
+    <div className="w-full mx-auto ">
+      <div className="flex items-center justify-between laptop:mx-[7%] tablet:mx-[10%] mobile:mx-[10%]">
         <Link to="/">
           <h1>
             <img
@@ -17,7 +17,7 @@ function Header() {
             />
           </h1>
         </Link>
-        <nav className=" flex-[0.7] mobile:hidden tablet:block">
+        <nav className=" flex-[0.7] mobile:hidden tablet:flex">
           <ul className="flex justify-between laptop:gap-8 laptop:text-base tablet:gap-3  tablet:text-[10px] text-gray_6 font-medium">
             <li>
               <button>Q&A</button>

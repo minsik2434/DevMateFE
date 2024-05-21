@@ -19,7 +19,7 @@ function Landing() {
       <div className="mx-[8%]">
         <div>
           <p className="text-3xl font-medium mb-6">소통해요</p>
-          <div className="flex justify-between">
+          <div className="flex justify-between tablet:flex-row mobile:flex-col mobile:gap-20">
             <div className="flex-[0.31]">
               <h2 className="text-[#121212] bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA] p-3 font-medium rounded-md">
                 Q&A
@@ -96,7 +96,7 @@ function Landing() {
         </div>
         <div className="mb-64">
           <p className="text-3xl font-medium mb-6 mt-24">사람을 찾아요</p>
-          <div className="flex justify-between">
+          <div className="flex justify-between tablet:flex-row mobile:flex-col mobile:gap-20">
             <div className="flex-[0.31]">
               <h2 className="text-[#121212] bg-[#C9DECF] p-3 font-medium rounded-md">
                 멘토링

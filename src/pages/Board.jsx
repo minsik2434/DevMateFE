@@ -7,6 +7,7 @@ import search from "@/assets/icon/search.svg";
 import PageButton from "@/components/board/PageButton";
 import filter from "@/assets/icon/filter.svg";
 import BoardList from "@/components/board/BoardList";
+import StudyList from "@/components/board/StudyList";
 
 function Board() {
   return (
@@ -55,7 +56,8 @@ function Board() {
             <input
               type="search"
               id="filter"
-              className="border py-2 rounded-full w-[400px]"
+              className="border py-2 rounded-full w-[400px] pl-5"
+              placeholder="# 태그를 입력하세요"
             />
             <button className="absolute top-12 right-5">
               <img src={filter} alt="필터" />
@@ -68,14 +70,16 @@ function Board() {
       </form>
 
       <div className="w-[60%] m-auto">
+        {/* <BoardList />
         <BoardList />
         <BoardList />
         <BoardList />
         <BoardList />
         <BoardList />
         <BoardList />
-        <BoardList />
-        <BoardList />
+        <BoardList /> */}
+
+        <StudyList />
       </div>
       <PageButton />
       <Footer />
