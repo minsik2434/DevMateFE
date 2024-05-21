@@ -7,9 +7,14 @@ import Test from "./pages/Test";
 import Signup from "./pages/Signup";
 import Board from "./pages/Board";
 // import Home from "./pages/Home";
+import Post from "./pages/Post";
 import Home from "./pages/Home";
 import BoardDetail from "./pages/BoardDetail";
 import Signin from "./pages/Signin";
+import StudyPost from "./pages/StudyPost";
+import StudyDetail from "./pages/StudyDetail";
+import Profile from "./pages/Profile";
+import ProfileEdit from "./pages/ProfileEdit";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,10 +24,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Landing />,
       },
-      // {
-      //   path: "/test",
-      //   element: <Test />,
-      // },
+      {
+        path: "/test",
+        element: <Test />,
+      },
       {
         path: "/signup",
         element: <Signup />,
@@ -37,9 +42,29 @@ const router = createBrowserRouter([
         element: <Board />,
       },
       {
-        path: "/test",
+        path: "/qna/:id",
         element: <BoardDetail />,
       },
+      {
+        path: "post/qna/new",
+        element : <Post/>
+      },
+      {
+        path: "post/study/new",
+        element : <StudyPost />
+      },
+      {
+        path: "/study/:id",
+        element: <StudyDetail/>
+      },
+      {
+        path: "/profile",
+        element: <Profile />
+      },
+      {
+        path : "/profile/edit",
+        element: <ProfileEdit />
+      }
     ],
   },
 ]);
