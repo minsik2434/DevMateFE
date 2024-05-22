@@ -297,7 +297,7 @@ function BoardDetail() {
                         </div>
                     </div>
                 </div>
-                <div className='w-[33%] mobile:w-full pt-[20px]'>
+                <div className='w-[33%] mobile:w-full pt-[30px]'>
                     <div style={{ position: 'sticky', top: `${headerHeight}px`}} className='mobile:hidden px-[20px] py-[30px]'> 
                         <div className='mobile:hidden w-full px-[50px] py-[25px] border border-black rounded-[20px]'>
                             <div className='flex items-center'>
