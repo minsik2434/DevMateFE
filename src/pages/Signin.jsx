@@ -1,7 +1,7 @@
 import Logo from "@/components/Logo";
 import InputField from "@/components/signin/InputField";
 import LinkList from "@/components/signin/LinkList";
-import LoginButton from "@/components/signin/LoginButton";
+import LoginButton from "@/components/SignButton";
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
@@ -10,8 +10,8 @@ function Signin() {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
 
-  const submitLoginForm = async () => {
-    event.preventDefault();
+  const submitLoginForm = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8080/member/signin', {
         loginId : inputId,
