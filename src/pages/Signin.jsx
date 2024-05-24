@@ -1,7 +1,7 @@
 import Logo from "@/components/Logo";
-import InputField from "@/components/signin/InputField";
-import LinkList from "@/components/signin/LinkList";
-import LoginButton from "@/components/SignButton";
+import InputField from "@/components/sign/InputField";
+import LinkList from "@/components/sign/LinkList";
+import LoginButton from "@/components/sign/SignButton";
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
