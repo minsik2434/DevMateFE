@@ -1,5 +1,5 @@
 import React from 'react'
-function InputField({id, placeholder, type, onChange}) {
+function InputField({id, placeholder, name, type, onChange}) {
 
   const cssConfig = {
     signIn : "placeholder-[#807f82] text-[14px] mobile:text-[10px] w-full border-[#d1d1d1] border px-[20px] py-[19px] mobile:px-[10px] mobile:py-[8px] rounded-md",
@@ -17,8 +17,8 @@ function InputField({id, placeholder, type, onChange}) {
   return (
     <li>
         <label className='sr-only' htmlFor={id}>{placeholder}</label>  
-        <input id={id} placeholder={placeholder} type={inputType}
-                        className={css} onChange={(e) => onChange(e.target.value)}/>
+        <input id={id} name={name} placeholder={placeholder} type={inputType}
+                        className={css} onChange={onChange}/>
     </li>
   )
 }

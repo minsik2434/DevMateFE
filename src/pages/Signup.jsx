@@ -2,23 +2,34 @@ import React from 'react'
 import logo from "../assets/Logo.png"
 import InputField from '@/components/signin/InputField';
 import SingUpButton from '@/components/SignButton';
+import apiFunction from '@/util/apiFunction';
 import { useState, useEffect } from 'react';
 import Interests from '@/components/Interests';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 function Signup() {
     const nav = useNavigate();
-    const [inputId, setInputId] = useState("");
-    const [inputPw, setInputPw] = useState("");
-    const [inputConfPw, setInputConfPw] = useState("");
-    const [inputName, setInputName] = useState("");
-    const [inputNickName, setInputNickName] = useState("");
-    const [checkedExperience, setCheckedExperience] = useState(false);
-    const [selectInterests, setSelectInterests] = useState([]);
-    console.log(selectInterests);
-
+    const [inputValues, setInputValues] = useState({
+        loginId: "",
+        password: "",
+        confirmPassword: "",
+        name: "",
+        nickName: "",
+        experienced: false,
+        interests: []
+    });
+    
+    const onChange = (e) =>{
+        console.log(e.target);
+        const {value , name, type, checked} =e.target;
+        setInputValues((prevInputValues) => ({
+            ...prevInputValues,
+            [name] : type === 'checkbox' ? checked : value,
+        }));
+    }
 
     const [responseInterests, setResponseInterests] = useState([]);
+
     useEffect(()=>{
         const getInterests = async () =>{
             try{
@@ -36,16 +47,7 @@ function Signup() {
     const onSubmit = async (e) =>{
         e.preventDefault();
         try{
-            await axios.post("http://localhost:8080/members/register",{
-                    loginId : inputId,
-                    password : inputPw,
-                    confirmPassword : inputConfPw,
-                    name : inputName,
-                    nickName : inputNickName,
-                    experienced : checkedExperience,
-                    interests : selectInterests
-                }
-            )
+            await axios.post("http://localhost:8080/members/register",inputValues)
             alert(`성공적으로 가입되었습니다`);
             nav("/");
 
@@ -56,14 +58,13 @@ function Signup() {
     }
 
     const updateSelectedInterests = (value) =>{
-        setSelectInterests((prev) =>{
-            if(prev.includes(value)){
-                return prev.filter(id => id != value);
-            }
-            else{
-                return [...prev, value];
-            }
-        })
+        console.log(value);
+        setInputValues((prevInputValues) => ({
+            ...prevInputValues,
+            interests : prevInputValues.interests.includes(value) ? 
+            prevInputValues.interests.filter(id => id !=value ) :
+            [...prevInputValues.interests, value]
+        }));
     }
 
   return (
@@ -74,25 +75,24 @@ function Signup() {
                 <form onSubmit={onSubmit}>
                     <div>
                         <ul className='flex flex-col gap-[23px] mobile:gap-[13px] text-[14px] mobile:text-[10px]'>
-                            <InputField id="id" placeholder="Id" type="signUp_text" 
-                                        value={inputId} onChange={setInputId}/>
-                            <InputField id="pw" placeholder="Password" type="signUp_pw" 
-                                        value={inputPw} onChange={setInputPw}/>
-                            <InputField id="con_pw" placeholder="Confirm Password" type="signUp_pw" 
-                                        value={inputConfPw} onChange={setInputConfPw}/>
-                            <InputField id="name" placeholder="Name" type="signUp_text"
-                                        value={inputName} onChange={setInputName}/>
-                            <InputField id="nick" placeholder="Nick Name" type="signUp_text" 
-                                        value={inputNickName} onChange={setInputNickName}/>
+                            <InputField id="id" placeholder="Id" type="signUp_text" name="loginId" 
+                                        value={inputValues.loginId} onChange={onChange}/>
+                            <InputField id="pw" placeholder="Password" type="signUp_pw" name="password"
+                                        value={inputValues.password} onChange={onChange}/>
+                            <InputField id="con_pw" placeholder="Confirm Password" type="signUp_pw" name="confirmPassword"
+                                        value={inputValues.confirmPassword} onChange={onChange}/>
+                            <InputField id="name" placeholder="Name" type="signUp_text" name="name"
+                                        value={inputValues.name} onChange={onChange}/>
+                            <InputField id="nick" placeholder="Nick Name" type="signUp_text"  name="nickName"
+                                        value={inputValues.nickName} onChange={onChange}/>
                         </ul>
                     </div>
                     <div className='flex items-center'>
                         <p className='text-[14px] mobile:text-[12px]'>경력자이신가요?</p>
-                        <input type='checkbox' className='ml-2' value={checkedExperience} 
-                                onChange={(e) => setCheckedExperience(e.target.checked)}/>
+                        <input type='checkbox' className='ml-2' value={inputValues.experienced} name ="experienced"
+                                onChange={onChange}/>
                     </div>
                     <div>
-                        <p className='text-[14px] mobile:text-[12px]'>관심 분야</p>
                         <Interests items={responseInterests} selected={updateSelectedInterests}/>
                     </div>
                     <div className='mt-[30px] mobile:mt-[18px]'>
