@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from "../assets/Logo.png"
-import InputField from '@/components/signin/InputField';
-import SingUpButton from '@/components/SignButton';
+import InputField from '@/components/sign/InputField';
+import SingUpButton from '@/components/sign/SignButton';
 import apiFunction from '@/util/apiFunction';
 import { useState, useEffect } from 'react';
 import Interests from '@/components/Interests';
@@ -20,7 +20,6 @@ function Signup() {
     });
     
     const onChange = (e) =>{
-        console.log(e.target);
         const {value , name, type, checked} =e.target;
         setInputValues((prevInputValues) => ({
             ...prevInputValues,
@@ -28,20 +27,6 @@ function Signup() {
         }));
     }
 
-    const [responseInterests, setResponseInterests] = useState([]);
-
-    useEffect(()=>{
-        const getInterests = async () =>{
-            try{
-                const responseData = (await apiFunction.getData("http://localhost:8080/interests")).data.data;
-                setResponseInterests(responseData);
-            }
-            catch(error){
-                console.log(error);
-            }
-        };  
-        getInterests();
-    },[]);
 
     const onSubmit = async (e) =>{
         e.preventDefault();
@@ -56,7 +41,6 @@ function Signup() {
     }
 
     const updateSelectedInterests = (value) =>{
-        console.log(value);
         setInputValues((prevInputValues) => ({
             ...prevInputValues,
             interests : prevInputValues.interests.includes(value) ? 
@@ -91,7 +75,8 @@ function Signup() {
                                 onChange={onChange}/>
                     </div>
                     <div>
-                        <Interests items={responseInterests} selected={updateSelectedInterests}/>
+                        <span className='text-[14px] mobile:text-[12px]'>관심 분야</span>
+                        <Interests selected={updateSelectedInterests} type="signUp"/>
                     </div>
                     <div className='mt-[30px] mobile:mt-[18px]'>
                         <SingUpButton text="SIGNUP" type="submit"/>

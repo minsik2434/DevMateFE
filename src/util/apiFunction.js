@@ -20,4 +20,15 @@ const getData = async (url) =>{
     }
 }
 
-export default { postData , getData};
+const patchDataSetHeader = async (url, data, header) =>{
+    try {
+        return await axios.patch(url, data, {header});
+    }
+    catch(error){
+        console.log(error);
+        throw error;
+    }
+
+}
+
+export default { postData , getData, patchDataSetHeader };
