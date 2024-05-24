@@ -13,7 +13,7 @@ function Signin() {
   const submitLoginForm = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/member/signin', {
+      const response = await axios.post('http://localhost:8080/members/signin', {
         loginId : inputId,
         password : inputPw,
       });
