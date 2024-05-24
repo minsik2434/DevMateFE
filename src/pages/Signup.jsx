@@ -33,24 +33,22 @@ function Signup() {
     useEffect(()=>{
         const getInterests = async () =>{
             try{
-                const response = await axios.get("http://localhost:8080/interests")
-                setResponseInterests(response.data.data);
+                const responseData = (await apiFunction.getData("http://localhost:8080/interests")).data.data;
+                setResponseInterests(responseData);
             }
             catch(error){
                 console.log(error);
             }
-        };
-
+        };  
         getInterests();
     },[]);
 
     const onSubmit = async (e) =>{
         e.preventDefault();
         try{
-            await axios.post("http://localhost:8080/members/register",inputValues)
+            await apiFunction.postData("http://localhost:8080/members/register", inputValues);
             alert(`성공적으로 가입되었습니다`);
             nav("/");
-
         }
         catch(error){
             console.log(error);

@@ -10,4 +10,14 @@ const postData = async (url, data) => {
     }
 };
 
-export default { postData };
+const getData = async (url) =>{
+    try{
+        return await axios.get(url);
+    }
+    catch(error){
+        console.log(`getData Error = ${error}`);
+        throw error;
+    }
+}
+
+export default { postData , getData};
