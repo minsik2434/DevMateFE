@@ -1,17 +1,16 @@
 import React from 'react';
 import { useState , useEffect} from 'react';
 import apiFunction from '@/util/apiFunction';
-import InputField from '@/components/sign/InputField';
-import profileDefaultImg from '@/assets/profileicon.png';
-import Interests from '@/components/Interests';
 import Edit from '@/components/profile/Edit';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import useLoginInfoStore from '@/stores/loginInfo';
+import { useCookies } from 'react-cookie';
 function ProfileEdit() {
     const nav = useNavigate();
+    const [cookies, setCookie, removeCookie] = useCookies();
     const [responseInterests, setResponseInterests] = useState([]);
-
+    const {grantType, accessToken} = useLoginInfoStore();
     useEffect(()=>{
         const getInterests = async () =>{
             try{
@@ -45,13 +44,10 @@ function ProfileEdit() {
         setInputValues((prevInputValues) => ({
             ...prevInputValues,
             interests : prevInputValues.interests.includes(value) ? 
-            prevInputValues.interests.filter(id => id !=value ) :
+            prevInputValues.interests.filter(id => id !=value) :
             [...prevInputValues.interests, value]
         }));
     }
-    
-    const auth = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzE2NjI2Mzk5fQ.M40nvTq-Pi5VTvdnpMuWj_ciM-FhRanWYKONN7g8vko";
-
 
     const onSubmit = async (e) =>{
         e.preventDefault();
@@ -59,11 +55,11 @@ function ProfileEdit() {
             const response = await axios.patch("http://localhost:8080/members", inputValues,
                 {
                     headers:{
-                        Authorization: `Bearer ${auth}`
+                        Authorization: `${cookies.grantType} ${cookies.accessToken}`
                     }
                 }
             );
-            console.log(response);
+            nav("/profile")
         }
         catch(error){
             console.log(error);
