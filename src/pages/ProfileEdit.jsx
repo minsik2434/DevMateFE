@@ -3,27 +3,11 @@ import { useState , useEffect} from 'react';
 import apiFunction from '@/util/apiFunction';
 import Edit from '@/components/profile/Edit';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import useLoginInfoStore from '@/stores/loginInfo';
 import { useCookies } from 'react-cookie';
 function ProfileEdit() {
     const nav = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies();
-    const [responseInterests, setResponseInterests] = useState([]);
-    const {grantType, accessToken} = useLoginInfoStore();
-    useEffect(()=>{
-        const getInterests = async () =>{
-            try{
-                const responseData = (await apiFunction.getData("http://localhost:8080/interests")).data.data;
-                setResponseInterests(responseData);
-            }
-            catch(error){
-                console.log(error);
-            }
-        };  
-        getInterests();
-    },[]);
-
     const [inputValues, setInputValues] = useState({
         name: "",
         nickName: "",
@@ -31,7 +15,24 @@ function ProfileEdit() {
         experienced: false,
         interests: []
     });
-    
+
+    useEffect(() => {
+        const getMember = async () =>{
+            try{
+                const responseData = (await apiFunction.getDataSetHeader("http://localhost:8080/members",{
+                    headers:{
+                        Authorization: `${cookies.grantType} ${cookies.accessToken}`
+                    }
+                })).data.data
+                setInputValues(responseData);
+            }
+            catch(error){
+                console.log(error);
+            }
+        }
+        getMember();
+    }, [cookies.accessToken, cookies.grantType]);
+
     const onChange = (e) =>{
         const {value , name, type, checked} =e.target;
         setInputValues((prevInputValues) => ({
@@ -52,13 +53,12 @@ function ProfileEdit() {
     const onSubmit = async (e) =>{
         e.preventDefault();
         try {
-            const response = await axios.patch("http://localhost:8080/members", inputValues,
-                {
-                    headers:{
-                        Authorization: `${cookies.grantType} ${cookies.accessToken}`
-                    }
+            await apiFunction.patchDataSetHeader("http://localhost:8080/members", inputValues, {
+                headers:{
+                    Authorization: `${cookies.grantType} ${cookies.accessToken}`
                 }
-            );
+            });
+            alert("수정이 완료되었습니다");
             nav("/profile")
         }
         catch(error){
@@ -73,7 +73,7 @@ function ProfileEdit() {
                 <h2 className='text-[30px] mobile:text-[20px] text-center font-bold'>프로필 수정</h2>
                 <div className='mt-[50px] mobile:mt-[25px] justify-center'>
                     <form onSubmit={onSubmit}>
-                        <Edit onChange={onChange} selected={updateSelectedInterests}/>
+                        <Edit onChange={onChange} onSelected={updateSelectedInterests} values={inputValues}/>
                         <div className='flex justify-center gap-[20px] mt-[50px] mobile:mt-[25px] text-[14px] mobile:text-[12px] text-white'>
                             <button type='submit' className='font-bold px-[30px] py-[10px] mobile:px-[15px] mobile:py-[5px] bg-blue-200 rounded-full'>등록하기</button>
                             <button type='button'

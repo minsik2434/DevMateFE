@@ -7,8 +7,10 @@ import apiFunction from "@/util/apiFunction";
 import React from "react";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 function Signin() {
   const [cookies , setCookie, removeCookie] = useCookies([]);
+  const nav = useNavigate();
   const [inputValues , setInputValues] = useState({
     loginId:"",
     password: ""
@@ -21,23 +23,19 @@ function Signin() {
       [name] : value
     }))
   }
-  const {grantType, accessToken, refreshToken , setGrantType, setAccessToken, setRefeshToken} = useLoginInfoStore()
 
   const submitLoginForm = async (e) => {
     e.preventDefault();
     try {
       const {grantType, accessToken, refreshToken} = (await apiFunction.postData("http://localhost:8080/members/signin", inputValues)).data.data;
-      setGrantType(grantType);
-      setAccessToken(accessToken);
-      setRefeshToken(refreshToken);
       setCookie('grantType', grantType,{sameSite: 'strict', httpOnly:true , maxAge:88200});
       setCookie('accessToken', accessToken,{sameSite: 'strict', httpOnly:true, maxAge:88200});
       setCookie('refreshToken', refreshToken,{sameSite: 'strict', httpOnly:true, maxAge:88200});
+      nav("/profile/edit");
     } catch(error) {
       console.log(error);
     }
   }
-  console.log(grantType);
   
   return (
     <div className='w-[475px] desktop:w-[475px] mobile:w-[300px] px-[30px] py-[58px] bg-white rounded-xl'>
