@@ -22,7 +22,7 @@ const getData = async (url) =>{
 
 const patchDataSetHeader = async (url, data, header) =>{
     try {
-        return await axios.patch(url, data, {header});
+        return await axios.patch(url, data, header);
     }
     catch(error){
         console.log(error);
@@ -31,4 +31,15 @@ const patchDataSetHeader = async (url, data, header) =>{
 
 }
 
-export default { postData , getData, patchDataSetHeader };
+const getDataSetHeader = async (url, header) =>{
+    try {
+        return await axios.get(url, header);
+    }
+    catch(error){
+        console.log(error);
+        throw error;
+    }
+
+}
+
+export default { postData , getData, patchDataSetHeader, getDataSetHeader };

@@ -76,7 +76,7 @@ function Signup() {
                     </div>
                     <div>
                         <span className='text-[14px] mobile:text-[12px]'>관심 분야</span>
-                        <Interests selected={updateSelectedInterests} type="signUp"/>
+                        <Interests onSelected={updateSelectedInterests} selected={inputValues.interests} type="signUp"/>
                     </div>
                     <div className='mt-[30px] mobile:mt-[18px]'>
                         <SingUpButton text="SIGNUP" type="submit"/>
