@@ -1,8 +1,13 @@
 import EditorBox from '@/components/Editorbox'
 import Header from '@/components/Header'
 import React from 'react'
+import { useRef } from 'react'
 
 function Post() {
+  const editorRef = useRef();
+  const handleClick = () => {
+    console.log(editorRef.current.getInstance().getHTML());
+  };
   return (
     <div>
         <header>
@@ -24,11 +29,11 @@ function Post() {
                 <input id='tag' placeholder='태그를 입력하세요' className='w-full focus:outline-none placeholder:text-[16px] text-[16px]'/> 
               </li>
               <li>
-                <EditorBox/>
+                <EditorBox editorRef={editorRef}/>
               </li>
             </ul>
             <div className='flex justify-end gap-[43px] mobile:gap-[18px] mt-[42px] mobile:mt-[20px]'>
-              <button className='px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-[#979797] text-white font-bold rounded-md'>등록</button>
+              <button onClick={handleClick} className='px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-[#979797] text-white font-bold rounded-md'>등록</button>
               <button className='px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] border border-[#979797] text-black font-bold rounded-md'>취소</button>
             </div>
           </div>

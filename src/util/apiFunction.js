@@ -52,4 +52,22 @@ const deleteData = async(url, header) => {
     }
 }
 
-export default { postData , getData, patchDataSetHeader, getDataSetHeader, deleteData };
+const postFormData = async(url, file) =>{
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const config = {
+        headers: {
+            'Content-Type' : 'multipart/form-data'
+        }
+    };
+
+    try{
+        return await axios.post(url , formData, config);
+    } catch(error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export default { postData , getData, patchDataSetHeader, getDataSetHeader, deleteData, postFormData };

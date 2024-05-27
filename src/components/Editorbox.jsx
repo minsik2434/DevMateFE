@@ -8,11 +8,21 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import Prism from 'prismjs';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js';
 import { useRef, useEffect, useState } from 'react';
-function EditorBox() {
+import apiFunction from '@/util/apiFunction';
+function EditorBox({editorRef}) {
 
-    const toolbar = [['heading', 'bold','italic','strike'],['hr','quote','ul','ol'],['code','codeblock']]
+    const toolbar = [['heading', 'bold','italic','strike'],['hr','quote','ul','ol'],['code','codeblock','image']]
 
     const [editorHeight, setEditorHeight] = useState('500px')
+    const onUploadImage = async (blob, callback) => {
+      try{
+        const url = await (await apiFunction.postFormData("http://localhost:8080/image/upload", blob)).data.data;
+        callback(url,'image');
+      }
+      catch(error){
+          console.log(error);
+      }
+    };
 
     useEffect(() => {
       const handleResize = () => {
@@ -42,7 +52,11 @@ function EditorBox() {
                 initialEditType='wysiwyg'
                 hideModeSwitch
                 useCommandShortcut={false}
+                ref={editorRef}
                 plugins={[colorSyntax,[codeSyntaxHighlight, { highlighter: Prism }]]}
+                hooks={{
+                  addImageBlobHook: onUploadImage
+                }}
             />
         </div>
     );
