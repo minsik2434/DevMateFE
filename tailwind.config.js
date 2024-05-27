@@ -28,9 +28,14 @@ export default {
         gray_7: "#495057",
         gray_8: "#343A40",
         gray_9: "#212529",
+        brand_blue: "#D2E1FF",
       },
       fontFamily: {
         pre: ["Pretendard", "sans-serif"],
+      },
+      backgroundImage: {
+        "community-gradient":
+          "linear-gradient(to top, #F54EA2 44%, #FF7676 51%)",
       },
     },
   },

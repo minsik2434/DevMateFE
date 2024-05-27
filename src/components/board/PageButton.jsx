@@ -2,7 +2,7 @@ import React from "react";
 
 function PageButton() {
   return (
-    <div>
+    <div className="mobile:hidden">
       <ol className="flex justify-center gap-5 text-sm mt-24 mb-64">
         <li className="flex justify-center items-center border px-2 py-0.5">
           <button>이전페이지</button>

@@ -5,7 +5,7 @@ import Landing from "./pages/Landing";
 
 import Test from "./pages/Test";
 import Signup from "./pages/Signup";
-import Board from "./pages/Board";
+import Board from "./pages/board/Board";
 // import Home from "./pages/Home";
 import Post from "./pages/Post";
 import Home from "./pages/Home";
@@ -15,6 +15,13 @@ import StudyPost from "./pages/StudyPost";
 import StudyDetail from "./pages/StudyDetail";
 import Profile from "./pages/Profile";
 import ProfileEdit from "./pages/ProfileEdit";
+import Community from "./pages/board/Community";
+import QnA from "./pages/board/QnA";
+import JobReview from "./pages/board/JobReview";
+import Mentoring from "./pages/board/Mentoring";
+import Study from "./pages/board/Study";
+import JobOpening from "./pages/board/JobOpening";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -47,24 +54,48 @@ const router = createBrowserRouter([
       },
       {
         path: "post/qna/new",
-        element : <Post/>
+        element: <Post />,
       },
       {
         path: "post/study/new",
-        element : <StudyPost />
+        element: <StudyPost />,
       },
       {
         path: "/study/:id",
-        element: <StudyDetail/>
+        element: <StudyDetail />,
       },
       {
         path: "/profile",
-        element: <Profile />
+        element: <Profile />,
       },
       {
-        path : "/profile/edit",
-        element: <ProfileEdit />
-      }
+        path: "/profile/edit",
+        element: <ProfileEdit />,
+      },
+      {
+        path: "/borad/community",
+        element: <Community />,
+      },
+      {
+        path: "/borad/QnA",
+        element: <QnA />,
+      },
+      {
+        path: "/borad/jobReview",
+        element: <JobReview />,
+      },
+      {
+        path: "/borad/mentoring",
+        element: <Mentoring />,
+      },
+      {
+        path: "/borad/study",
+        element: <Study />,
+      },
+      {
+        path: "/borad/jobOpening",
+        element: <JobOpening />,
+      },
     ],
   },
 ]);
