@@ -10,62 +10,21 @@ import LandingList from "@/components/landing/LandingList";
 
 function Landing() {
   return (
-    <div>
+    <div className="w-full">
       <Header />
       <div>
-        <img src={banner} alt="배너 이미지" className="w-[85vw] m-auto my-36" />
+        <img src={banner} alt="배너 이미지" className="desktop:w-[1440px] desktop:mx-auto desktop:my-36" />
       </div>
 
-      <div className="mx-[8%]">
+      <div className="desktop:max-w-[1440px] m-auto">
         <div>
           <p className="text-3xl font-medium mb-6">소통해요</p>
-          <div className="flex justify-between tablet:flex-row mobile:flex-col mobile:gap-20">
+          <div className="flex tablet:justify-between tablet:flex-row mobile:flex-col mobile:gap-20">
             <div className="flex-[0.31]">
               <h2 className="text-[#121212] bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA] p-3 font-medium rounded-md">
                 Q&A
               </h2>
-              {/* <div>
-                <p className="ml-3 my-2 font-medium text-lg">큰일났습니다</p>
-                <div className="flex items-center justify-between border-b-2 border-b-gray_4 pb-2">
-                  <div className="flex items-center gap-1">
-                    <img
-                      src={profile1}
-                      alt="사용자 이미지"
-                      className="rounded-full w-6"
-                    />
-                    <span>최민식</span>
-                  </div>
-                  <div className="">
-                    <ul className="flex flex-wrap justify-center text-sm gap-1">
-                      <li className="laptop:px-2 laptop:rounded-3xl laptop:text-sm bg-gray_5">
-                        C
-                      </li>
-                      <li className="laptop:px-2 laptop:rounded-3xl laptop:text-sm bg-gray_5">
-                        C++
-                      </li>
-                      <li className="laptop:px-2 laptop:rounded-3xl laptop:text-sm bg-gray_5">
-                        frontend
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul className="flex gap-3 laptop:text-sm">
-                      <li className="flex gap-1 items-center">
-                        <img src={comment} alt="댓글 수" />
-                        <span>10</span>
-                      </li>
-                      <li className="flex gap-1 items-center">
-                        <img src={view} alt="조회 수" />
-                        <span>11</span>
-                      </li>
-                      <li className="flex gap-1 items-center">
-                        <img src={recommend} alt="추천 수" />
-                        <span>11</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div> */}
+             
               <LandingList />
               <LandingList />
               <LandingList />

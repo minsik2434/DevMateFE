@@ -1,24 +1,43 @@
 import React from "react";
 import logo from "@/assets/logo.svg";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Header() {
   const [toggle, setToggle] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
+
+  // 스크롤에 따른 헤더 스타일 변경을 처리하는 함수
+  const updateHeaderStyle = () => {
+    const scrollTop = window.scrollY;
+    setIsSticky(scrollTop > 0);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", updateHeaderStyle);
+
+    return () => {
+      window.removeEventListener("scroll", updateHeaderStyle);
+    };
+  }, []);
   return (
-    <div className="w-full mx-auto ">
-      <div className="flex items-center justify-between laptop:mx-[7%] tablet:mx-[10%] mobile:mx-[10%]">
+    <div
+      className={`desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] mx-auto ${
+        isSticky ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm" : ""
+      }`}
+    >
+      <div className="flex items-center justify-between desktop:mx-[7%] tablet:mx-[10%] mobile:mx-[10%]">
         <Link to="/">
           <h1>
             <img
               src={logo}
               alt="데브 메이트 바로가기"
-              className="laptop:w-28 tablet:w-20 mobile:w-20"
+              className="desktop:w-28 tablet:w-20 mobile:w-20"
             />
           </h1>
         </Link>
-        <nav className=" flex-[0.7] mobile:hidden tablet:flex">
-          <ul className="flex justify-between laptop:gap-8 laptop:text-base tablet:gap-3  tablet:text-[10px] text-gray_6 font-medium">
+        <nav className="mobile:hidden tablet:flex desktop:flex">
+          <ul className="tablet:flex tablet:justify-between desktop:gap-8 desktop:text-base tablet:gap-3  tablet:text-[10px] text-gray_6 font-medium">
             <li>
               <button>Q&A</button>
             </li>
@@ -39,11 +58,11 @@ function Header() {
             </li>
           </ul>
         </nav>
-        <div className="laptop:gap-5 tablet:gap-3 laptop:text-sm tablet:text-[8px]  tablet:flex mobile:hidden ">
-          <button className="border border-gray_6 laptop:w-20 laptop:py-1 tablet:w-12 tablet:py-0.5  rounded-full hover:opacity-80">
+        <div className="desktop:gap-5 tablet:gap-3 desktop:text-sm tablet:text-[8px]  tablet:flex mobile:hidden ">
+          <button className="border border-gray_6 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  rounded-full hover:opacity-80">
             로그인
           </button>
-          <button className="border border-gray_6 rounded-full text-white bg-gray_7 laptop:w-20 laptop:py-1 tablet:w-12 tablet:py-0.5  hover:opacity-90 ">
+          <button className="border border-gray_6 rounded-full text-white bg-gray_7 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  hover:opacity-90 ">
             회원가입
           </button>
         </div>

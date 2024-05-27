@@ -23,7 +23,7 @@ function BoardDetail() {
       <section className="flex justify-center">
         <div
           style={{ marginTop: `${headerHeight}px` }}
-          className="w-[80%] mobile:w-[95%] max-w-[1150px] laptop:min-w-[1024px] flex mobile:flex-col mobile:items-center"
+          className="w-[80%] mobile:w-[95%] max-w-[1150px] desktop:min-w-[1024px] flex mobile:flex-col mobile:items-center"
         >
           <div className="w-[67%] mobile:w-full border-r pt-[46px] mobile:px-[10px] mobile:pt-[26px] border-[#9b9b9b] mobile:border-none">
             {/* 게시판 div*/}
@@ -60,7 +60,7 @@ function BoardDetail() {
                     </li>
                   </ul>
                 </div>
-                <div className="desktop:hidden laptop:hidden border border-black rounded-[20px] px-[16px] py-[20px] mt-[27px]">
+                <div className="desktop:hidden border border-black rounded-[20px] px-[16px] py-[20px] mt-[27px]">
                   <div className="flex items-center">
                     <img src={profileImg} className="w-[30px]"></img>
                     <span className="ml-[14px] text-[14px]">최민식</span>
@@ -92,7 +92,7 @@ function BoardDetail() {
                     placeholder="댓글을 작성해보세요"
                     className="w-full py-[10px] mobile:py-[3px] px-[13px] placeholder:text-[14px] mobile:placeholder:text-[10px] placeholder:font-bold border border-[#9b9b9b] rounded-lg"
                   />
-                  <button className="laptop:hidden desktop:hidden p-[7px] rounded-md border border-[#9b9b9b]">
+                  <button className="desktop:hidden p-[7px] rounded-md border border-[#9b9b9b]">
                     <img src={penImg} className="w-[20px]" />
                   </button>
                 </div>

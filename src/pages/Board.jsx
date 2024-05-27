@@ -20,7 +20,7 @@ function Board() {
           // className="bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED]"
         />
       </div>
-      <form action="" className="w-[60%] m-auto">
+      <form action="" className="desktop:max-w-[1240px] m-auto">
         <div className="flex flex-col items-center  relative">
           <label htmlFor="search" className="sr-only">
             내용 검색하기
@@ -56,7 +56,7 @@ function Board() {
             <input
               type="search"
               id="filter"
-              className="border py-2 rounded-full w-[400px] pl-5"
+              className="border py-2 rounded-full desktop:w-[550px] pl-5"
               placeholder="# 태그를 입력하세요"
             />
             <button className="absolute top-12 right-5">
@@ -69,17 +69,17 @@ function Board() {
         </div>
       </form>
 
-      <div className="w-[60%] m-auto">
-        {/* <BoardList />
+      <div className="desktop:w-[1240px] m-auto">
         <BoardList />
         <BoardList />
         <BoardList />
         <BoardList />
         <BoardList />
         <BoardList />
-        <BoardList /> */}
+        <BoardList />
+        <BoardList />
 
-        <StudyList />
+        {/* <StudyList /> */}
       </div>
       <PageButton />
       <Footer />

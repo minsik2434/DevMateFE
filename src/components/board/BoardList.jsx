@@ -27,21 +27,21 @@ function BoardList() {
             />
             <span>최민식</span>
           </div>
-          <div className="">
+          <div className="desktop:w-[500px]">
             <ul className="flex flex-wrap justify-center text-sm gap-1">
-              <li className="laptop:px-2 laptop:rounded-3xl laptop:text-sm bg-gray_5">
+              <li className="desktop:px-2 desktop:rounded-3xl desktop:text-sm bg-gray_5">
                 C
               </li>
-              <li className="laptop:px-2 laptop:rounded-3xl laptop:text-sm bg-gray_5">
+              <li className="desktop:px-2 desktop:rounded-3xl desktop:text-sm bg-gray_5">
                 C++
               </li>
-              <li className="laptop:px-2 laptop:rounded-3xl laptop:text-sm bg-gray_5">
+              <li className="desktop:px-2 desktop:rounded-3xl desktop:text-sm bg-gray_5">
                 frontend
               </li>
             </ul>
           </div>
           <div>
-            <ul className="flex gap-3 laptop:text-sm">
+            <ul className="flex gap-3 desktop:text-sm">
               <li className="flex gap-1 items-center">
                 <img src={comment} alt="댓글 수" />
                 <span>10</span>
