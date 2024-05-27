@@ -26,7 +26,7 @@ function Edit({onChange, onSelected, values}) {
             <span className='min-w-[20%]'>경력자이신가요?</span>
             <input type='checkbox' name="experienced" onChange={onChange} checked={values.experienced}/>
         </li>
-        <li  className='flex items-center justify-start gap-[10px]'>
+        <li  className='flex items-center justify-start gap-[10px] text-[16px]'>
             <span className='min-w-[20%]'>관심 태그</span>
             <Interests type="profile" onSelected={onSelected} selected={values.interests}/>
         </li>
