@@ -1,23 +1,37 @@
 import Logo from "@/components/Logo";
-import InputField from "@/components/signin/InputField";
-import LinkList from "@/components/signin/LinkList";
-import LoginButton from "@/components/signin/LoginButton";
-import axios from "axios";
+import InputField from "@/components/sign/InputField";
+import LinkList from "@/components/sign/LinkList";
+import LoginButton from "@/components/sign/SignButton";
+import useLoginInfoStore from "@/stores/loginInfo";
+import apiFunction from "@/util/apiFunction";
 import React from "react";
 import { useState } from "react";
-
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 function Signin() {
-  const [inputId, setInputId] = useState("");
-  const [inputPw, setInputPw] = useState("");
+  const [cookies , setCookie, removeCookie] = useCookies([]);
+  const nav = useNavigate();
+  const [inputValues , setInputValues] = useState({
+    loginId:"",
+    password: ""
+  });
+  
+  const onChange = (e) =>{
+    const {value , name} = e.target;
+    setInputValues((prevValues) =>({
+      ...prevValues,
+      [name] : value
+    }))
+  }
 
-  const submitLoginForm = async () => {
-    event.preventDefault();
+  const submitLoginForm = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/member/signin', {
-        loginId : inputId,
-        password : inputPw,
-      });
-      console.log(response.data.data.accessToken);
+      const {grantType, accessToken, refreshToken} = (await apiFunction.postData("http://localhost:8080/members/signin", inputValues)).data.data;
+      setCookie('grantType', grantType,{sameSite: 'strict' , maxAge:88200});
+      setCookie('accessToken', accessToken,{sameSite: 'strict', maxAge:88200});
+      setCookie('refreshToken', refreshToken,{sameSite: 'strict', maxAge:88200});
+      nav("/profile/edit");
     } catch(error) {
       console.log(error);
     }
@@ -29,8 +43,8 @@ function Signin() {
         <form onSubmit={submitLoginForm}>
           <div className="mt-[30px]"> 
             <ul className='flex flex-col gap-[15px] mobile:gap-[14px]'>
-                <InputField id="id" placeholder="Id" type="signIn_text" value={inputId} onChange={setInputId} />
-                <InputField id="pw" placeholder="password" type="signIn_pw" value={inputPw} onChange={setInputPw}/>
+                <InputField id="id" placeholder="Id" type="signIn_text" value={inputValues.loginId} name="loginId" onChange={onChange} />
+                <InputField id="pw" placeholder="password" type="signIn_pw" value={inputValues.password} name="password" onChange={onChange}/>
             </ul>
           </div>
           <div className='mt-[30px] mobile:mt-[14px]'>
