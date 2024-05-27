@@ -42,4 +42,14 @@ const getDataSetHeader = async (url, header) =>{
 
 }
 
-export default { postData , getData, patchDataSetHeader, getDataSetHeader };
+const deleteData = async(url, header) => {
+    try{
+        return await axios.delete(url,header);
+    }
+    catch(error){
+        console.log(error);
+        throw error;
+    }
+}
+
+export default { postData , getData, patchDataSetHeader, getDataSetHeader, deleteData };
