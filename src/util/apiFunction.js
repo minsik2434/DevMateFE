@@ -9,6 +9,15 @@ const postData = async (url, data) => {
         throw error;
     }
 };
+const postDataSetHeader = async (url, data, header) => {
+    try{
+        return await axios.post(url, data, header);
+    }
+    catch(error){
+        console.log(`postData Error = ${error}`);
+        throw error;
+    }
+};
 
 const getData = async (url) =>{
     try{
@@ -52,22 +61,15 @@ const deleteData = async(url, header) => {
     }
 }
 
-const postFormData = async(url, file) =>{
+const postFormData = async(url, file, header) =>{
     const formData = new FormData();
     formData.append('image', file);
-
-    const config = {
-        headers: {
-            'Content-Type' : 'multipart/form-data'
-        }
-    };
-
     try{
-        return await axios.post(url , formData, config);
+        return await axios.post(url , formData, header);
     } catch(error) {
         console.log(error);
         throw error;
     }
 }
 
-export default { postData , getData, patchDataSetHeader, getDataSetHeader, deleteData, postFormData };
+export default { postData , getData, patchDataSetHeader, getDataSetHeader, deleteData, postFormData, postDataSetHeader };
