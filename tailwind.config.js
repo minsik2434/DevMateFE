@@ -4,17 +4,11 @@ export default {
   theme: {
     screens: {
       tablet: "768px",
-      // => @media (min-width: 640px) { ... }
 
-      laptop: { min: "1024px", max: "1919px" },
-      // 'laptop': '1440px',
-      // => @media (min-width: 1024px) { ... }
-
-      desktop: "1920px",
+      desktop: {min:"1240px",},
       // => @media (min-width: 1280px) { ... }
-
       // 'mobile': '320px',
-      mobile: { min: "320px", max: "1023px" },
+      mobile: {max:"767px",}
     },
     extend: {
       colors: {

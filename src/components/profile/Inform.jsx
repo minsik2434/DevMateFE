@@ -70,7 +70,7 @@ function Inform({value}) {
         </div>
         <button onClick={()=>nav("/profile/edit")} className='absolute hover:bg-[#495057] hover:text-white bg-slate-300 rounded-md right-0 px-[10px] mobile:px-[5px] py-[3px] mobile:py-[5px]'>
             <span className='mobile:hidden'>수정하기</span> 
-            <img src={penImg} className='laptop:hidden desktop:hidden w-[23px]'></img>
+            <img src={penImg} className='tablet:hidden desktop:hidden w-[23px]'></img>
         </button>
         <button onClick={onClick} className='absolute bg-red-300 rounded-md right-0 bottom-0 px-[10px] py-[3px] mobile:text-[15px]'>회원탈퇴</button>
     </div>

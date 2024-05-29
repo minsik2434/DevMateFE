@@ -44,7 +44,7 @@ function Profile() {
             <Header/>
         </header>
         <section className='flex justify-center'>
-            <div className='w-[60%] mobile:w-[95%] max-w-[1150px]'>
+            <div className='w-[60%] mobile:w-[95%] max-w-[750px] tablet:min-w-[570px]'>
                 <Inform value={memberInfo}/>
                 <div>
                     <div className='py-[20px] border-b-2 border-[#9b9b9b]'>

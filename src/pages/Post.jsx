@@ -57,7 +57,7 @@ function Post() {
             <Header />
         </header>
         <section className='flex justify-center py-[50px]'>
-          <div className='w-[60%] mobile:w-[95%] max-w-[1150px]'>
+          <div className='w-[60%] mobile:w-[95%] max-w-[750px]'>
             <div className='w-full px-[60px] py-[16px] mobile:px-[16px] mobile:py-[10px] bg-[#6eceda] rounded-lg'>
               <h2 className='text-[25px] mobile:text-[15px] font-bold'>Q&A</h2>
               <p className='text-[15px] mobile:text-[10px] font-bold'>동료들과 함께 문제를 해결해보아요</p>

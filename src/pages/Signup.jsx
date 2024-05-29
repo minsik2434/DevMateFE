@@ -51,7 +51,7 @@ function Signup() {
 
   return (
     <div className='flex justify-center py-[50px] mobile:py-[28px]'>
-        <div className='w-[38%] mobile:w-[80%] mobile:max-w-[400px] desktop:max-w-[730px]'>
+        <div className='w-[38%] mobile:w-[80%] mobile:max-w-[400px] desktop:max-w-[470px]'>
             <div className='flex flex-col gap-[16px]'>
                 <h2 className='text-center text-[20px] font-bold'>Sign up</h2>
                 <form onSubmit={onSubmit}>
