@@ -69,7 +69,7 @@ function ProfileEdit() {
   return (
     <div>
         <section className='flex justify-center py-[20px]'>     
-            <div className='w-[60%] mobile:w-[95%] max-w-[1150px]'>
+            <div className='w-[60%] mobile:w-[95%] max-w-[750px] tablet:min-w-[600px]'>
                 <h2 className='text-[30px] mobile:text-[20px] text-center font-bold'>프로필 수정</h2>
                 <div className='mt-[50px] mobile:mt-[25px] justify-center'>
                     <form onSubmit={onSubmit}>
