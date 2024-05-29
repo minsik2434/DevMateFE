@@ -4,3 +4,88 @@
 /* input[type="checkbox"] {
   zoom: 1.5;
 } */
+
+/* toast-ui-editor css 변경 */
+@media (max-width: 1023px) {
+  .toastui-editor-contents p {
+    font-size: 15px;
+  }
+}
+@media (min-width: 1024px) {
+  .toastui-editor-contents p {
+    font-size: 20px;
+  }
+}
+
+:not(.auto-height) > .toastui-editor-defaultUI {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+:not(.auto-height) > .toastui-editor-defaultUI-toolbar {
+  border-radius: 20px 20px 0 0;
+}
+
+.toastui-editor-ww-container {
+  display: none;
+  overflow: hidden;
+  height: inherit;
+  background-color: #fff;
+  border-radius: 0 0 20px 20px;
+}
+
+/* 버튼 컨테이너 스타일 */
+.hamburger {
+  width: 24px; /* 너비 조정 */
+  height: 24px; /* 높이 조정 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; /* 줄 사이의 간격 조정 */
+  cursor: pointer;
+  position: relative; /* 상대 위치 설정 */
+}
+
+/* 각 줄의 기본 스타일 */
+.line {
+  height: 2px; /* 줄의 높이 조정 */
+
+  background-color: black; /* 줄의 색상 설정 */
+  transition: transform 0.5s ease, opacity 0.5s ease; /* 변환 애니메이션 적용 */
+}
+
+/* 햄버거 -> X 변환 스타일 */
+.toggle .line1 {
+  transform: translateY(8px) rotate(45deg); /* 첫 번째 줄을 아래로 이동하고 회전 */
+}
+
+.toggle .line2 {
+  opacity: 0; /* 두 번째 줄을 투명하게 */
+}
+
+.toggle .line3 {
+  transform: translateY(-8px) rotate(-45deg); /* 세 번째 줄을 위로 이동하고 회전 */
+}
+
+/* 헤더 드롭다운 */
+
+.dropdown-modal {
+  position: absolute;
+  top: 120%; /* 햄버거 버튼 바로 아래 위치 */
+  right: 0;
+  width: 120px; /* 모달창의 너비 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+/* header {
+  position: fixed;
+  background: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  border-bottom: 1px solid #9b9b9b;
+} */

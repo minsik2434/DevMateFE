@@ -1,17 +1,14 @@
 // import './App.css'
-import "./index.css"
-
-import Home from './pages/Home';
+import "./index.css";
 import { RouterProvider } from "react-router-dom";
-import RootLayout from './pages/RootLayout';
-import router from './routes.jsx';
+import RootLayout from "./pages/RootLayout";
+import router from "./routes.jsx";
 function App() {
-
   return (
-    <> 
-      <RouterProvider router={router}/>
-    </>
-  )
+    <div className="font-pre">
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;

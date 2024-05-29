@@ -1,44 +1,63 @@
-import React from 'react'
-
+import Logo from "@/components/Logo";
+import InputField from "@/components/sign/InputField";
+import LinkList from "@/components/sign/LinkList";
+import LoginButton from "@/components/sign/SignButton";
+import useLoginInfoStore from "@/stores/loginInfo";
+import apiFunction from "@/util/apiFunction";
+import React from "react";
+import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 function Signin() {
+  const [cookies , setCookie, removeCookie] = useCookies([]);
+  const nav = useNavigate();
+  const [inputValues , setInputValues] = useState({
+    loginId:"",
+    password: ""
+  });
+  
+  const onChange = (e) =>{
+    const {value , name} = e.target;
+    setInputValues((prevValues) =>({
+      ...prevValues,
+      [name] : value
+    }))
+  }
+
+  const submitLoginForm = async (e) => {
+    e.preventDefault();
+    try {
+      const {grantType, accessToken, refreshToken} = (await apiFunction.postData("http://localhost:8080/members/signin", inputValues)).data.data;
+      setCookie('grantType', grantType,{sameSite: 'strict' , maxAge:88200});
+      setCookie('accessToken', accessToken,{sameSite: 'strict', maxAge:88200});
+      setCookie('refreshToken', refreshToken,{sameSite: 'strict', maxAge:88200});
+      nav("/profile/edit");
+    } catch(error) {
+      console.log(error);
+    }
+  }
+  
   return (
-    <div className='laptop:w-[475px] laptop:h-[540px] mobile:w-[300px] mobile:h-[320px] px-[30px] py-[58px] bg-white rounded-xl'>
-        <div>
-            {/*TODO 로고 */}
-        </div>
-        <div>
-            <ul className='flex flex-col laptop:gap-[30px] mobile:gap-[14px]'>
-                <li>
-                    <label className='sr-only' htmlFor='id'>id</label>  
-                    <input id="id" placeholder='Id' 
-                        className='placeholder-[#2f2f2f] laptop:text-[14px] 
-                        mobile:text-[10px] w-full border-[#d1d1d1] border laptop:px-[20px] 
-                        laptop:py-[19px] mobile:px-[10px] mobile:py-[8px] rounded-md'/>
-                </li>
-                <li>
-                    <label className='sr-only' htmlFor='pw'>pw</label>
-                    <input id="pw" placeholder='Password' className='placeholder-[#2f2f2f] laptop:text-[14px] mobile:text-[10px] w-full border-[#d1d1d1] border laptop:px-[20px] laptop:py-[19px] mobile:px-[10px] mobile:py-[8px] rounded-md'/>
-                </li>
+    <div className='w-[475px] desktop:w-[475px] mobile:w-[300px] px-[30px] py-[58px] bg-white rounded-xl'>
+        <Logo />
+        <form onSubmit={submitLoginForm}>
+          <div className="mt-[30px]"> 
+            <ul className='flex flex-col gap-[15px] mobile:gap-[14px]'>
+                <InputField id="id" placeholder="Id" type="signIn_text" value={inputValues.loginId} name="loginId" onChange={onChange} />
+                <InputField id="pw" placeholder="password" type="signIn_pw" value={inputValues.password} name="password" onChange={onChange}/>
             </ul>
-        </div>
-        <div>
-            <ul className='flex justify-center laptop:gap-[22px] mobile:gap-[30px] mt-[17px] laptop:text-[12px] mobile:text-[10px]'>
-                <li>
-                    <a href='/'><p>아이디 찾기</p></a>
-                </li>
-                <li>
-                    <a href='/'><p>비밀번호 찾기</p></a>
-                </li>
-                <li>
-                    <a href='/'><p>회원가입</p></a>
-                </li>
-            </ul>
-        </div>
-        <div className='laptop:mt-[42px] mobile:mt-[14px]'>
-            <button className='font-bold text-white laptop:text-[14px] mobile:text-[10px] bg-[#828282] w-full laptop:py-[17px] mobile:py-[7px] rounded-[5px]'>LOGIN</button>
-        </div>
+          </div>
+          <div className='mt-[30px] mobile:mt-[14px]'>
+              <LoginButton text="LOGIN" type="submit"/>
+          </div>
+        </form>
+        <LinkList links={[
+            {to:"/find-id", text:"아이디 찾기"},
+            {to:"/find-pw", text:"비밀번호 찾기"},
+            {to:"/signup", text:"회원가입"}
+        ]}/>
     </div>
-  )
+  );
 }
 
 export default Signin;
