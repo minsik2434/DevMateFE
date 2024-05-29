@@ -24,7 +24,7 @@ function Board() {
         </div>
         <form
           action=""
-          className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto mobile:my-5"
+          className="desktop:max-w-[1440px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto mobile:my-5"
         >
           <div className="mobile:hidden tablet:flex flex-col items-center relative">
             <label htmlFor="search" className="sr-only">

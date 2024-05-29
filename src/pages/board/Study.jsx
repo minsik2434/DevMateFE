@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Banner from "@/components/board/Banner";
 import React from "react";
+
 import { useState } from "react";
 
 import search from "@/assets/icon/search.svg";
@@ -20,11 +21,11 @@ function Study() {
   return (
     <div>
       <Header />
-      <div className="desktop:max-w-[1240px] desktop:mx-auto desktop:p-5 tablet:mx-8 mobile:mx-5 mobile:mb-32">
+      <div className="mx-8 mobile:mx-5 mobile:mb-32">
         <div>
           <Banner
             heading="스터디"
-            exp="선배 또는 동료들의 경험을 들어봐요"
+            exp="원하는 사람들과 함께 공부해봐요"
             style="bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED]"
 
             // className="bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED]"
@@ -32,9 +33,9 @@ function Study() {
         </div>
         <form
           action=""
-          className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto mobile:my-5"
+          className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto my-5"
         >
-          <div className="mobile:hidden tablet:flex flex-col items-center relative">
+          <div className="mobile:hidden flex flex-col items-center relative">
             <label htmlFor="search" className="sr-only">
               내용 검색하기
             </label>
@@ -42,15 +43,15 @@ function Study() {
               id="search"
               type="search"
               placeholder="검색어를 입력하세요"
-              className="border w-full  pl-8 py-3 rounded-full placeholder:text-[#121212]"
+              className="border w-full pl-8 py-3 rounded-full placeholder:text-[#121212] outline-none"
             />
             <button className="absolute top-2 right-5 w-9">
               <img src={search} alt="검색하기" />
             </button>
           </div>
-          <div className="flex justify-between items-center tablet:gap-7 tablet:border-b-2">
+          <div className="flex justify-between items-center desktop:gap-7 tablet:gap-7 desktop:border-b-2 tablet:border-b-2">
             <div>
-              <div className="block tablet:hidden">
+              <div className="mobile:block hidden">
                 <label htmlFor="dropdown" className="sr-only">
                   정렬하기
                 </label>
@@ -66,59 +67,10 @@ function Study() {
               </div>
 
               {/* 라디오 버튼 */}
-              {/* <div className="mobile:hidden tablet:block">
-                <fieldset>
-                  <legend className="sr-only">정렬 방법</legend>
-                  <div className="space-x-4 flex">
-                    <div className="flex items-center">
-                      <input
-                        id="recent"
-                        name="filter"
-                        type="radio"
-                        className=""
-                      />
-                      <label
-                        htmlFor="recent"
-                        className="ml-2 block text-sm font-medium text-gray_5"
-                      >
-                        최신순
-                      </label>
-                    </div>
-                    <div className="flex items-center">
-                      <input
-                        id="comment"
-                        name="filter"
-                        type="radio"
-                        className=""
-                      />
-                      <label
-                        htmlFor="comment"
-                        className="ml-2 block text-sm font-medium text-gray_5"
-                      >
-                        댓글순
-                      </label>
-                    </div>
-                    <div className="flex items-center">
-                      <input
-                        id="like"
-                        name="filter"
-                        type="radio"
-                        className=""
-                      />
-                      <label
-                        htmlFor="like"
-                        className="ml-2 block text-sm font-medium text-gray_5 focus:text-gray_8 "
-                      >
-                        좋아요순
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-              </div> */}
               <div className="mobile:hidden tablet:block">
                 <fieldset>
                   <legend className="sr-only">정렬 방법</legend>
-                  <div className="space-x-4 flex font-bold">
+                  <div className="space-x-4 flex font-bold desktop:text-lg">
                     <div className="flex items-center">
                       <input
                         id="recent"
@@ -130,7 +82,7 @@ function Study() {
                       />
                       <label
                         htmlFor="recent"
-                        className={`ml-2 block text-sm ${
+                        className={`ml-2 block  ${
                           selectedOption === "recent"
                             ? "text-gray_8"
                             : "text-gray_5"
@@ -150,7 +102,7 @@ function Study() {
                       />
                       <label
                         htmlFor="comment"
-                        className={`ml-2 block text-sm ${
+                        className={`ml-2 block ${
                           selectedOption === "comment"
                             ? "text-gray_8"
                             : "text-gray_5"
@@ -170,7 +122,7 @@ function Study() {
                       />
                       <label
                         htmlFor="like"
-                        className={`ml-2 block text-sm ${
+                        className={`ml-2 block ${
                           selectedOption === "like"
                             ? "text-gray_8"
                             : "text-gray_5"
@@ -192,19 +144,19 @@ function Study() {
               <input
                 type="search"
                 id="filter"
-                className="border py-2 rounded-full desktop:w-[550px] pl-5"
+                className="border py-2 rounded-full desktop:w-[550px] tablet:w-[300px] pl-5 outline-none"
                 placeholder="# 태그를 입력하세요"
               />
               <button className="absolute top-12 right-5">
                 <img src={filter} alt="필터" />
               </button>
             </div>
-            <div className="tablet:hidden mobile:flex flex-col items-center relative">
-              <label htmlFor="search" className="sr-only">
+            <div className="hidden mobile:flex flex-col items-center relative">
+              <label htmlFor="search_2" className="sr-only">
                 내용 검색하기
               </label>
               <input
-                id="search"
+                id="search_2"
                 type="search"
                 placeholder="검색어를 입력하세요"
                 className="border w-[160px] pl-3 py-1 rounded-full placeholder:text-[#121212] placeholder:text-xs"
@@ -215,28 +167,25 @@ function Study() {
             </div>
 
             <button
-              className="bg-gray_6 text-white text-sm tablet:px-6 tablet:py-2 mobile:px-2 mobile:py-2 mobile:rounded"
+              className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 mobile:rounded"
               type="button"
             >
-              <span className="mobile:hidden">글쓰기</span>
+              <span className="mobile:hidden tablet:block desktop:block">
+                글쓰기
+              </span>
               <img
                 src={pen}
                 alt="글쓰기 아이콘"
-                className="tablet:hidden mobile:w-4"
+                className="desktop:hidden tablet:hidden mobile:w-4"
               />
             </button>
           </div>
         </form>
-        <div className="desktop:w-[1240px] m-auto">
-          <div className="flex justify-around">
-            {/* <BoardList />
-            <BoardList />
-            <BoardList />
-            <BoardList />
-            <BoardList />
-            <BoardList />
-            <BoardList />
-            <BoardList /> */}
+        <div className="m-auto desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] tablet:px-10 mobile:px-3">
+          <div className="grid desktop:grid-cols-3 desktop:gap-20 tablet:grid-cols-2 tablet:gap-12 mobile:grid-cols-1 mobile:gap-10 mobile:pt-7">
+            <StudyList />
+            <StudyList />
+            <StudyList />
             <StudyList />
             <StudyList />
             <StudyList />

@@ -2,10 +2,19 @@ import React from "react";
 import logo from "@/assets/logo.svg";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import useIndex from "@/stores/navIndex";
 
 function Header() {
   const [toggle, setToggle] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+
+  // const [activeIndex, setActiveIndex] = useState(null);
+
+  const { navIndex, setNavIndex } = useIndex();
+
+  const handleButtonClick = (index) => {
+    setNavIndex(index);
+  };
 
   // 스크롤에 따른 헤더 스타일 변경을 처리하는 함수
   const updateHeaderStyle = () => {
@@ -27,9 +36,9 @@ function Header() {
       }`}
     >
       <div className="desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] mx-auto">
-        <div className="flex items-center justify-between desktop:mx-[7%] tablet:mx-[5%] mobile:mx-[10%]">
+        <div className="flex items-center justify-between desktop:mx-[7%] tablet:mx-[5%] mobile:mx-3">
           <Link to="/">
-            <h1>
+            <h1 onClick={() => handleButtonClick("")}>
               <img
                 src={logo}
                 alt="데브 메이트 바로가기"
@@ -37,7 +46,7 @@ function Header() {
               />
             </h1>
           </Link>
-          <nav className="mobile:hidden tablet:flex desktop:flex">
+          {/* <nav className="mobile:hidden tablet:flex desktop:flex">
             <ul className="tablet:flex tablet:justify-between desktop:gap-8 desktop:text-base tablet:gap-7  tablet:text-[10px] text-gray_6 font-medium">
               <li>
                 <Link to="/borad/QnA">
@@ -70,17 +79,45 @@ function Header() {
                 </Link>
               </li>
             </ul>
+          </nav> */}
+          <nav className="mobile:hidden tablet:flex desktop:flex">
+            <ul className="flex tablet:justify-between desktop:gap-8 desktop:text-base tablet:gap-7 tablet:text-[10px] font-medium">
+              {[
+                { path: "/borad/QnA", label: "Q&A" },
+                { path: "/borad/community", label: "커뮤니티" },
+                { path: "/borad/JobReview", label: "취업후기" },
+                { path: "/borad/study", label: "스터디" },
+                { path: "/borad/mentoring", label: "멘토링" },
+                { path: "/borad/jobOpening", label: "모집공고" },
+              ].map((item, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleButtonClick(index)}
+                  className={
+                    navIndex === index ? "text-gray_9" : "text-gray_5"
+                  }
+                >
+                  <Link to={item.path}>
+                    <button>{item.label}</button>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
-          <div className="desktop:gap-5 tablet:gap-3 desktop:text-sm tablet:text-[8px]  tablet:flex mobile:hidden ">
-            <button className="border border-gray_6 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  rounded-full hover:opacity-80">
-              로그인
-            </button>
-            <button className="border border-gray_6 rounded-full text-white bg-gray_7 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  hover:opacity-90 ">
-              회원가입
-            </button>
+          <div className="desktop:gap-5 tablet:gap-3 desktop:text-sm tablet:text-[8px]  desktop:flex tablet:flex mobile:hidden ">
+            <Link to="/signin">
+              <button className="border border-gray_6 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  rounded-full hover:opacity-80">
+                로그인
+              </button>
+            </Link>
+            <Link to="signup">
+              <button className="border border-gray_6 rounded-full text-white bg-gray_7 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  hover:opacity-90 ">
+                회원가입
+              </button>
+            </Link>
           </div>
           <div
-            className={`hamburger ${toggle ? "toggle" : ""} tablet:hidden`}
+            className={`hamburger ${toggle ? "toggle" : ""} tablet:hidden desktop:hidden`}
             onClick={() => setToggle(!toggle)}
           >
             <span className="line line1"></span>
