@@ -2,17 +2,16 @@ import Header from '@/components/Header';
 import commentImg from '@/assets/comment.png';
 import goodImg from '@/assets/good.png';
 import viewImg from '@/assets/view.png';
-import profileDefaultImg from '@/assets/profileicon.png';
 import apiFunction from '@/util/apiFunction';
 import profileImg from '@/assets/profile.png';
-import penImg from '@/assets/pen.png';
 import React from 'react';
 import Inform from '@/components/profile/Inform';
 import { useState,useEffect } from 'react';
 import { useCookies } from 'react-cookie';
+import useLoginInfoStore from '@/stores/loginInfo';
 function Profile() {
-
-    const [cookies, setCookie, removeCookie] = useCookies();
+    const [cookies] = useCookies();
+    const {setGrantType, setAccessToken} = useLoginInfoStore();
     const [memberInfo, setMemberInfo] = useState({
         name: "",
         nickName: "",
@@ -35,7 +34,9 @@ function Profile() {
             }
         }
         getMember();
-    }, [cookies.accessToken, cookies.grantType]);
+        setGrantType(cookies.grantType);
+        setAccessToken(cookies.accessToken);
+    }, [cookies.accessToken, cookies.grantType, cookies.refreshToken, setAccessToken, setGrantType]);
 
   return (
     <div>
@@ -43,7 +44,7 @@ function Profile() {
             <Header/>
         </header>
         <section className='flex justify-center'>
-            <div className='w-[60%] mobile:w-[95%] max-w-[1150px]'>
+            <div className='w-[60%] mobile:w-[95%] max-w-[750px] tablet:min-w-[570px]'>
                 <Inform value={memberInfo}/>
                 <div>
                     <div className='py-[20px] border-b-2 border-[#9b9b9b]'>

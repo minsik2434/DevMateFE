@@ -110,7 +110,7 @@ function Header() {
                 로그인
               </button>
             </Link>
-            <Link to="signup">
+            <Link to="/signup">
               <button className="border border-gray_6 rounded-full text-white bg-gray_7 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  hover:opacity-90 ">
                 회원가입
               </button>
