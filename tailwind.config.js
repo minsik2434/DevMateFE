@@ -3,12 +3,12 @@ export default {
   content: ["./index.html", "./src/**/*.js", "./src/**/*.jsx", "./src/*.jsx"],
   theme: {
     screens: {
-      tablet: "768px",
+      tablet: { min: "768px", max: "1239px" },
 
-      desktop: {min:"1240px",},
-      // => @media (min-width: 1280px) { ... }
+      desktop: { min: "1240px" },
+      // => @media (min-width: 1280px) { … }
       // 'mobile': '320px',
-      mobile: {max:"767px",}
+      mobile: { max: "767px" },
     },
     extend: {
       colors: {
@@ -22,6 +22,7 @@ export default {
         gray_7: "#495057",
         gray_8: "#343A40",
         gray_9: "#212529",
+        brand_blue: "#D2E1FF",
       },
       fontFamily: {
         pre: ["Pretendard", "sans-serif"],

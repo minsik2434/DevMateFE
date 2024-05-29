@@ -1,10 +1,14 @@
 import React from "react";
 
-function Banner({ heading, exp }) {
+function Banner({ heading, exp, style }) {
   return (
-    <div className="w-[60%] m-auto flex flex-col font-medium px-8 py-4 mt-20 mb-10 bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED]">
-      <span className="text-lg">{heading}</span>
-      <p>{exp}</p>
+    <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto">
+      <div
+        className={`flex flex-col rounded font-medium px-8 py-4 mobile:px-4 mobile:py-2 desktop:mt-20 tablet:mt-12 mobile:mt-10 desktop:mb-10 bg-gradient-to-t ${style}`}
+      >
+        <span className="text-lg font-extrabold">{heading}</span>
+        <p className="mobile:text-xs">{exp}</p>
+      </div>
     </div>
   );
 }

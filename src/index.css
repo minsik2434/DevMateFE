@@ -76,7 +76,7 @@
   top: 120%; /* 햄버거 버튼 바로 아래 위치 */
   right: 0;
   width: 120px; /* 모달창의 너비 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 1000; /* 다른 요소 위에 표시 */
 }
 

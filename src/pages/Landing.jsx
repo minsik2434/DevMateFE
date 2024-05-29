@@ -7,127 +7,62 @@ import recommend from "@/assets/icon/recommend.svg";
 import view from "@/assets/icon/view.svg";
 import comment from "@/assets/icon/comment.svg";
 import LandingList from "@/components/landing/LandingList";
+import LandingBoard from "@/components/landing/LandingBoard";
 
 function Landing() {
   return (
-    <div>
+    <div className="w-full">
       <Header />
       <div>
-        <img src={banner} alt="배너 이미지" className="w-[85vw] m-auto my-36" />
+        <img
+          src={banner}
+          alt="배너 이미지"
+          className="w-full desktop:mx-auto desktop:my-20 tablet:my-16 desktop:h-72 tablet:h-52 mobile:hidden tablet:block"
+        />
       </div>
 
-      <div className="mx-[8%]">
-        <div>
-          <p className="text-3xl font-medium mb-6">소통해요</p>
-          <div className="flex justify-between">
-            <div className="flex-[0.31]">
-              <h2 className="text-[#121212] bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA] p-3 font-medium rounded-md">
-                Q&A
-              </h2>
-              {/* <div>
-                <p className="ml-3 my-2 font-medium text-lg">큰일났습니다</p>
-                <div className="flex items-center justify-between border-b-2 border-b-gray_4 pb-2">
-                  <div className="flex items-center gap-1">
-                    <img
-                      src={profile1}
-                      alt="사용자 이미지"
-                      className="rounded-full w-6"
-                    />
-                    <span>최민식</span>
-                  </div>
-                  <div className="">
-                    <ul className="flex flex-wrap justify-center text-sm gap-1">
-                      <li className="laptop:px-2 laptop:rounded-3xl laptop:text-sm bg-gray_5">
-                        C
-                      </li>
-                      <li className="laptop:px-2 laptop:rounded-3xl laptop:text-sm bg-gray_5">
-                        C++
-                      </li>
-                      <li className="laptop:px-2 laptop:rounded-3xl laptop:text-sm bg-gray_5">
-                        frontend
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul className="flex gap-3 laptop:text-sm">
-                      <li className="flex gap-1 items-center">
-                        <img src={comment} alt="댓글 수" />
-                        <span>10</span>
-                      </li>
-                      <li className="flex gap-1 items-center">
-                        <img src={view} alt="조회 수" />
-                        <span>11</span>
-                      </li>
-                      <li className="flex gap-1 items-center">
-                        <img src={recommend} alt="추천 수" />
-                        <span>11</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div> */}
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-            </div>
-            <div className="flex-[0.31]">
-              <h2 className="text-[#121212] bg-gradient-to-t from-[rgba(245,78,162,0.44)] to-[rgba(255,118,118,0.51)] p-3 font-medium rounded-md">
-                커뮤티니
-              </h2>
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-            </div>
-            <div className="flex-[0.31]">
-              <h2 className="text-[#121212] bg-gradient-to-t from-[#FDF2F0] to-[#F8DAE2] p-3 font-medium rounded-md">
-                취업후기
-              </h2>
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-            </div>
-          </div>
-        </div>
-        <div className="mb-64">
-          <p className="text-3xl font-medium mb-6 mt-24">사람을 찾아요</p>
-          <div className="flex justify-between">
-            <div className="flex-[0.31]">
-              <h2 className="text-[#121212] bg-[#C9DECF] p-3 font-medium rounded-md">
-                멘토링
-              </h2>
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-            </div>
-            <div className="flex-[0.31]">
-              <h2 className="text-[#121212] bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED] p-3 font-medium rounded-md">
-                스터디
-              </h2>
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-            </div>
-            <div className="flex-[0.31]">
-              <h2 className="text-[#121212] bg-gradient-to-t from-[#FCE382] to-[#F38181] p-3 font-medium rounded-md">
-                모집공고
-              </h2>
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-              <LandingList />
-            </div>
-          </div>
+      <div className="relative desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto">
+        <div className="grid desktop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 desktop:gap-x-8 desktop:gap-y-56 tablet:gap-x-5 tablet:gap-y-36 mobile:gap-y-24 desktop:mt-32 tablet:mt-28 mobile:mt-20 desktop:pt-20 tablet:pt-16 mobile:pt-12 desktop:px-5 tablet:px-5 mobile:px-3">
+          <p className="absolute desktop:text-3xl tablet:text-2xl mobile:text-xl font-medium desktop:left-5 desktop:top-0 tablet:left-5 tablet:top-[10px] mobile:top-0">
+            소통해요
+          </p>
+
+          <p className="absolute desktop:text-3xl tablet:text-2xl mobile:text-xl font-medium desktop:left-5 desktop:top-[750px] tablet:left-5 tablet:top-[1250px] mobile:top-[1580px]">
+            사람을 찾아요
+          </p>
+          <LandingBoard
+            heading="QnA"
+            style="from-[#98D8DB] to-[#6ECEDA]"
+            order="desktop:order-1 tablet:order-1"
+          />
+
+          <LandingBoard
+            heading="커뮤니티"
+            style="from-[#F6A2CC] to-[#FCAAAA]"
+            order="desktop:order-2 tablet:order-2"
+          />
+          <LandingBoard
+            heading="취업후기"
+            style="from-[#FDF2F0] to-[#F8DAE2]"
+            order="desktop:order-3 tablet:order-3"
+          />
+
+          <LandingBoard
+            heading="멘토링"
+            style="bg-[#C9DECF]"
+            order="desktop:order-4 tablet:order-5"
+          />
+
+          <LandingBoard
+            heading="스터디"
+            style="from-[#E6E6FA] to-[#EDEDED]"
+            order="desktop:order-5 tablet:order-6"
+          />
+          <LandingBoard
+            heading="모집공고"
+            style="from-[#FCE382] to-[#F38181]"
+            order="desktop:order-6 tablet:order-4"
+          />
         </div>
       </div>
 

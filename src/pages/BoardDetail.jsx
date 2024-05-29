@@ -1,19 +1,19 @@
-import Viewerbox from '@/components/Viewerbox'
-import profileImg from '@/assets/profile.png';  
-import commentImg from '@/assets/comment.png';
-import goodImg from '@/assets/good.png';
-import viewImg from '@/assets/view.png';
-import penImg from '@/assets/pen.png';
-import React from 'react'
-import Header from '@/components/Header';
-import { useState, useEffect } from 'react';
+import Viewerbox from "@/components/Viewerbox";
+import profileImg from "@/assets/profile.png";
+import commentImg from "@/assets/comment.png";
+import goodImg from "@/assets/good.png";
+import viewImg from "@/assets/view.png";
+import penImg from "@/assets/pen.png";
+import React from "react";
+import Header from "@/components/Header";
+import { useState, useEffect } from "react";
 function BoardDetail() {
-    const [headerHeight, setHeaderHeight] = useState(0);
+  const [headerHeight, setHeaderHeight] = useState(0);
 
-    useEffect(() => {
-      const header = document.querySelector('header');
-      setHeaderHeight(header.offsetHeight);
-    }, []);
+  useEffect(() => {
+    const header = document.querySelector("header");
+    setHeaderHeight(header.offsetHeight);
+  }, []);
 
   return (
     <div>
@@ -435,7 +435,7 @@ function BoardDetail() {
         <footer>
         </footer>
     </div>
-  )
+  );
 }
 
-export default BoardDetail
+export default BoardDetail;
