@@ -18,9 +18,11 @@ import ProfileEdit from "./pages/ProfileEdit";
 import Community from "./pages/board/Community";
 import QnA from "./pages/board/QnA";
 import JobReview from "./pages/board/JobReview";
-import Mentoring from "./pages/board/Mentoring";
+import Mentoring from "./pages/board/mentoring/Mentoring";
 import Study from "./pages/board/Study";
 import JobOpening from "./pages/board/JobOpening";
+import MentoringDetail from "./pages/board/mentoring/MentoringDetail";
+import MentoringRegister from "./pages/board/mentoring/MentoringRegister";
 
 const router = createBrowserRouter([
   {
@@ -95,6 +97,14 @@ const router = createBrowserRouter([
       {
         path: "/borad/jobOpening",
         element: <JobOpening />,
+      },
+      {
+        path: "/borad/mentoring/detail",
+        element: <MentoringDetail />,
+      },
+      {
+        path: "/borad/mentoring/register",
+        element: <MentoringRegister />,
       },
     ],
   },

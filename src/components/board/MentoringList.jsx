@@ -6,7 +6,7 @@ import comment from "@/assets/icon/comment.svg";
 
 function MentoringList() {
   return (
-    <div className="flex flex-col items-start border border-gray_6 rounded-xl desktop:p-8 tablet:p-6  mobile:p-6 gap-3 ">
+    <div className="flex flex-col items-start border border-gray_6 rounded-xl desktop:p-8 tablet:p-6  mobile:p-6 gap-3 cursor-pointer">
       <div className="flex items-center gap-2 font-semibold ">
         <img src={profile} alt="" className="desktop:w-8 tablet:w-6 mobile:w-6 rounded-full" />
         <span>최민식</span>

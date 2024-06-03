@@ -23,6 +23,7 @@ export default {
         gray_8: "#343A40",
         gray_9: "#212529",
         brand_blue: "#D2E1FF",
+        brand_red: "#F49292",
       },
       fontFamily: {
         pre: ["Pretendard", "sans-serif"],
