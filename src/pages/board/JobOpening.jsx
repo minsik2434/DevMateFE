@@ -11,10 +11,11 @@ import filter from "@/assets/icon/filter.svg";
 import BoardList from "@/components/board/BoardList";
 import StudyList from "@/components/board/StudyList";
 import pen from "@/assets/pen.png";
+import { useNavigate } from "react-router-dom";
 
 function JobOpening() {
   const [selectedOption, setSelectedOption] = useState("recent");
-
+  const nav = useNavigate();
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.id);
   };
@@ -167,8 +168,9 @@ function JobOpening() {
             </div>
 
             <button
-              className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 mobile:rounded"
+              className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
               type="button"
+              onClick={e=>{nav("/post/jobOpening/new")}}
             >
               <span className="mobile:hidden tablet:block desktop:block">
                 글쓰기
