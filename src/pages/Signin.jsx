@@ -31,7 +31,7 @@ function Signin() {
       setCookie('grantType', grantType,{sameSite: 'strict' , maxAge:88200});
       setCookie('accessToken', accessToken,{sameSite: 'strict', maxAge:88200});
       setCookie('refreshToken', refreshToken,{sameSite: 'strict', maxAge:88200});
-      nav("/profile/edit");
+      nav("/");
     } catch(error) {
       console.log(error);
     }

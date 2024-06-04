@@ -4,17 +4,22 @@ import { useState } from 'react'
 function TagEdit({onTags}) {
     const [tags, setTags] = useState([]);
     const removeLastTag = () => {
-        setTags(tags.slice(0, -1));
-        onTags(tags);
+        const updatedTags = tags.slice(0, -1);
+        setTags(updatedTags);
+        onTags(updatedTags); 
     };
 
     const addTags = (e) =>{
+        if(tags.length>=4){
+            e.preventDefault();
+            return;
+        }
         const inputValue = e.target.value;
         if(e.key==='Enter' && inputValue !=='' && !tags.includes(inputValue)) {       
             setTags([...tags, inputValue]);
             e.target.value='';
+            onTags(tags);
         }
-        onTags(tags);
     }
     
     const handleKeyDown = (e) => {
@@ -36,7 +41,8 @@ function TagEdit({onTags}) {
         <input id='tag'
             onKeyUp={(e) => {{ addTags(e)}}}
             onKeyDown={handleKeyDown}
-            placeholder='태그를 입력하세요' className='w-full focus:outline-none placeholder:text-[16px] text-[16px]'/> 
+            placeholder='태그를 입력하세요(최대 4개)' className='w-full focus:outline-none placeholder:text-[16px] text-[16px]'
+            /> 
     </>
   )
 }
