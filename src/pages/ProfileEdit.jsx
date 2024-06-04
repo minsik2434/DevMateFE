@@ -19,7 +19,7 @@ function ProfileEdit() {
     useEffect(() => {
         const getMember = async () =>{
             try{
-                const responseData = (await apiFunction.getDataSetHeader("http://localhost:8080/members",{
+                const responseData = (await apiFunction.getDataSetHeader(`${import.meta.env.VITE_API_URL}/members`,{
                     headers:{
                         Authorization: `${cookies.grantType} ${cookies.accessToken}`
                     }
@@ -53,7 +53,7 @@ function ProfileEdit() {
     const onSubmit = async (e) =>{
         e.preventDefault();
         try {
-            await apiFunction.patchDataSetHeader("http://localhost:8080/members", inputValues, {
+            await apiFunction.patchDataSetHeader(`${import.meta.env.VITE_API_URL}/members`, inputValues, {
                 headers:{
                     Authorization: `${cookies.grantType} ${cookies.accessToken}`
                 }

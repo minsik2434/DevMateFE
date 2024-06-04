@@ -8,7 +8,7 @@ function Interests({onSelected, selected, type}) {
     useEffect(()=>{
         const getInterests = async () =>{
             try{
-                const responseData = (await apiFunction.getData("http://localhost:8080/interests")).data.data;
+                const responseData = (await apiFunction.getData(`${import.meta.env.VITE_API_URL}/interests`)).data.data;
                 setResponseInterests(responseData);
             
             }

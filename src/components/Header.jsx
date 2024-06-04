@@ -8,8 +8,6 @@ function Header() {
   const [toggle, setToggle] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
-  // const [activeIndex, setActiveIndex] = useState(null);
-
   const { navIndex, setNavIndex } = useIndex();
 
   const handleButtonClick = (index) => {
@@ -83,12 +81,12 @@ function Header() {
           <nav className="mobile:hidden tablet:flex desktop:flex">
             <ul className="flex tablet:justify-between desktop:gap-8 desktop:text-base tablet:gap-7 tablet:text-[10px] font-medium">
               {[
-                { path: "/borad/QnA", label: "Q&A" },
-                { path: "/borad/community", label: "커뮤니티" },
-                { path: "/borad/JobReview", label: "취업후기" },
-                { path: "/borad/study", label: "스터디" },
-                { path: "/borad/mentoring", label: "멘토링" },
-                { path: "/borad/jobOpening", label: "모집공고" },
+                { path: "/board/QnA", label: "Q&A" },
+                { path: "/board/community", label: "커뮤니티" },
+                { path: "/board/JobReview", label: "취업후기" },
+                { path: "/board/study", label: "스터디" },
+                { path: "/board/mentoring", label: "멘토링" },
+                { path: "/board/jobOpening", label: "모집공고" },
               ].map((item, index) => (
                 <li
                   key={index}

@@ -7,7 +7,7 @@ import Test from "./pages/Test";
 import Signup from "./pages/Signup";
 import Board from "./pages/board/Board";
 // import Home from "./pages/Home";
-import Post from "./pages/Post";
+import QnAPost from "./pages/post/QnAPost";
 import Home from "./pages/Home";
 import BoardDetail from "./pages/BoardDetail";
 import Signin from "./pages/Signin";
@@ -23,6 +23,9 @@ import Study from "./pages/board/Study";
 import JobOpening from "./pages/board/JobOpening";
 import MentoringDetail from "./pages/board/mentoring/MentoringDetail";
 import MentoringRegister from "./pages/board/mentoring/MentoringRegister";
+import CommunityPost from "./pages/post/CommunityPost";
+import JobOpeningPost from "./pages/post/JobOpeningPost";
+import JobReviewPost from "./pages/post/JobReviewPost";
 
 const router = createBrowserRouter([
   {
@@ -56,7 +59,19 @@ const router = createBrowserRouter([
       },
       {
         path: "post/qna/new",
-        element: <Post />,
+        element: <QnAPost />,
+      },
+      {
+        path: "post/jobOpening/new",
+        element: <JobOpeningPost/>,
+      },
+      {
+        path: "post/jobReview/new",
+        element: <JobReviewPost/>,
+      },
+      {
+        path: "post/community/new",
+        element: <CommunityPost />
       },
       {
         path: "post/study/new",
@@ -75,27 +90,27 @@ const router = createBrowserRouter([
         element: <ProfileEdit />,
       },
       {
-        path: "/borad/community",
+        path: "/board/community",
         element: <Community />,
       },
       {
-        path: "/borad/QnA",
+        path: "/board/QnA",
         element: <QnA />,
       },
       {
-        path: "/borad/jobReview",
+        path: "/board/jobReview",
         element: <JobReview />,
       },
       {
-        path: "/borad/mentoring",
+        path: "/board/mentoring",
         element: <Mentoring />,
       },
       {
-        path: "/borad/study",
+        path: "/board/study",
         element: <Study />,
       },
       {
-        path: "/borad/jobOpening",
+        path: "/board/jobOpening",
         element: <JobOpening />,
       },
       {
