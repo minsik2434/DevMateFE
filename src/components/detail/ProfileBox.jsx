@@ -15,7 +15,7 @@ function ProfileBox({headerHeight, writerData}) {
           try{
             const getInterests = await Promise.all(
                 writerData.interests.map((interest) => 
-                apiFunction.getData(`http://localhost:8080/interests/${interest}`)
+                apiFunction.getData(`${import.meta.env.VITE_API_URL}/interests/${interest}`)
               )
             );
             const items = getInterests.map((result)=> ({

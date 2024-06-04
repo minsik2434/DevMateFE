@@ -43,7 +43,7 @@ function JobOpeningPost() {
   
   const handleRegister = async () => {
     try{
-      await apiFunction.postDataSetHeader("http://localhost:8080/post/job",postValues , {
+      await apiFunction.postDataSetHeader(`${import.meta.env.VITE_API_URL}/post/job`,postValues , {
         headers:{
           Authorization: `${grantType} ${accessToken}`
         }

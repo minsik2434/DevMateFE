@@ -4,6 +4,7 @@ import Banner from "@/components/board/Banner";
 import React from "react";
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import search from "@/assets/icon/search.svg";
 import PageButton from "@/components/board/PageButton";
@@ -184,12 +185,14 @@ function Mentoring() {
         </form>
         <div className="m-auto desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] tablet:px-10 mobile:px-3">
           <div className="grid desktop:grid-cols-3 desktop:gap-20 tablet:grid-cols-2 tablet:gap-12 mobile:grid-cols-1 mobile:gap-10 mobile:pt-7">
-            <MentoringList/>
-            <MentoringList/>
-            <MentoringList/>
-            <MentoringList/>
-            <MentoringList/>
-            <MentoringList/>
+            <Link to="/borad/mentoring/detail">
+              <MentoringList />
+            </Link>
+            <MentoringList />
+            <MentoringList />
+            <MentoringList />
+            <MentoringList />
+            <MentoringList />
           </div>
         </div>
         <PageButton />

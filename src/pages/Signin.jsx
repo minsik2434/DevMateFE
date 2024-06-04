@@ -27,7 +27,7 @@ function Signin() {
   const submitLoginForm = async (e) => {
     e.preventDefault();
     try {
-      const {grantType, accessToken, refreshToken} = (await apiFunction.postData("http://localhost:8080/members/signin", inputValues)).data.data;
+      const {grantType, accessToken, refreshToken} = (await apiFunction.postData(`${import.meta.env.VITE_API_URL}/members/signin`, inputValues)).data.data;
       setCookie('grantType', grantType,{sameSite: 'strict' , maxAge:88200});
       setCookie('accessToken', accessToken,{sameSite: 'strict', maxAge:88200});
       setCookie('refreshToken', refreshToken,{sameSite: 'strict', maxAge:88200});

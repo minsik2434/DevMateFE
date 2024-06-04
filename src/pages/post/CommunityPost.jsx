@@ -43,7 +43,7 @@ function CommunityPost() {
   
   const handleRegister = async () => {
     try{
-      await apiFunction.postDataSetHeader("http://localhost:8080/post/community",postValues , {
+      await apiFunction.postDataSetHeader(`${import.meta.env.VITE_API_URL}/post/community`,postValues , {
         headers:{
           Authorization: `${grantType} ${accessToken}`
         }

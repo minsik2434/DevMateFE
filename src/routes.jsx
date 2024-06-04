@@ -18,9 +18,11 @@ import ProfileEdit from "./pages/ProfileEdit";
 import Community from "./pages/board/Community";
 import QnA from "./pages/board/QnA";
 import JobReview from "./pages/board/JobReview";
-import Mentoring from "./pages/board/Mentoring";
+import Mentoring from "./pages/board/mentoring/Mentoring";
 import Study from "./pages/board/Study";
 import JobOpening from "./pages/board/JobOpening";
+import MentoringDetail from "./pages/board/mentoring/MentoringDetail";
+import MentoringRegister from "./pages/board/mentoring/MentoringRegister";
 import CommunityPost from "./pages/post/CommunityPost";
 import JobOpeningPost from "./pages/post/JobOpeningPost";
 import JobReviewPost from "./pages/post/JobReviewPost";
@@ -110,6 +112,14 @@ const router = createBrowserRouter([
       {
         path: "/board/jobOpening",
         element: <JobOpening />,
+      },
+      {
+        path: "/borad/mentoring/detail",
+        element: <MentoringDetail />,
+      },
+      {
+        path: "/borad/mentoring/register",
+        element: <MentoringRegister />,
       },
     ],
   },
