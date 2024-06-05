@@ -1,6 +1,6 @@
 import React from 'react'
 import useInterestsInfo from '@/hooks/useInterestsInfo';
-import MiniBoard from './MiniBoard';
+import MiniBoard from './miniBoard/MiniBoard';
 
 
 function RightBox({headerHeight, writerData}) {

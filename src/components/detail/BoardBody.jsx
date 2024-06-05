@@ -1,9 +1,5 @@
 import React from 'react'
 import Viewerbox from "@/components/Viewerbox";
-import profileImg from "@/assets/profile.png";
-import { useEffect } from 'react';
-import apiFunction from '@/util/apiFunction';
-import { useState } from 'react';
 import useFormattedDateTime from '@/hooks/useFormattedDateTime';
 
 function BoardBody({data}) {
