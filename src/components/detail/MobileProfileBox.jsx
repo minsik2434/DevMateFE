@@ -1,8 +1,5 @@
 import useInterestsInfo from '@/hooks/useInterestsInfo';
-import apiFunction from '@/util/apiFunction';
 import React from 'react'
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 function MobileProfileBox({writerData}) {
     const interests = useInterestsInfo(writerData.interests);
@@ -12,7 +9,7 @@ function MobileProfileBox({writerData}) {
         <img src={writerData.imgUrl} className="w-[30px]"></img>
         <span className="ml-[14px] text-[14px]">{writerData.nickName}</span>
         </div>
-        <ul className="flex items-center flex-wrap mt-[10px]  gap-[16px] font-bold">
+        <ul className="flex text-[12px] items-center flex-wrap mt-[10px]  gap-[16px] font-bold">
             <span className="text-[13px]">관심 분야</span>
             {interests.map((interest) =>{
                 return (

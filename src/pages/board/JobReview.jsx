@@ -170,7 +170,7 @@ function JobReview() {
             <button
               className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
               type="button"
-              onClick={e=>nav("/post/jobReview/new")}
+              onClick={e=>nav("/post/review/new")}
             >
               <span className="mobile:hidden tablet:block desktop:block">
                 글쓰기

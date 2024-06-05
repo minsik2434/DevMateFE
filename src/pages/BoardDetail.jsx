@@ -1,7 +1,4 @@
 import profileImg from "@/assets/profile.png";
-import commentImg from "@/assets/comment.png";
-import goodImg from "@/assets/good.png";
-import viewImg from "@/assets/view.png";
 import penImg from "@/assets/pen.png";
 import React from "react";
 import Header from "@/components/Header";
