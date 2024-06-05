@@ -3,34 +3,14 @@ import profileDefaultImg from '@/assets/profileicon.png';
 import penImg from '@/assets/pen.png';
 import { useNavigate } from 'react-router-dom';
 import apiFunction from '@/util/apiFunction';
-import { useState, useEffect } from 'react';
 import useLoginInfoStore from '@/stores/loginInfo';
 import { useCookies } from 'react-cookie';
+import useInterestsInfo from '@/hooks/useInterestsInfo';
 function Inform({value}) {
     const nav = useNavigate();
-    const [cookies, setCookie, removeCookie] = useCookies();
-    const [interests , setInterests] = useState([]);
+    const [removeCookie] = useCookies();
     const {grantType, accessToken} = useLoginInfoStore();
-    useEffect(() => {
-        const getInterestInfo = async () => {
-          try{
-            const getInterests = await Promise.all(
-              value.interests.map((interest) => 
-                apiFunction.getData(`${import.meta.env.VITE_API_URL}/interests/${interest}`)
-              )
-            );
-            const items = getInterests.map((result)=> ({
-              id : result.data.data.id,
-              name : result.data.data.name
-            }))
-            setInterests(items);
-          } catch(error) {
-            console.log(error);
-          }
-        }
-        getInterestInfo();
-      }, [value.interests]);
-
+    const interests = useInterestsInfo(value.interests);
     const onClick = () =>{
       if(confirm("정말 탈퇴하시겠습니까?") == true){
         if(confirm("탈퇴하면 모든 정보가 사라집니다 그래도 탈퇴하시겠습니까?") == true){

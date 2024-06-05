@@ -3,33 +3,11 @@ import commentImg from "@/assets/comment.png";
 import goodImg from "@/assets/good.png";
 import viewImg from "@/assets/view.png";
 import profileImg from "@/assets/profile.png";
-import { useState } from 'react';
-import { useEffect } from 'react';
-import apiFunction from '@/util/apiFunction';
+import useInterestsInfo from '@/hooks/useInterestsInfo';
 
 
 function ProfileBox({headerHeight, writerData}) {
-    const [interests, setInterests] = useState([]);
-    useEffect(() => {
-        const getInterestInfo = async () => {
-          try{
-            const getInterests = await Promise.all(
-                writerData.interests.map((interest) => 
-                apiFunction.getData(`${import.meta.env.VITE_API_URL}/interests/${interest}`)
-              )
-            );
-            const items = getInterests.map((result)=> ({
-              id : result.data.data.id,
-              name : result.data.data.name
-            }))
-            setInterests(items);
-          } catch(error) {
-            console.log(error);
-          }
-        }
-        getInterestInfo();
-      }, [writerData.interests]);
-
+    const interests = useInterestsInfo(writerData.interests);
   return (
     <div style={{ position: 'sticky', top: `${headerHeight}px`}} className='mobile:hidden px-[20px] py-[30px]'> 
         <div className='mobile:hidden w-full px-[30px] py-[25px] border border-black rounded-[20px]'>

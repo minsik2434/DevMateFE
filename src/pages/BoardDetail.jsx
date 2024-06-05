@@ -10,6 +10,7 @@ import BoardBody from "@/components/detail/BoardBody";
 import { useParams } from "react-router-dom";
 import apiFunction from "@/util/apiFunction";
 import ProfileBox from "@/components/detail/ProfileBox";
+import MobileProfileBox from "@/components/detail/MobileProfileBox";
 function BoardDetail() {
   const [headerHeight, setHeaderHeight] = useState(0);
   const [postData, setPostData] = useState({});
@@ -62,25 +63,7 @@ function BoardDetail() {
             <div className="flex justify-start px-[20px] mobile:px-0">
               <div className="w-full">
                 <BoardBody data={postData} />
-                <div className="desktop:hidden tablet:hidden border border-black rounded-[20px] px-[16px] py-[20px] mt-[27px]">
-                  <div className="flex items-center">
-                    <img src={profileImg} className="w-[30px]"></img>
-                    <span className="ml-[14px] text-[14px]">최민식</span>
-                  </div>
-                  <ul className="flex items-center flex-wrap mt-[10px]  gap-[16px] font-bold">
-                    <span className="text-[13px]">관심 분야</span>
-                    <li>
-                      <div className="bg-[#d9d9d9] text-[10px] px-[9px] py-[3px] rounded-xl">
-                        <span>C++</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="bg-[#d9d9d9] text-[10px] px-[9px] py-[3px] rounded-xl">
-                        <span>Java</span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+                <MobileProfileBox writerData={writerData}/>
               </div>
             </div>
             {/* 댓글 창 div */}
