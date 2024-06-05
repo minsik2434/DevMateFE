@@ -2,14 +2,13 @@ import Logo from "@/components/Logo";
 import InputField from "@/components/sign/InputField";
 import LinkList from "@/components/sign/LinkList";
 import LoginButton from "@/components/sign/SignButton";
-import useLoginInfoStore from "@/stores/loginInfo";
 import apiFunction from "@/util/apiFunction";
 import React from "react";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 function Signin() {
-  const [cookies , setCookie, removeCookie] = useCookies([]);
+  const [cookies , setCookie] = useCookies([]);
   const nav = useNavigate();
   const [inputValues , setInputValues] = useState({
     loginId:"",

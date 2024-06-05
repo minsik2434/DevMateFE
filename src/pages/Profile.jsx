@@ -11,13 +11,18 @@ import { useCookies } from "react-cookie";
 import useLoginInfoStore from "@/stores/loginInfo";
 function Profile() {
   const [cookies] = useCookies();
-  const { setGrantType, setAccessToken } = useLoginInfoStore();
+  const { grantType, accessToken, setGrantType, setAccessToken } = useLoginInfoStore();
   const [memberInfo, setMemberInfo] = useState({
     name: "",
     nickName: "",
     imgUrl: "test.png",
     interests: [],
   });
+
+  useEffect(() =>{
+    setGrantType(cookies.grantType);
+    setAccessToken(cookies.accessToken);
+  },[cookies.accessToken, cookies.grantType, setAccessToken, setGrantType])
 
   useEffect(() => {
     const getMember = async () => {
@@ -27,7 +32,7 @@ function Profile() {
             `${import.meta.env.VITE_API_URL}/members`,
             {
               headers: {
-                Authorization: `${cookies.grantType} ${cookies.accessToken}`,
+                Authorization: `${grantType} ${accessToken}`,
               },
             }
           )
@@ -37,16 +42,10 @@ function Profile() {
         console.log(error);
       }
     };
-    getMember();
-    setGrantType(cookies.grantType);
-    setAccessToken(cookies.accessToken);
-  }, [
-    cookies.accessToken,
-    cookies.grantType,
-    cookies.refreshToken,
-    setAccessToken,
-    setGrantType,
-  ]);
+    if (grantType && accessToken) {
+      getMember();
+    }
+  }, [accessToken, grantType]);
 
   return (
     <div>
