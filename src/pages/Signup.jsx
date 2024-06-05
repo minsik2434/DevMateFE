@@ -1,13 +1,22 @@
 import React from "react";
-import logo from "../assets/Logo.png";
 import InputField from "@/components/sign/InputField";
 import SingUpButton from "@/components/sign/SignButton";
 import apiFunction from "@/util/apiFunction";
 import { useState, useEffect } from "react";
 import Interests from "@/components/Interests";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useInterestStore from "@/stores/InterestInfo";
 function Signup() {
+  const {interestsInfo, setInterestsInfo} = useInterestStore();
+  useEffect(()=>{
+    const setInterests = async () =>{
+      const responseData = (await apiFunction.getData(`${import.meta.env.VITE_API_URL}/interests`)).data.data;
+      setInterestsInfo(responseData);
+    }
+    setInterests();
+  },[setInterestsInfo])
+
+
   const nav = useNavigate();
   const [inputValues, setInputValues] = useState({
     loginId: "",
@@ -49,11 +58,6 @@ function Signup() {
         : [...prevInputValues.interests, value],
     }));
   };
-
-  useEffect(() => {
-    console.log(import.meta.env.VITE_API_URL);
-  }, []);
-
   return (
     <div className="flex justify-center py-[50px] mobile:py-[28px]">
       <div className="w-[38%] mobile:w-[80%] mobile:max-w-[400px] desktop:max-w-[470px]">

@@ -6,10 +6,12 @@ import apiFunction from "@/util/apiFunction";
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import { useCookies } from "react-cookie";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function QnAPost() {
+function Post() {
   const editorRef = useRef();
+  const param = useParams();
   const [cookies] = useCookies();
   const nav = useNavigate();
   const {
@@ -25,6 +27,31 @@ function QnAPost() {
     content: "",
   });
 
+  const BannerElementByCategory = {
+    qna : {
+      heading:"Q&A",
+      exp:"동료들과 문제를 함께 해결해보아요",
+      style:"bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA]"
+    },
+
+    community : {
+      heading:"커뮤니티",
+      exp:"여러분의 이야기를 들려주세요",
+      style:"bg-gradient-to-t from-[#F6A2CC] to-[#FCAAAA]"
+    },
+
+    job : {
+      heading:"모집공고",
+      exp:"좋은 회사 또는 직장의 정보를 공유해주세요",
+      style:"bg-gradient-to-t from-[#FCE382] to-[#F38181]"
+    },
+
+    review : {
+      heading:"취업 후기",
+      exp:"꿈을 이룬 과정을 자라나는 새싹들에게 들려주세요",
+      style:"bg-gradient-to-t from-[#FDF2F0] to-[#F8DAE2]"
+    }
+  }
   const setTitle = (e) => {
     setPostValues((prevValues) => ({
       ...prevValues,
@@ -49,7 +76,7 @@ function QnAPost() {
   const handleRegister = async () => {
     try {
       await apiFunction.postDataSetHeader(
-        `${import.meta.env.VITE_API_URL}/post/qna`,
+        `${import.meta.env.VITE_API_URL}/post/${param.category}`,
         postValues,
         {
           headers: {
@@ -58,7 +85,7 @@ function QnAPost() {
         }
       );
       alert("게시글 등록 완료");
-      nav("/board/QnA");
+      nav(`/board/${param.category}`);
     } catch (error) {
       console.log(error);
     }
@@ -70,8 +97,10 @@ function QnAPost() {
       setAccessToken(cookies.accessToken);
     };
     savedTokenInfo();
-  }, []);
+  }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
 
+
+  const { heading, exp, style } = BannerElementByCategory[param.category]
   return (
     <div>
       <header>
@@ -80,9 +109,9 @@ function QnAPost() {
       <section className="flex justify-center py-[50px]">
         <div className="w-[60%] mobile:w-[95%] max-w-[750px]">
           <Banner
-            heading="Q&A"
-            exp="동료들과 문제를 함께 해결해보아요"
-            style="bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA]"
+            heading={heading}
+            exp={exp}
+            style={style}
           />
           <ContentEdit
             onTags={onTags}
@@ -97,7 +126,7 @@ function QnAPost() {
               등록
             </button>
             <button
-              onClick={(e) => nav("/board/QnA")}
+              onClick={(e) => nav(`/board/${param.category}`)}
               className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] border border-[#979797] text-black font-bold rounded-md"
             >
               취소
@@ -109,4 +138,4 @@ function QnAPost() {
   );
 }
 
-export default QnAPost;
+export default Post;

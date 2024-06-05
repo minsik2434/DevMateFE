@@ -7,7 +7,7 @@ import useLoginInfoStore from '@/stores/loginInfo';
 import { useCookies } from 'react-cookie';
 function ProfileEdit() {
     const nav = useNavigate();
-    const [cookies, setCookie, removeCookie] = useCookies();
+    const [cookies] = useCookies();
     const [inputValues, setInputValues] = useState({
         name: "",
         nickName: "",

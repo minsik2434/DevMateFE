@@ -9,7 +9,6 @@ import search from "@/assets/icon/search.svg";
 import PageButton from "@/components/board/PageButton";
 import filter from "@/assets/icon/filter.svg";
 import BoardList from "@/components/board/BoardList";
-import StudyList from "@/components/board/StudyList";
 import pen from "@/assets/pen.png";
 import { useNavigate } from "react-router-dom";
 
