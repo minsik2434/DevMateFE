@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         element: <Board />,
       },
       {
-        path: "/qna/:id",
+        path: "/:category/:id",
         element: <BoardDetail />,
       },
       {

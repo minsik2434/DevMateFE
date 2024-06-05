@@ -4,13 +4,12 @@ import ContentEdit from "@/components/post/ContentEdit";
 import useLoginInfoStore from "@/stores/loginInfo";
 import apiFunction from "@/util/apiFunction";
 import React from "react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState} from "react";
 import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Post() {
-  const editorRef = useRef();
   const param = useParams();
   const [cookies] = useCookies();
   const nav = useNavigate();
@@ -27,7 +26,7 @@ function Post() {
     content: "",
   });
 
-  const BannerElementByCategory = {
+  const bannerElementByCategory = {
     qna : {
       heading:"Q&A",
       exp:"동료들과 문제를 함께 해결해보아요",
@@ -100,7 +99,7 @@ function Post() {
   }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
 
 
-  const { heading, exp, style } = BannerElementByCategory[param.category]
+  const { heading, exp, style } = bannerElementByCategory[param.category]
   return (
     <div>
       <header>
