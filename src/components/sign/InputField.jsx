@@ -14,11 +14,22 @@ function InputField({id, placeholder, name, type, onChange}) {
   const inputType = typeConfig[inputTypeKey];
   const css = cssConfig[cssGroup];
 
+  let autocompleteAttr = null;
+  if(name ==='loginId'){
+    autocompleteAttr = 'loginId';
+  }  else if (name === 'password' || name === 'confirmPassword') {
+    autocompleteAttr = 'new-password';
+  } else if (name === 'name' ) {
+    autocompleteAttr = 'name';
+  } else if (name === 'nickName'){
+    autocompleteAttr = "nickName";
+  }
+
   return (
     <li>
         <label className='sr-only' htmlFor={id}>{placeholder}</label>  
         <input id={id} name={name} placeholder={placeholder} type={inputType}
-                        className={css} onChange={onChange}/>
+                        className={css} onChange={onChange} autoComplete={autocompleteAttr}/>
     </li>
   )
 }
