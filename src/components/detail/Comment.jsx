@@ -1,18 +1,17 @@
 import React from 'react'
-import profileImg from "@/assets/profile.png";
 import penImg from "@/assets/pen.png";
 import { useEffect } from 'react';
 import apiFunction from '@/util/apiFunction';
 import useLoginInfoStore from '@/stores/loginInfo';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-function Comment() {
+function Comment({comments}) {
     const {grantType, accessToken} = useLoginInfoStore();
     const [memberInfo, setMemberInfo] = useState({});
     const [input, setInput] = useState({
         comment : ""
     });
-    const [comments, setComments] = useState([]);
+
     const param = useParams();
     
     useEffect(()=>{
@@ -34,26 +33,16 @@ function Comment() {
         }
     },[accessToken, grantType])
 
-    useEffect(() => {
-        const getCommentList = async () => {
-            try{
-                const responseData = (await apiFunction.getData(`${import.meta.env.VITE_API_URL}/comments/${param.id}`)).data.data;
-                setComments(responseData);
-            }
-            catch(error){
-                console.log(error);
-            }
-        }
-        getCommentList();
-    },[param.id])
+ 
     const onChnage = (e) =>{
         setInput({comment : e.target.value});
     }
 
-    const onSubmit = async () => {
+    const onSubmit = async (e) => {
+        e.preventDefault()
         try {
             await apiFunction.postDataSetHeader(
-              `${import.meta.env.VITE_API_URL}/comment/${param.id}`,
+              `${import.meta.env.VITE_API_URL}/comments/${param.id}`,
               input,
               {
                 headers: {

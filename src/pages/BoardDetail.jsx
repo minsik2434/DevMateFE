@@ -7,7 +7,6 @@ import apiFunction from "@/util/apiFunction";
 import RightBox from "@/components/detail/RightBox";
 import MobileProfileBox from "@/components/detail/MobileProfileBox";
 import Comment from "@/components/detail/Comment";
-import goodImg from "@/assets/good.png";
 import { useCookies } from "react-cookie";
 import useLoginInfoStore from "@/stores/loginInfo";
 
@@ -17,12 +16,12 @@ function BoardDetail() {
   const [cookies] = useCookies();
   const param = useParams();
   const {setGrantType, setAccessToken} = useLoginInfoStore();
+  const [comments, setComments] = useState([]);
   const [writerData, setWriterData] = useState({
     nickName: "",
     imgUrl: "",
     interests: [],
   });
-
 
   useEffect(() => {
     const header = document.querySelector("header");
@@ -53,8 +52,19 @@ function BoardDetail() {
         console.log(error);
       }
     };
+
+    const getCommentList = async () => {
+      try{
+          const responseData = (await apiFunction.getData(`${import.meta.env.VITE_API_URL}/comments/${param.id}`)).data.data;
+          setComments(responseData);
+      }
+      catch(error){
+          console.log(error);
+      }
+  }
     if (param.id) {
       getData();
+      getCommentList();
     }
   }, [param.id]);
 
@@ -73,7 +83,7 @@ function BoardDetail() {
                 <MobileProfileBox writerData={writerData}/>
               </div>
             </div>
-            <Comment />
+            <Comment comments={comments}/>
           </div>
           <div className="w-[35%] mobile:w-full pt-[30px]">
             <RightBox headerHeight={headerHeight} writerData={writerData}/>
