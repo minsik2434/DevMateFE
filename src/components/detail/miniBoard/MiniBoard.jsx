@@ -1,8 +1,4 @@
 import React from 'react'
-import commentImg from "@/assets/comment.png";
-import goodImg from "@/assets/good.png";
-import viewImg from "@/assets/view.png";
-import profileImg from "@/assets/profile.png";
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import MiniBoardList from './MiniBoardList';

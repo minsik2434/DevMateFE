@@ -5,6 +5,7 @@ import apiFunction from '@/util/apiFunction';
 import useLoginInfoStore from '@/stores/loginInfo';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import formatTimeDifference from '@/util/get_time_current_diff';
 function Comment({comments}) {
     const {grantType, accessToken} = useLoginInfoStore();
     const [memberInfo, setMemberInfo] = useState({});
@@ -93,7 +94,7 @@ function Comment({comments}) {
                                     {comment.writer.nickName}
                                 </strong>
                                 <div className="ml-[45px] text-[12px] mobile:ml-[20px] mobile:text-[8px]">
-                                    <span>10 분전</span>
+                                    <span>{formatTimeDifference(comment.commentDateTime)}</span>
                                 </div>
                                 </div>
                                 <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">

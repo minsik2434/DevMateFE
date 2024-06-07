@@ -28,7 +28,7 @@ function Inform({value}) {
   return (
     <div className='py-[52px] mobile:py-[40px] flex gap-[40px] mobile:gap-[13px] border-t border-[#9b9b9b] relative'>
         <div className='min-w-[270px] mobile:min-w-[130px] h-[180px] mobile:h-[78px] border border-[#9b9b9b] px-[40px] py-[10px] rounded-md'>
-            <img src={profileDefaultImg} className='w-full h-full'></img>
+            <img src={value.imgUrl} className='w-full h-full'></img>
         </div>
         <div className='flex flex-col justify-center'>
             <ul className='flex flex-col gap-[20px] mobile:gap-[8px] text-[18px] mobile:text-[15px]'>

@@ -61,10 +61,19 @@ function BoardDetail() {
       catch(error){
           console.log(error);
       }
-  }
+    }
+
+    const addView = async () => {
+      try {
+        await apiFunction.postData( `${import.meta.env.VITE_API_URL}/post/${param.id}/addview`)
+      } catch (error) {
+        console.log(error);
+      }
+    };
     if (param.id) {
       getData();
       getCommentList();
+      addView();
     }
   }, [param.id]);
 
