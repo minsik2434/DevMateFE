@@ -50,12 +50,12 @@ function MiniBoardList() {
                                 </div>
                                 <ul className='flex gap-[10px] items-center text-[10px] font-bold'>
                                     <li className='flex'>
-                                        <img src={commentImg} className='w-[10px] mobile:w-[12px] mr-[2px]'/>
-                                        <span>{item.commentCount}</span>
-                                    </li>
-                                    <li className='flex'>
                                         <img src={viewImg} className='w-[10px] mobile:w-[12px] mr-[2px]'/>
                                         <span>{item.viewCount}</span>
+                                    </li>
+                                    <li className='flex'>
+                                        <img src={commentImg} className='w-[10px] mobile:w-[12px] mr-[2px]'/>
+                                        <span>{item.commentCount}</span>
                                     </li>
                                     <li className='flex'>
                                         <img src={goodImg} className='w-[10px] mobile:w-[12px] mr-[2px]'/>
