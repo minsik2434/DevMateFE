@@ -5,7 +5,7 @@ import apiFunction from '@/util/apiFunction';
 import useLoginInfoStore from '@/stores/loginInfo';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-function Comment({comments ,setAddComment}) {
+function Comment({comments}) {
     const {grantType, accessToken} = useLoginInfoStore();
     const [memberInfo, setMemberInfo] = useState({});
     const [input, setInput] = useState({
@@ -50,7 +50,6 @@ function Comment({comments ,setAddComment}) {
                 },
               }
             );
-            setAddComment(true);
           } catch (error) {
             console.log(error);
           }
