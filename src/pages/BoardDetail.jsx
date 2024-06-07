@@ -7,21 +7,32 @@ import apiFunction from "@/util/apiFunction";
 import RightBox from "@/components/detail/RightBox";
 import MobileProfileBox from "@/components/detail/MobileProfileBox";
 import Comment from "@/components/detail/Comment";
+import goodImg from "@/assets/good.png";
+import { useCookies } from "react-cookie";
+import useLoginInfoStore from "@/stores/loginInfo";
+
 function BoardDetail() {
   const [headerHeight, setHeaderHeight] = useState(0);
   const [postData, setPostData] = useState({});
+  const [cookies] = useCookies();
   const param = useParams();
+  const {setGrantType, setAccessToken} = useLoginInfoStore();
   const [writerData, setWriterData] = useState({
     nickName: "",
     imgUrl: "",
     interests: [],
   });
 
+
   useEffect(() => {
     const header = document.querySelector("header");
     setHeaderHeight(header.offsetHeight);
   }, []);
 
+  useEffect(() =>{
+    setGrantType(cookies.grantType);
+    setAccessToken(cookies.accessToken);
+  },[cookies.accessToken, cookies.grantType, setAccessToken, setGrantType])
 
   useEffect(() => {
     const getData = async () => {
@@ -53,8 +64,9 @@ function BoardDetail() {
         <Header />
       </header>
       <section className="flex justify-center">
-        <div className="w-[80%] mobile:w-[95%] max-w-[980px] flex mobile:flex-col mobile:items-center">
-          <div className="w-[67%] mobile:w-full border-r pt-[46px] mobile:px-[10px] mobile:pt-[26px] border-[#9b9b9b] mobile:border-none"> 
+        <div className="w-[80%] mobile:w-[95%] max-w-[1200px] flex mobile:flex-col mobile:items-center relative">
+          {/* <button type="button" className="absolute left-[420px] top-[91px]"><img src={goodImg} className="w-[30px]"></img></button> */}
+          <div className="w-[65%] mobile:w-full border-r pt-[46px] mobile:px-[10px] mobile:pt-[26px] border-[#9b9b9b] mobile:border-none"> 
             <div className="flex justify-start px-[20px] mobile:px-0">
               <div className="w-full">
                 <BoardBody data={postData} />
@@ -63,7 +75,7 @@ function BoardDetail() {
             </div>
             <Comment />
           </div>
-          <div className="w-[33%] mobile:w-full pt-[30px]">
+          <div className="w-[35%] mobile:w-full pt-[30px]">
             <RightBox headerHeight={headerHeight} writerData={writerData}/>
           </div>
         </div>
