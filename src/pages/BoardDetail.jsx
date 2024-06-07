@@ -1,40 +1,51 @@
-import profileImg from "@/assets/profile.png";
-import penImg from "@/assets/pen.png";
 import React from "react";
 import Header from "@/components/Header";
 import { useState, useEffect } from "react";
 import BoardBody from "@/components/detail/BoardBody";
 import { useParams } from "react-router-dom";
 import apiFunction from "@/util/apiFunction";
-import ProfileBox from "@/components/detail/ProfileBox";
+import RightBox from "@/components/detail/RightBox";
 import MobileProfileBox from "@/components/detail/MobileProfileBox";
+import Comment from "@/components/detail/Comment";
+import goodImg from "@/assets/good.png";
+import { useCookies } from "react-cookie";
+import useLoginInfoStore from "@/stores/loginInfo";
+
 function BoardDetail() {
   const [headerHeight, setHeaderHeight] = useState(0);
   const [postData, setPostData] = useState({});
+  const [cookies] = useCookies();
+  const param = useParams();
+  const {setGrantType, setAccessToken} = useLoginInfoStore();
   const [writerData, setWriterData] = useState({
     nickName: "",
     imgUrl: "",
     interests: [],
   });
-  const params = useParams();
+
 
   useEffect(() => {
     const header = document.querySelector("header");
     setHeaderHeight(header.offsetHeight);
   }, []);
 
+  useEffect(() =>{
+    setGrantType(cookies.grantType);
+    setAccessToken(cookies.accessToken);
+  },[cookies.accessToken, cookies.grantType, setAccessToken, setGrantType])
+
   useEffect(() => {
     const getData = async () => {
       try {
         const responsePostData = await (
           await apiFunction.getData(
-            `${import.meta.env.VITE_API_URL}/post/${params.id}`
+            `${import.meta.env.VITE_API_URL}/post/${param.id}`
           )
         ).data.data;
         setPostData(responsePostData);
         const memberResponseData = await (
           await apiFunction.getData(
-            `${import.meta.env.VITE_API_URL}/members/${responsePostData.writer}`
+            `${import.meta.env.VITE_API_URL}/members/${responsePostData.writer.nickName}`
           )
         ).data.data;
         setWriterData(memberResponseData);
@@ -42,8 +53,10 @@ function BoardDetail() {
         console.log(error);
       }
     };
-    getData();
-  }, [params.id]);
+    if (param.id) {
+      getData();
+    }
+  }, [param.id]);
 
   return (
     <div>
@@ -51,227 +64,19 @@ function BoardDetail() {
         <Header />
       </header>
       <section className="flex justify-center">
-        <div
-        //   style={{ marginTop: `${headerHeight}px` }}
-          className="w-[80%] mobile:w-[95%] max-w-[980px] flex mobile:flex-col mobile:items-center"
-        >
-          <div className="w-[67%] mobile:w-full border-r pt-[46px] mobile:px-[10px] mobile:pt-[26px] border-[#9b9b9b] mobile:border-none">
-            {/* 게시판 div*/}
+        <div className="w-[80%] mobile:w-[95%] max-w-[1200px] flex mobile:flex-col mobile:items-center relative">
+          {/* <button type="button" className="absolute left-[420px] top-[91px]"><img src={goodImg} className="w-[30px]"></img></button> */}
+          <div className="w-[65%] mobile:w-full border-r pt-[46px] mobile:px-[10px] mobile:pt-[26px] border-[#9b9b9b] mobile:border-none"> 
             <div className="flex justify-start px-[20px] mobile:px-0">
               <div className="w-full">
                 <BoardBody data={postData} />
                 <MobileProfileBox writerData={writerData}/>
               </div>
             </div>
-            {/* 댓글 창 div */}
-            <div className="border-t border-[#9b9b9b] mt-[40px] py-[30px] px-[50px] mobile:px-0 flex flex-col items-center">
-              <div className="w-full px-[30px] py-[20px] border border-[#9b9b9b] rounded-lg">
-                <div className="flex gap-[30px] items-center mobile:gap-[10px]">
-                  <img src={profileImg} className="w-[50px] mobile:w-[30px]" />
-                  <label htmlFor="comment" className="sr-only"></label>
-                  <input
-                    id="comment"
-                    placeholder="댓글을 작성해보세요"
-                    className="w-full py-[10px] mobile:py-[3px] px-[13px] placeholder:text-[14px] mobile:placeholder:text-[10px] placeholder:font-bold border border-[#9b9b9b] rounded-lg"
-                  />
-                  <button className="tablet:hidden desktop:hidden p-[7px] rounded-md border border-[#9b9b9b]">
-                    <img src={penImg} className="w-[20px]" />
-                  </button>
-                </div>
-                <div className="text-end mt-[15px] mobile:hidden">
-                  <button className="border px-[30px] py-[10px] border-black rounded-[30px]">
-                    댓글 작성
-                  </button>
-                </div>
-              </div>
-              <div className="w-full mt-[21px] mobile:mt-[20px]">
-                <ul>
-                  <li>
-                    <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0">
-                      <div className="flex items-center">
-                        <img
-                          src={profileImg}
-                          className="w-[40px] mobile:w-[23px]"
-                        />
-                        <strong className="ml-[14px] text-[18px] mobile:text-[14px]">
-                          최민식
-                        </strong>
-                        <div className="ml-[45px] text-[12px] mobile:ml-[20px] mobile:text-[8px]">
-                          <span>10 분전</span>
-                        </div>
-                      </div>
-                      <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
-                        큰일났습니다 도와주세요 어려운 문제가 있습니다 혼나게
-                        생겼습니다
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0">
-                      <div className="flex items-center">
-                        <img
-                          src={profileImg}
-                          className="w-[40px] mobile:w-[23px]"
-                        />
-                        <strong className="ml-[14px] text-[18px] mobile:text-[14px]">
-                          최민식
-                        </strong>
-                        <div className="ml-[45px] text-[12px] mobile:ml-[20px] mobile:text-[8px]">
-                          <span>10 분전</span>
-                        </div>
-                      </div>
-                      <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
-                        큰일났습니다 도와주세요 어려운 문제가 있습니다 혼나게
-                        생겼습니다
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0">
-                      <div className="flex items-center">
-                        <img
-                          src={profileImg}
-                          className="w-[40px] mobile:w-[23px]"
-                        />
-                        <strong className="ml-[14px] text-[18px] mobile:text-[14px]">
-                          최민식
-                        </strong>
-                        <div className="ml-[45px] text-[12px] mobile:ml-[20px] mobile:text-[8px]">
-                          <span>10 분전</span>
-                        </div>
-                      </div>
-                      <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
-                        큰일났습니다 도와주세요 어려운 문제가 있습니다 혼나게
-                        생겼습니다
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0">
-                      <div className="flex items-center">
-                        <img
-                          src={profileImg}
-                          className="w-[40px] mobile:w-[23px]"
-                        />
-                        <strong className="ml-[14px] text-[18px] mobile:text-[14px]">
-                          최민식
-                        </strong>
-                        <div className="ml-[45px] text-[12px] mobile:ml-[20px] mobile:text-[8px]">
-                          <span>10 분전</span>
-                        </div>
-                      </div>
-                      <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
-                        큰일났습니다 도와주세요 어려운 문제가 있습니다 혼나게
-                        생겼습니다
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0">
-                      <div className="flex items-center">
-                        <img
-                          src={profileImg}
-                          className="w-[40px] mobile:w-[23px]"
-                        />
-                        <strong className="ml-[14px] text-[18px] mobile:text-[14px]">
-                          최민식
-                        </strong>
-                        <div className="ml-[45px] text-[12px] mobile:ml-[20px] mobile:text-[8px]">
-                          <span>10 분전</span>
-                        </div>
-                      </div>
-                      <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
-                        큰일났습니다 도와주세요 어려운 문제가 있습니다 혼나게
-                        생겼습니다
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0">
-                      <div className="flex items-center">
-                        <img
-                          src={profileImg}
-                          className="w-[40px] mobile:w-[23px]"
-                        />
-                        <strong className="ml-[14px] text-[18px] mobile:text-[14px]">
-                          최민식
-                        </strong>
-                        <div className="ml-[45px] text-[12px] mobile:ml-[20px] mobile:text-[8px]">
-                          <span>10 분전</span>
-                        </div>
-                      </div>
-                      <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
-                        큰일났습니다 도와주세요 어려운 문제가 있습니다 혼나게
-                        생겼습니다
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0">
-                      <div className="flex items-center">
-                        <img
-                          src={profileImg}
-                          className="w-[40px] mobile:w-[23px]"
-                        />
-                        <strong className="ml-[14px] text-[18px] mobile:text-[14px]">
-                          최민식
-                        </strong>
-                        <div className="ml-[45px] text-[12px] mobile:ml-[20px] mobile:text-[8px]">
-                          <span>10 분전</span>
-                        </div>
-                      </div>
-                      <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
-                        큰일났습니다 도와주세요 어려운 문제가 있습니다 혼나게
-                        생겼습니다
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0">
-                      <div className="flex items-center">
-                        <img
-                          src={profileImg}
-                          className="w-[40px] mobile:w-[23px]"
-                        />
-                        <strong className="ml-[14px] text-[18px] mobile:text-[14px]">
-                          최민식
-                        </strong>
-                        <div className="ml-[45px] text-[12px] mobile:ml-[20px] mobile:text-[8px]">
-                          <span>10 분전</span>
-                        </div>
-                      </div>
-                      <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
-                        큰일났습니다 도와주세요 어려운 문제가 있습니다 혼나게
-                        생겼습니다
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0">
-                      <div className="flex items-center">
-                        <img
-                          src={profileImg}
-                          className="w-[40px] mobile:w-[23px]"
-                        />
-                        <strong className="ml-[14px] text-[18px] mobile:text-[14px]">
-                          최민식
-                        </strong>
-                        <div className="ml-[45px] text-[12px] mobile:ml-[20px] mobile:text-[8px]">
-                          <span>10 분전</span>
-                        </div>
-                      </div>
-                      <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
-                        큰일났습니다 도와주세요 어려운 문제가 있습니다 혼나게
-                        생겼습니다
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <Comment />
           </div>
-          <div className="w-[33%] mobile:w-full pt-[30px]">
-            <ProfileBox headerHeight={headerHeight} writerData={writerData} />
+          <div className="w-[35%] mobile:w-full pt-[30px]">
+            <RightBox headerHeight={headerHeight} writerData={writerData}/>
           </div>
         </div>
       </section>
