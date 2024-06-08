@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "@/components/Header";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import BoardBody from "@/components/detail/BoardBody";
 import { useParams } from "react-router-dom";
 import apiFunction from "@/util/apiFunction";
@@ -16,6 +16,7 @@ function BoardDetail() {
   const [cookies] = useCookies();
   const param = useParams();
   const {setGrantType, setAccessToken} = useLoginInfoStore();
+  const [addComment, setAddComment] = useState(false);
   const [comments, setComments] = useState([]);
   const [writerData, setWriterData] = useState({
     nickName: "",
@@ -28,12 +29,13 @@ function BoardDetail() {
     setHeaderHeight(header.offsetHeight);
   }, []);
 
+  
   useEffect(() =>{
     setGrantType(cookies.grantType);
     setAccessToken(cookies.accessToken);
   },[cookies.accessToken, cookies.grantType, setAccessToken, setGrantType])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getData = async () => {
       try {
         const responsePostData = await (
@@ -53,6 +55,18 @@ function BoardDetail() {
       }
     };
 
+    const addView = async () => {
+      try {
+        await apiFunction.postData( `${import.meta.env.VITE_API_URL}/post/${param.id}/addview`)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+    addView();
+  }, [param.id]);
+
+  useLayoutEffect(()=>{
     const getCommentList = async () => {
       try{
           const responseData = (await apiFunction.getData(`${import.meta.env.VITE_API_URL}/comments/${param.id}`)).data.data;
@@ -62,20 +76,10 @@ function BoardDetail() {
           console.log(error);
       }
     }
+    getCommentList();
+    setAddComment(false);
+  },[param.id,addComment])
 
-    const addView = async () => {
-      try {
-        await apiFunction.postData( `${import.meta.env.VITE_API_URL}/post/${param.id}/addview`)
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    if (param.id) {
-      getData();
-      getCommentList();
-      addView();
-    }
-  }, [param.id]);
 
   return (
     <div>
@@ -92,7 +96,7 @@ function BoardDetail() {
                 <MobileProfileBox writerData={writerData}/>
               </div>
             </div>
-            <Comment comments={comments}/>
+            <Comment comments={comments} setAddComment={setAddComment}/>
           </div>
           <div className="w-[35%] mobile:w-full pt-[30px]">
             <RightBox headerHeight={headerHeight} writerData={writerData}/>

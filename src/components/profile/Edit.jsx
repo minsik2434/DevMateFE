@@ -1,5 +1,4 @@
 import React from 'react'
-import profileDefaultImg from '@/assets/profileicon.png';
 import Interests from '@/components/Interests';
 
 function Edit({onChange, onSelected, values}) {
@@ -19,7 +18,7 @@ function Edit({onChange, onSelected, values}) {
         </li>
         <li className='flex items-start justify-start gap-[10px]'>
             <span className='min-w-[20%]'>프로필</span>
-            <img src={profileDefaultImg} className='w-[100px] mobile:w-[50px]'></img>
+            <img src={values.imgUrl} className='w-[100px] mobile:w-[50px]'></img>
             <button className='font-bold text-[14px] mobile:text-[10px] text-white px-[20px] mobile:px-[10px] py-[6px] mobile:py-[3px] bg-slate-400 rounded-2xl'>change</button>
         </li>
         <li className='flex items-center justify-start gap-[10px] mobile:gap-[5px]'>

@@ -1,12 +1,8 @@
 import Header from "@/components/Header";
-import commentImg from "@/assets/comment.png";
-import goodImg from "@/assets/good.png";
-import viewImg from "@/assets/view.png";
 import apiFunction from "@/util/apiFunction";
-import profileImg from "@/assets/profile.png";
 import React from "react";
 import Inform from "@/components/profile/Inform";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { useCookies } from "react-cookie";
 import useLoginInfoStore from "@/stores/loginInfo";
 import RelatedPost from "@/components/profile/RelatedPost";
@@ -21,12 +17,13 @@ function Profile() {
     imgUrl: "test.png",
     interests: [],
   });
+
   useEffect(() =>{
     setGrantType(cookies.grantType);
     setAccessToken(cookies.accessToken);
   },[cookies.accessToken, cookies.grantType, setAccessToken, setGrantType])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getMember = async () => {
       try {
         const responseData = (
@@ -50,7 +47,7 @@ function Profile() {
   }, [accessToken, grantType]);
 
 
-  useEffect(() =>{
+  useLayoutEffect(() =>{
     const getRelatePost = async () =>{
       try{
         const responseData = (await apiFunction.getDataSetHeader(

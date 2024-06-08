@@ -2,13 +2,13 @@ import React from "react";
 import InputField from "@/components/sign/InputField";
 import SingUpButton from "@/components/sign/SignButton";
 import apiFunction from "@/util/apiFunction";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import Interests from "@/components/Interests";
 import { useNavigate } from "react-router-dom";
 import useInterestStore from "@/stores/InterestInfo";
 function Signup() {
   const {interestsInfo, setInterestsInfo} = useInterestStore();
-  useEffect(()=>{
+  useLayoutEffect(()=>{
     const setInterests = async () =>{
       const responseData = (await apiFunction.getData(`${import.meta.env.VITE_API_URL}/interests`)).data.data;
       setInterestsInfo(responseData);

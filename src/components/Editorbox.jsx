@@ -93,7 +93,7 @@ function EditorBox({setContent}) {
       return () => {
         editorInstance.off('change', handleChange);
       };
-    }, [setContent]);
+    }, [accessToken, grantType, setContent]);
 
     return (
         <div>
