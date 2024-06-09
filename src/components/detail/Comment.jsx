@@ -9,14 +9,17 @@ import formatTimeDifference from '@/util/get_time_current_diff';
 import useMemberStore from '@/stores/memberInfo';
 function Comment() {
     const {grantType, accessToken} = useLoginInfoStore();
-    const {name, nickName, imgUrl} = useMemberStore();
+    const {nickName, imgUrl} = useMemberStore();
     const [comments, setComments] = useState([]);
     const [input, setInput] = useState({
         comment : ""
     });
+    const [editState, setEditState] = useState(false);
     const [updateFlag, setUpdateFlag] = useState(false);
     const param = useParams();
-
+    const [editInput, setEditInput] = useState({
+        comment : ""
+    });
     useLayoutEffect(()=>{
         const getCommentList = async () => {
           try{
@@ -33,6 +36,9 @@ function Comment() {
  
     const onChnage = (e) =>{
         setInput({comment : e.target.value});
+    }
+    const onEditChange = (e) =>{
+        setEditInput({comment: e.target.value})
     }
 
     const onSubmit = async (e) => {
@@ -65,6 +71,25 @@ function Comment() {
             } catch (error) {
                 console.log(error);
             }
+        }
+    }
+
+    const onEdit = async(e) =>{
+        e.preventDefault()
+        try {
+            await apiFunction.patchDataSetHeader(
+              `${import.meta.env.VITE_API_URL}/comments/${e.target.value}`,
+              editInput,
+              {
+                headers: {
+                  Authorization: `${grantType} ${accessToken}`,
+                },
+              }
+            );
+            setUpdateFlag(prev => !prev);
+            setEditState(false);
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -101,11 +126,13 @@ function Comment() {
                                 {
                                     nickName === comment.writer.nickName && (
                                         <div className='absolute right-0'>
-                                            <ul className='flex gap-[10px]'>
+                                            <ul className='flex gap-[8px]'>
                                                 <li>
-                                                    <button type='button'>수정</button>
+                                                    { editState === false && (
+                                                        <button type='button' onClick={()=>{setEditState(true); setEditInput({comment : comment.content})}}>수정</button>
+                                                    )}
                                                 </li>
-                                                |
+                
                                                 <li>
                                                     <button type='button' value={comment.id} onClick={onDelete}>삭제</button>
                                                 </li>
@@ -125,9 +152,27 @@ function Comment() {
                                     <span>{formatTimeDifference(comment.commentDateTime)}</span>
                                 </div>
                                 </div>
-                                <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
-                                    {comment.content}
-                                </p>
+                                {
+                                    editState === false && (
+                                        <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
+                                            {comment.content}
+                                        </p>
+                                    )
+                                }
+                                {
+                                    editState == true && (
+                                        <div className='py-[15px]'>
+                                            <input 
+                                                className='w-full border border-[#9b9b9b] rounded-md px-[10px] py-[10px] outline-none' 
+                                                value={editInput.comment}
+                                                onChange={onEditChange}></input>
+                                            <div className='flex gap-[15px] justify-end mt-[10px] text-white outline-none'>
+                                                <button className='px-[15px] py-[3px] rounded-md bg-brand_red' type="button" onClick={()=>{setEditState(false)}}>취소</button>
+                                                <button className='px-[15px] py-[3px] rounded-md bg-brand_blue' value={comment.id} onClick={onEdit}>수정</button>
+                                            </div>
+                                        </div>
+                                    )
+                                }
                             </div>
                         </li>
                     )
