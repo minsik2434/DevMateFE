@@ -1,22 +1,31 @@
 import React from 'react';
-import { useState , useEffect} from 'react';
+import { useState , useEffect, useLayoutEffect} from 'react';
 import apiFunction from '@/util/apiFunction';
 import Edit from '@/components/profile/Edit';
 import { useNavigate } from 'react-router-dom';
-import useLoginInfoStore from '@/stores/loginInfo';
 import { useCookies } from 'react-cookie';
+import useInterestStore from '@/stores/InterestInfo';
 function ProfileEdit() {
     const nav = useNavigate();
+    const {setInterestsInfo} = useInterestStore();
     const [cookies] = useCookies();
     const [inputValues, setInputValues] = useState({
         name: "",
         nickName: "",
-        imgUrl: "test.png",
+        imgUrl: "",
         experienced: false,
         interests: []
     });
+   
+    useLayoutEffect(()=>{
+        const setInterests = async () =>{
+            const responseData = (await apiFunction.getData(`${import.meta.env.VITE_API_URL}/interests`)).data.data;
+            setInterestsInfo(responseData);
+        }
+        setInterests();
+    },[setInterestsInfo])
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const getMember = async () =>{
             try{
                 const responseData = (await apiFunction.getDataSetHeader(`${import.meta.env.VITE_API_URL}/members`,{

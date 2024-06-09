@@ -4,7 +4,7 @@ import ContentEdit from "@/components/post/ContentEdit";
 import useLoginInfoStore from "@/stores/loginInfo";
 import apiFunction from "@/util/apiFunction";
 import React from "react";
-import { useEffect, useState} from "react";
+import { useEffect, useState, useLayoutEffect} from "react";
 import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -90,7 +90,7 @@ function Post() {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const savedTokenInfo = () => {
       setGrantType(cookies.grantType);
       setAccessToken(cookies.accessToken);

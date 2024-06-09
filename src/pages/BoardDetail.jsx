@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "@/components/Header";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import BoardBody from "@/components/detail/BoardBody";
 import { useParams } from "react-router-dom";
 import apiFunction from "@/util/apiFunction";
@@ -9,31 +9,55 @@ import MobileProfileBox from "@/components/detail/MobileProfileBox";
 import Comment from "@/components/detail/Comment";
 import { useCookies } from "react-cookie";
 import useLoginInfoStore from "@/stores/loginInfo";
+import useMemberStore from "@/stores/memberInfo";
 
 function BoardDetail() {
   const [headerHeight, setHeaderHeight] = useState(0);
   const [postData, setPostData] = useState({});
   const [cookies] = useCookies();
   const param = useParams();
-  const {setGrantType, setAccessToken} = useLoginInfoStore();
+  const {accessToken, grantType, setGrantType, setAccessToken} = useLoginInfoStore();
   const [comments, setComments] = useState([]);
   const [writerData, setWriterData] = useState({
     nickName: "",
     imgUrl: "",
     interests: [],
   });
+  const {setName, setNickName, setImgUrl} = useMemberStore();
+
+  useEffect(()=>{
+      const getData = async () =>{
+          try{
+              const responseData = (await apiFunction.getDataSetHeader(`${import.meta.env.VITE_API_URL}/members`,
+                  {headers: {
+                          Authorization: `${grantType} ${accessToken}`,
+                      },})).data.data;
+              setName(responseData.name);
+              setNickName(responseData.nickName);
+              setImgUrl(responseData.imgUrl);
+          }
+
+          catch(error){
+              console.log(error);
+          }
+      }
+      if(accessToken&&grantType){
+          getData();
+      }
+  },[accessToken, grantType, setImgUrl, setName, setNickName])
 
   useEffect(() => {
     const header = document.querySelector("header");
     setHeaderHeight(header.offsetHeight);
   }, []);
 
+  
   useEffect(() =>{
     setGrantType(cookies.grantType);
     setAccessToken(cookies.accessToken);
   },[cookies.accessToken, cookies.grantType, setAccessToken, setGrantType])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getData = async () => {
       try {
         const responsePostData = await (
@@ -53,16 +77,6 @@ function BoardDetail() {
       }
     };
 
-    const getCommentList = async () => {
-      try{
-          const responseData = (await apiFunction.getData(`${import.meta.env.VITE_API_URL}/comments/${param.id}`)).data.data;
-          setComments(responseData);
-      }
-      catch(error){
-          console.log(error);
-      }
-    }
-
     const addView = async () => {
       try {
         await apiFunction.postData( `${import.meta.env.VITE_API_URL}/post/${param.id}/addview`)
@@ -70,11 +84,8 @@ function BoardDetail() {
         console.log(error);
       }
     };
-    if (param.id) {
-      getData();
-      getCommentList();
-      addView();
-    }
+    getData();
+    addView();
   }, [param.id]);
 
   return (
@@ -92,7 +103,7 @@ function BoardDetail() {
                 <MobileProfileBox writerData={writerData}/>
               </div>
             </div>
-            <Comment comments={comments}/>
+            <Comment/>
           </div>
           <div className="w-[35%] mobile:w-full pt-[30px]">
             <RightBox headerHeight={headerHeight} writerData={writerData}/>

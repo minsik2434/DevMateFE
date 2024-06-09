@@ -2,7 +2,6 @@ import React from 'react'
 import commentImg from "@/assets/comment.png";
 import goodImg from "@/assets/good.png";
 import viewImg from "@/assets/view.png";
-import profileImg from "@/assets/profile.png";
 import formatTimeDifference from '@/util/get_time_current_diff';
 import removeHTMLTags from '@/util/getTextexcludingHtmlTag';
 import { useNavigate } from 'react-router-dom';

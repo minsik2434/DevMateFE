@@ -14,7 +14,7 @@ function Inform({value}) {
     const onClick = () =>{
       if(confirm("정말 탈퇴하시겠습니까?") == true){
         if(confirm("탈퇴하면 모든 정보가 사라집니다 그래도 탈퇴하시겠습니까?") == true){
-          apiFunction.deleteData(`${import.meta.env.VITE_API_URL}members`, {
+          apiFunction.deleteData(`${import.meta.env.VITE_API_URL}/members`, {
             headers:{
               Authorization :`${grantType} ${accessToken}`
             }

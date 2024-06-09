@@ -1,39 +1,35 @@
 import React from 'react'
 import penImg from "@/assets/pen.png";
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import apiFunction from '@/util/apiFunction';
 import useLoginInfoStore from '@/stores/loginInfo';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import formatTimeDifference from '@/util/get_time_current_diff';
-function Comment({comments}) {
+import useMemberStore from '@/stores/memberInfo';
+function Comment() {
     const {grantType, accessToken} = useLoginInfoStore();
-    const [memberInfo, setMemberInfo] = useState({});
+    const {name, nickName, imgUrl} = useMemberStore();
+    const [comments, setComments] = useState([]);
     const [input, setInput] = useState({
         comment : ""
     });
-
+    const [updateFlag, setUpdateFlag] = useState(false);
     const param = useParams();
+
+    useLayoutEffect(()=>{
+        const getCommentList = async () => {
+          try{
+              const responseData = (await apiFunction.getData(`${import.meta.env.VITE_API_URL}/comments/${param.id}`)).data.data;
+              setComments(responseData);
+          }
+          catch(error){
+              console.log(error);
+          }
+        }
+        getCommentList();
+      },[param.id,updateFlag])
     
-    useEffect(()=>{
-        const getData = async () =>{
-            try{
-                const responseData = (await apiFunction.getDataSetHeader(`${import.meta.env.VITE_API_URL}/members`,
-                    {headers: {
-                            Authorization: `${grantType} ${accessToken}`,
-                        },})).data.data;
-                setMemberInfo(responseData);
-            }
-
-            catch(error){
-                console.log(error);
-            }
-        }
-        if(accessToken&&grantType){
-            getData();
-        }
-    },[accessToken, grantType])
-
  
     const onChnage = (e) =>{
         setInput({comment : e.target.value});
@@ -51,9 +47,25 @@ function Comment({comments}) {
                 },
               }
             );
-          } catch (error) {
+            setUpdateFlag(prev => !prev);
+        } catch (error) {
             console.log(error);
-          }
+        }
+    }
+
+    const onDelete = async (e) =>{
+        if (confirm("댓글을 삭제하시겠습니까?") == true) {
+            try {
+                await apiFunction.deleteData(`${import.meta.env.VITE_API_URL}/comments/${e.target.value}`, {
+                    headers: {
+                        Authorization: `${grantType} ${accessToken}`
+                    }
+                });
+                setUpdateFlag(prev => !prev);
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 
   return (
@@ -61,12 +73,13 @@ function Comment({comments}) {
         <div className="w-full px-[30px] py-[20px] border border-[#9b9b9b] rounded-lg">
             <form onSubmit={onSubmit}>
                 <div className="flex gap-[30px] items-center mobile:gap-[10px]">
-                    <img src={memberInfo.imgUrl} className="w-[50px] mobile:w-[30px]" />
+                    <img src={imgUrl} className="w-[50px] mobile:w-[30px]" />
                     <label htmlFor="comment" className="sr-only"></label>
                         <input
                             id="comment"
                             placeholder="댓글을 작성해보세요"
                             onChange={onChnage}
+                            autoComplete="comment"
                             className="w-full py-[10px] mobile:py-[3px] px-[13px] placeholder:text-[14px] mobile:placeholder:text-[10px] placeholder:font-bold border border-[#9b9b9b] rounded-lg"/>
                         <button className="tablet:hidden desktop:hidden p-[7px] rounded-md border border-[#9b9b9b]">
                             <img src={penImg} className="w-[20px]" />
@@ -84,7 +97,22 @@ function Comment({comments}) {
                 {comments.map(comment =>{
                     return (
                         <li key={comment.id}>
-                            <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0">
+                            <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0 relative">
+                                {
+                                    nickName === comment.writer.nickName && (
+                                        <div className='absolute right-0'>
+                                            <ul className='flex gap-[10px]'>
+                                                <li>
+                                                    <button type='button'>수정</button>
+                                                </li>
+                                                |
+                                                <li>
+                                                    <button type='button' value={comment.id} onClick={onDelete}>삭제</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    )
+                                }
                                 <div className="flex items-center">
                                 <img
                                     src={comment.writer.profileImgUrl}

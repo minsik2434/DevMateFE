@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useLayoutEffect } from 'react';
 import useInterestStore from '@/stores/InterestInfo';
 
 function Interests({onSelected, selected, type}) {
@@ -7,7 +7,8 @@ function Interests({onSelected, selected, type}) {
     const {interestsInfo} = useInterestStore();
     const [interests, setInterests] = useState([]);
 
-    useEffect(()=>{
+    console.log(interests);
+    useLayoutEffect(()=>{
         const getInterests = () =>{
             setInterests(interestsInfo);
         };  
