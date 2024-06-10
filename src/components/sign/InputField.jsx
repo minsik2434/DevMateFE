@@ -18,7 +18,7 @@ function InputField({id, placeholder, name, type, onChange}) {
     <li>
         <label className='sr-only' htmlFor={id}>{placeholder}</label>  
         <input id={id} name={name} placeholder={placeholder} type={inputType}
-                        className={css} onChange={onChange}/>
+                        className={css} onChange={onChange} required/>
     </li>
   )
 }

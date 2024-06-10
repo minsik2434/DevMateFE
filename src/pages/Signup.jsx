@@ -3,10 +3,13 @@ import logo from "../assets/Logo.png";
 import InputField from "@/components/sign/InputField";
 import SingUpButton from "@/components/sign/SignButton";
 import apiFunction from "@/util/apiFunction";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Interests from "@/components/Interests";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+import { debounce } from "lodash";
+
 function Signup() {
   const nav = useNavigate();
   const [inputValues, setInputValues] = useState({
@@ -19,13 +22,53 @@ function Signup() {
     interests: [],
   });
 
+  const [passwordMismatch, setPasswordMismatch] = useState(false);
+
+  // const debouncedChangeHandler = useCallback(
+  //   debounce((name, value, type, checked) => {
+  //     setInputValues((prevInputValues) => ({
+  //       ...prevInputValues,
+  //       [name]: type === "checkbox" ? checked : value,
+  //     }));
+
+  //     console.log("디바운스 테스트");
+  //   }, 300), // 300ms 디바운스 타임 설정
+  //   []
+  // );
+
+  const debouncedChangeHandler = useCallback(
+    debounce((name, value, type, checked) => {
+      setInputValues((prevInputValues) => {
+        const newInputValues = {
+          ...prevInputValues,
+          [name]: type === "checkbox" ? checked : value,
+        };
+        if (name === "password" || name === "confirmPassword") {
+          setPasswordMismatch(
+            newInputValues.password &&
+              newInputValues.confirmPassword &&
+              newInputValues.password !== newInputValues.confirmPassword
+          );
+        }
+        return newInputValues;
+      });
+    
+    }, 500), // 300ms 디바운스 타임 설정
+    []
+  );
+
   const onChange = (e) => {
     const { value, name, type, checked } = e.target;
-    setInputValues((prevInputValues) => ({
-      ...prevInputValues,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    debouncedChangeHandler(name, value, type, checked);
   };
+
+  // const onChange = (e) => {
+  //   const { value, name, type, checked } = e.target;
+  //   setInputValues((prevInputValues) => ({
+  //     ...prevInputValues,
+  //     [name]: type === "checkbox" ? checked : value,
+  //   }));
+  // };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -50,8 +93,19 @@ function Signup() {
     }));
   };
 
+  // 컴포넌트가 마운트될 때 상태 초기화
   useEffect(() => {
-    console.log(import.meta.env.VITE_API_URL);
+    return () => {
+      setInputValues({
+        loginId: "",
+        password: "",
+        confirmPassword: "",
+        name: "",
+        nickName: "",
+        experienced: false,
+        interests: [],
+      });
+    };
   }, []);
 
   return (
@@ -86,6 +140,11 @@ function Signup() {
                   value={inputValues.confirmPassword}
                   onChange={onChange}
                 />
+                {passwordMismatch && (
+                  <p className="text-red-500 text-sm -mt-4 ml-1">
+                    비밀번호가 일치하지 않습니다.
+                  </p>
+                )}
                 <InputField
                   id="name"
                   placeholder="Name"

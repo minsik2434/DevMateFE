@@ -44,7 +44,7 @@ function JobReviewPost() {
   
   const handleRegister = async () => {
     try{
-      await apiFunction.postDataSetHeader("http://localhost:8080/post/review",postValues , {
+      await apiFunction.postDataSetHeader(`${import.meta.env.VITE_API_URL}/post/review`,postValues , {
         headers:{
           Authorization: `${grantType} ${accessToken}`
         }
