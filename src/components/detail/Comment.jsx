@@ -54,6 +54,7 @@ function Comment() {
               }
             );
             setUpdateFlag(prev => !prev);
+            setInput({ comment: "" });
         } catch (error) {
             console.log(error);
         }
@@ -103,6 +104,7 @@ function Comment() {
                         <input
                             id="comment"
                             placeholder="댓글을 작성해보세요"
+                            value={input.comment}
                             onChange={onChnage}
                             autoComplete="comment"
                             className="w-full py-[10px] mobile:py-[3px] px-[13px] placeholder:text-[14px] mobile:placeholder:text-[10px] placeholder:font-bold border border-[#9b9b9b] rounded-lg"/>
