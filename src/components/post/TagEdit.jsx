@@ -1,11 +1,7 @@
 import React from 'react'
-import { useState } from 'react'
-
-function TagEdit({onTags}) {
-    const [tags, setTags] = useState([]);
+function TagEdit({onTags, tags}) {
     const removeLastTag = () => {
         const updatedTags = tags.slice(0, -1);
-        setTags(updatedTags);
         onTags(updatedTags); 
     };
 
@@ -16,9 +12,8 @@ function TagEdit({onTags}) {
         }
         const inputValue = e.target.value;
         if(e.key==='Enter' && inputValue !=='' && !tags.includes(inputValue)) {       
-            setTags([...tags, inputValue]);
             e.target.value='';
-            onTags(tags);
+            onTags([...tags, inputValue]);
         }
     }
     

@@ -59,6 +59,10 @@ const router = createBrowserRouter([
         element: <Post />,
       },
       {
+        path: "post/:category/edit",
+        element: <Post />
+      },
+      {
         path: "post/study/new",
         element: <StudyPost />,
       },
