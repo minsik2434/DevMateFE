@@ -1,21 +1,57 @@
 import React from 'react'
 import Viewerbox from "@/components/Viewerbox";
 import useFormattedDateTime from '@/hooks/useFormattedDateTime';
+import useMemberStore from '@/stores/memberInfo';
+import useLoginInfoStore from '@/stores/loginInfo';
+import apiFunction from '@/util/apiFunction';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-function BoardBody({data}) {
-
+function BoardBody({data , writer}) {
+    const {accessToken, grantType} = useLoginInfoStore();
     const postingDate = useFormattedDateTime(data.postingDateTime);
+    const {nickName} = useMemberStore();
+    const param = useParams();
+    const nav = useNavigate();
+    const onDelete = () =>{
+        if(confirm("정말 게시글을 삭제하시겠습니까?") == true){
+            try{
+                const deletePost = apiFunction.deleteData(`${import.meta.env.VITE_API_URL}/post/${data.id}`,
+                    {
+                        headers:{
+                                    Authorization: `${grantType} ${accessToken}`,
+                                },
+                    }
+                )
+                nav(`/board/${param.category}`)
+            }
+            catch(error){
+                console.log(error);
+        }
+    }
+    } 
     return (
         <>
             <h1 className='font-bold text-black text-[25px] mobile:text-[15px]'>{data.title}</h1>
-            <div className='flex gap-[30px] mobile:gap-[20px] text-[14px] mobile:text-[8px] mt-[15px] mobile:mt-[10px]'>
-                <span className='font-bold text-[#9B9B9B]'>{postingDate} 작성</span>
-                <div>
-                    <span>조회수 : {data.viewCount}</span>
+            <div className='flex justify-between pr-[50px] mobile:gap-[20px] text-[14px] mobile:text-[8px] mt-[15px] mobile:mt-[10px]'>
+                <div className='flex gap-[30px]'>
+                    <span className='font-bold text-[#553e3e]'>{postingDate} 작성</span>
+                    <div>
+                        <span>조회수 : {data.viewCount}</span>
+                    </div>
+                    <div>
+                        <span>추천수 : {data.goodCount}</span>
+                    </div>
                 </div>
-                <div>
-                    <span>추천수 : {data.goodCount}</span>
-                </div>
+                {
+                    writer.nickName === nickName  && (
+                        <div className='flex gap-[15px]'>
+                            <button type='button'>수정</button>
+                            <button type='button' onClick={onDelete}>삭제</button>
+                        </div>
+                    )
+                }
+
             </div>
             <div className='mt-[20px] mobile:mt-[12px] '>
                 <Viewerbox initString={data.content}/>

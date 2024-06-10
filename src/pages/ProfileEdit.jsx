@@ -84,10 +84,10 @@ function ProfileEdit() {
                     <form onSubmit={onSubmit}>
                         <Edit onChange={onChange} onSelected={updateSelectedInterests} values={inputValues}/>
                         <div className='flex justify-center gap-[20px] mt-[50px] mobile:mt-[25px] text-[14px] mobile:text-[12px] text-white'>
-                            <button type='submit' className='font-bold px-[30px] py-[10px] mobile:px-[15px] mobile:py-[5px] bg-blue-200 rounded-full'>등록하기</button>
+                            <button type='submit' className='font-bold px-[30px] py-[10px] mobile:px-[15px] mobile:py-[5px] bg-brand_blue rounded-full'>등록하기</button>
                             <button type='button'
                                 onClick={()=>nav("/profile")}
-                                className='font-bold px-[30px] py-[10px] mobile:px-[15px] mobile:py-[5px] bg-red-300 rounded-full'>취소</button>
+                                className='font-bold px-[30px] py-[10px] mobile:px-[15px] mobile:py-[5px] bg-brand_red rounded-full'>취소</button>
                         </div>
                     </form>
                 </div>
