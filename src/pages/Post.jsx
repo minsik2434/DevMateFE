@@ -18,7 +18,6 @@ function Post() {
     accessToken,
     setGrantType,
     setAccessToken,
-    setRefreshToken,
   } = useLoginInfoStore();
   const [postValues, setPostValues] = useState({
     title: "",
@@ -116,6 +115,7 @@ function Post() {
             onTags={onTags}
             setContent={setContent}
             setTitle={setTitle}
+            postValues={postValues}
           />
           <div className="flex justify-end gap-[43px] mobile:gap-[18px] mt-[42px] mobile:mt-[20px]">
             <button

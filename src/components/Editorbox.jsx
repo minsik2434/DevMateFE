@@ -11,7 +11,7 @@ import { useRef, useEffect, useState } from 'react';
 import apiFunction from '@/util/apiFunction';
 import useLoginInfoStore from '@/stores/loginInfo';
 import { useCookies } from 'react-cookie';
-function EditorBox({setContent}) {
+function EditorBox({setContent, content}) {
     const prevImagesRef = useRef([]);
     const [cookies] = useCookies();
     const editorRef = useRef()
@@ -52,6 +52,12 @@ function EditorBox({setContent}) {
         window.removeEventListener('resize', handleResize)
       }
     }, [])
+    
+    useEffect(() => {
+      if (editorRef.current) {
+        editorRef.current.getInstance().setHTML(content);
+      }
+    }, [content])
 
     useEffect(() => {
       const handleChange = () => {
@@ -98,7 +104,7 @@ function EditorBox({setContent}) {
     return (
         <div>
             <Editor
-                initialValue=' '
+                initialValue={content}
                 previewStyle='vertical'
                 height={editorHeight}
                 toolbarItems={toolbar}

@@ -13,10 +13,11 @@ function BoardBody({data , writer}) {
     const {nickName} = useMemberStore();
     const param = useParams();
     const nav = useNavigate();
+    
     const onDelete = () =>{
         if(confirm("정말 게시글을 삭제하시겠습니까?") == true){
             try{
-                const deletePost = apiFunction.deleteData(`${import.meta.env.VITE_API_URL}/post/${data.id}`,
+                apiFunction.deleteData(`${import.meta.env.VITE_API_URL}/post/${data.id}`,
                     {
                         headers:{
                                     Authorization: `${grantType} ${accessToken}`,
@@ -27,9 +28,13 @@ function BoardBody({data , writer}) {
             }
             catch(error){
                 console.log(error);
+            }
         }
-    }
     } 
+    const handleEditNav = ({ data }) =>{
+        nav(`/post/${param.category}/edit?id=${data.id}`,)
+    }
+
     return (
         <>
             <h1 className='font-bold text-black text-[25px] mobile:text-[15px]'>{data.title}</h1>
@@ -46,7 +51,7 @@ function BoardBody({data , writer}) {
                 {
                     writer.nickName === nickName  && (
                         <div className='flex gap-[15px]'>
-                            <button type='button'>수정</button>
+                            <button type='button' onClick={()=> handleEditNav({data})}>수정</button>
                             <button type='button' onClick={onDelete}>삭제</button>
                         </div>
                     )
