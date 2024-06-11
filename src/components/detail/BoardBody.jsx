@@ -31,8 +31,14 @@ function BoardBody({data , writer}) {
             }
         }
     } 
+    
     const handleEditNav = ({ data }) =>{
-        nav(`/post/${param.category}/edit?id=${data.id}`,)
+        nav(`/post/${param.category}/edit?id=${data.id}`,{
+            state: {
+                    writer : writer
+                },
+            }
+        )
     }
 
     return (

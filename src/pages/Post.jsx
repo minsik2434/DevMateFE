@@ -6,6 +6,8 @@ import apiFunction from "@/util/apiFunction";
 import React from "react";
 import { useEffect, useState, useLayoutEffect} from "react";
 import { useCookies } from "react-cookie";
+import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +15,15 @@ function Post() {
   const param = useParams();
   const [cookies] = useCookies();
   const nav = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const [memberInfo, setMemberInfo] = useState({
+    name: "",
+    nickName: "",
+    imgUrl: "test.png",
+    interests: [],
+  });
+  const postId = searchParams.get('id');
   const {
     grantType,
     accessToken,
@@ -24,7 +35,6 @@ function Post() {
     tags: [],
     content: "",
   });
-
   const bannerElementByCategory = {
     qna : {
       heading:"Q&A",
@@ -89,6 +99,24 @@ function Post() {
     }
   };
 
+  const handleEdit = async () => {
+    try{
+      await apiFunction.patchDataSetHeader(
+        `${import.meta.env.VITE_API_URL}/post/${postId}`,
+        postValues,
+        {
+          headers: {
+            Authorization: `${grantType} ${accessToken}`,
+          }
+        }
+      );
+      alert("게시글 수정 완료");
+      nav(`/board/${param.category}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useLayoutEffect(() => {
     const savedTokenInfo = () => {
       setGrantType(cookies.grantType);
@@ -97,8 +125,54 @@ function Post() {
     savedTokenInfo();
   }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
 
+  useLayoutEffect(() => {
+    const getMember = async () => {
+      try {
+        const responseData = (
+          await apiFunction.getDataSetHeader(
+            `${import.meta.env.VITE_API_URL}/members`,
+            {
+              headers: {
+                Authorization: `${grantType} ${accessToken}`,
+              },
+            }
+          )
+        ).data.data;
+        setMemberInfo(responseData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (grantType && accessToken) {
+      getMember();
+    }
+  }, [accessToken, grantType]);
+
+  useLayoutEffect(()=>{
+    const getPostData = async () =>{
+      try{
+        const responsePostData = await (
+          await apiFunction.getData(
+            `${import.meta.env.VITE_API_URL}/post/${postId}`
+          )
+        ).data.data;
+        setPostValues({
+          title : responsePostData.title,
+          tags : responsePostData.tags,
+          content: responsePostData.content
+        })
+      } catch(error){
+        console.log(error);
+      }
+    } 
+    if (location.pathname === `/post/${param.category}/new`) {
+      return;
+    }
+    getPostData()
+  },[location, memberInfo.nickName, nav, param.category, postId])
 
   const { heading, exp, style } = bannerElementByCategory[param.category]
+  const handleSubmit = location.pathname === `/post/${param.category}/new` ? handleRegister : handleEdit;
   return (
     <div>
       <header>
@@ -119,7 +193,7 @@ function Post() {
           />
           <div className="flex justify-end gap-[43px] mobile:gap-[18px] mt-[42px] mobile:mt-[20px]">
             <button
-              onClick={handleRegister}
+              onClick={handleSubmit}
               className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-[#979797] text-white font-bold rounded-md"
             >
               등록
