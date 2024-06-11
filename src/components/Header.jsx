@@ -1,14 +1,27 @@
 import React from "react";
 import logo from "@/assets/logo.svg";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useCookies } from "react-cookie";
 import useIndex from "@/stores/navIndex";
+import Signin from "@/pages/Signin";
+import { getData } from "@/util/Crud";
+import useMember from "@/stores/member";
 
 function Header() {
+  const [showModal, setShowModal] = useState(false);
+  const modalBackground = useRef();
+
   const [toggle, setToggle] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
   const { navIndex, setNavIndex } = useIndex();
+
+  const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
+  const accessToken = cookies.accessToken;
+
+  const { name, nickName, imgUrl, setImgUrl, setName, setNickName } =
+    useMember();
 
   const handleButtonClick = (index) => {
     setNavIndex(index);
@@ -20,6 +33,44 @@ function Header() {
     setIsSticky(scrollTop > 0);
   };
 
+  const handleLogout = () => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      // 모든 쿠키 삭제
+      Object.keys(cookies).forEach((cookieName) => {
+        removeCookie(cookieName, { path: "/" });
+      });
+
+      localStorage.clear();
+      alert("로그아웃 되었습니다.");
+    }
+  };
+
+  const memberInfo = async () => {
+    if (localStorage.getItem("member")) {
+      console.log("이미있음");
+      return;
+    }
+
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `${cookies["grantType"]} ${cookies["accessToken"]}`,
+      };
+
+      const response = await getData(
+        `${import.meta.env.VITE_API_URL}/members`,
+        headers
+      );
+
+      setImgUrl(response.data["imgUrl"]);
+      setName(response.data["name"]);
+      setNickName(response.data["nickName"]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", updateHeaderStyle);
 
@@ -27,6 +78,11 @@ function Header() {
       window.removeEventListener("scroll", updateHeaderStyle);
     };
   }, []);
+
+  useEffect(() => {
+    memberInfo();
+  });
+
   return (
     <div
       className={`${
@@ -44,40 +100,7 @@ function Header() {
               />
             </h1>
           </Link>
-          {/* <nav className="mobile:hidden tablet:flex desktop:flex">
-            <ul className="tablet:flex tablet:justify-between desktop:gap-8 desktop:text-base tablet:gap-7  tablet:text-[10px] text-gray_6 font-medium">
-              <li>
-                <Link to="/borad/QnA">
-                  <button>Q&A</button>
-                </Link>
-              </li>
-              <li>
-                <Link to="/borad/community">
-                  <button>커뮤니티</button>
-                </Link>
-              </li>
-              <li>
-                <Link to="/borad/JobReview">
-                  <button>취업후기</button>
-                </Link>
-              </li>
-              <li>
-                <Link to="/borad/study">
-                  <button>스터디</button>
-                </Link>
-              </li>
-              <li>
-                <Link to="/borad/mentoring">
-                  <button>멘토링</button>
-                </Link>
-              </li>
-              <li>
-                <Link to="/borad/jobOpening">
-                  <button>모집공고</button>
-                </Link>
-              </li>
-            </ul>
-          </nav> */}
+
           <nav className="mobile:hidden tablet:flex desktop:flex">
             <ul className="flex tablet:justify-between desktop:gap-8 desktop:text-base tablet:gap-7 tablet:text-[10px] font-medium">
               {[
@@ -91,9 +114,7 @@ function Header() {
                 <li
                   key={index}
                   onClick={() => handleButtonClick(index)}
-                  className={
-                    navIndex === index ? "text-gray_9" : "text-gray_5"
-                  }
+                  className={navIndex === index ? "text-gray_9" : "text-gray_5"}
                 >
                   <Link to={item.path}>
                     <button>{item.label}</button>
@@ -102,20 +123,86 @@ function Header() {
               ))}
             </ul>
           </nav>
-          <div className="desktop:gap-5 tablet:gap-3 desktop:text-sm tablet:text-[8px]  desktop:flex tablet:flex mobile:hidden ">
-            <Link to="/signin">
-              <button className="border border-gray_6 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  rounded-full hover:opacity-80">
-                로그인
-              </button>
-            </Link>
+          {/* <div className="desktop:gap-5 tablet:gap-3 desktop:text-sm tablet:text-[8px]  desktop:flex tablet:flex mobile:hidden ">
+            <button
+              className="border border-gray_6 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  rounded-full hover:opacity-80"
+              onClick={() => setShowModal(true)}
+            >
+              로그인
+            </button>
+            {showModal && (
+              <div
+                className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-blend-darken bg-black bg-opacity-50 z-50"
+                ref={modalBackground}
+                onClick={(e) => {
+                  if (e.target === modalBackground.current) {
+                    setShowModal(false);
+                  }
+                }}
+              >
+                <Signin />
+              </div>
+            )}
+
             <Link to="/signup">
               <button className="border border-gray_6 rounded-full text-white bg-gray_7 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  hover:opacity-90 ">
                 회원가입
               </button>
             </Link>
           </div>
+
+          <div>
+            <p>로그인되었습니다</p>
+          </div> */}
+          <div>
+            {accessToken ? (
+              <div className="flex items-center gap-3">
+                <img src={imgUrl} alt="" className="w-5 h-5 rounded-full" />
+                <div>
+                  <span className="underline">{nickName}</span>님
+                </div>
+
+                <button
+                  className="border border-gray_6 rounded-full text-white bg-red-600 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5 hover:opacity-80"
+                  onClick={handleLogout}
+                >
+                  로그아웃
+                </button>
+              </div>
+            ) : (
+              <div className="desktop:gap-5 tablet:gap-3 desktop:text-sm tablet:text-[8px] desktop:flex tablet:flex mobile:hidden">
+                <button
+                  className="border border-gray_6 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5 rounded-full hover:opacity-80"
+                  onClick={() => setShowModal(true)}
+                >
+                  로그인
+                </button>
+                {showModal && (
+                  <div
+                    className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-blend-darken bg-black bg-opacity-50 z-50"
+                    ref={modalBackground}
+                    onClick={(e) => {
+                      if (e.target === modalBackground.current) {
+                        setShowModal(false);
+                      }
+                    }}
+                  >
+                    <Signin />
+                  </div>
+                )}
+
+                <Link to="/signup">
+                  <button className="border border-gray_6 rounded-full text-white bg-gray_7 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5 hover:opacity-90">
+                    회원가입
+                  </button>
+                </Link>
+              </div>
+            )}
+          </div>
           <div
-            className={`hamburger ${toggle ? "toggle" : ""} tablet:hidden desktop:hidden`}
+            className={`hamburger ${
+              toggle ? "toggle" : ""
+            } tablet:hidden desktop:hidden`}
             onClick={() => setToggle(!toggle)}
           >
             <span className="line line1"></span>
@@ -128,9 +215,23 @@ function Header() {
                   <button
                     type="button"
                     className="w-full text-start py-1 border-b pl-2"
+                    onClick={() => setShowModal(true)}
                   >
                     로그인
                   </button>
+                  {showModal && (
+                    <div
+                      className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-blend-darken bg-black bg-opacity-50"
+                      ref={modalBackground}
+                      onClick={(e) => {
+                        if (e.target === modalBackground.current) {
+                          setShowModal(false);
+                        }
+                      }}
+                    >
+                      <Signin />
+                    </div>
+                  )}
                   <button type="button" className="w-full text-start py-1 pl-2">
                     회원가입
                   </button>
