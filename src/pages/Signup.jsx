@@ -1,21 +1,22 @@
 import React from "react";
 import InputField from "@/components/sign/InputField";
 import SingUpButton from "@/components/sign/SignButton";
-import apiFunction from "@/util/apiFunction";
 import { useState, useEffect, useLayoutEffect } from "react";
 import Interests from "@/components/Interests";
 import { useNavigate } from "react-router-dom";
 import useInterestStore from "@/stores/InterestInfo";
+import { getData, postData } from "@/util/Crud";
 function Signup() {
-  const {interestsInfo, setInterestsInfo} = useInterestStore();
-  useLayoutEffect(()=>{
-    const setInterests = async () =>{
-      const responseData = (await apiFunction.getData(`${import.meta.env.VITE_API_URL}/interests`)).data.data;
+  const { interestsInfo, setInterestsInfo } = useInterestStore();
+  useLayoutEffect(() => {
+    const setInterests = async () => {
+      const responseData = (
+        await getData(`${import.meta.env.VITE_API_URL}/interests`)
+      ).data;
       setInterestsInfo(responseData);
-    }
+    };
     setInterests();
-  },[setInterestsInfo])
-
+  }, [setInterestsInfo]);
 
   const nav = useNavigate();
   const [inputValues, setInputValues] = useState({
@@ -39,7 +40,7 @@ function Signup() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      await apiFunction.postData(
+      await postData(
         `${import.meta.env.VITE_API_URL}/members/register`,
         inputValues
       );

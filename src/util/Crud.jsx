@@ -58,7 +58,10 @@ const postFormData = async(url, file, headers) =>{
 	const formData = new FormData();
 	formData.append('image', file);
 	try{
-		const response = await axios.post(url, formData, {headers})
+		const response = await axios.post(url, formData, {
+			headers,
+		});
+		return response.data;
 	} catch(error){
 		console.log(`Error in postFormData: ${error}`);
 		throw error;

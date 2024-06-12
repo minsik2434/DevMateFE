@@ -13,7 +13,7 @@ import StudyList from "@/components/board/StudyList";
 import pen from "@/assets/pen.png";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import apiFunction from "@/util/apiFunction";
+import { getData } from "@/util/Crud";
 
 function JobReview() {
   const [selectedOption, setSelectedOption] = useState("recent");
@@ -22,22 +22,25 @@ function JobReview() {
     setSelectedOption(event.target.id);
   };
 
-  const [postDatas , setPostDatas] = useState([]);
+  const [postDatas, setPostDatas] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const getDataBySort = async () => {
-      try{
-        const responseData = (await apiFunction.getData(
-          `${import.meta.env.VITE_API_URL}/post/review/list?sort=${selectedOption}`
-        )).data.data.content;
+      try {
+        const responseData = (
+          await getData(
+            `${
+              import.meta.env.VITE_API_URL
+            }/post/review/list?sort=${selectedOption}`
+          )
+        ).data.content;
         setPostDatas(responseData);
-      }
-      catch(error){
+      } catch (error) {
         console.log(error);
       }
-    }
+    };
     getDataBySort();
-  },[selectedOption])
+  }, [selectedOption]);
   return (
     <div>
       <Header />
@@ -189,7 +192,7 @@ function JobReview() {
             <button
               className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
               type="button"
-              onClick={e=>nav("/post/review/new")}
+              onClick={(e) => nav("/post/review/new")}
             >
               <span className="mobile:hidden tablet:block desktop:block">
                 글쓰기
@@ -203,10 +206,8 @@ function JobReview() {
           </div>
         </form>
         <div className="m-auto">
-        {postDatas.map((postData) =>{
-            return (
-              <BoardList key={postData.id} data={postData}/>
-            )
+          {postDatas.map((postData) => {
+            return <BoardList key={postData.id} data={postData} />;
           })}
           {/* <StudyList /> */}
         </div>

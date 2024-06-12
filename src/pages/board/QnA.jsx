@@ -11,27 +11,23 @@ import filter from "@/assets/icon/filter.svg";
 import BoardList from "@/components/board/BoardList";
 import pen from "@/assets/pen.png";
 import { useNavigate } from "react-router-dom";
-import apiFunction from "@/util/apiFunction";
 import { useEffect } from "react";
+import { getData } from "@/util/Crud";
 
 function QnA() {
-
   const nav = useNavigate();
   const [searchInput, setSearchInput] = useState("");
-  console.log(searchInput);
-  const [selectedOptions, setSelectedOptions] = useState(
-    {
-      sort : "recent",
-      search : "",
-      tags : []
-    }
-  )
-  const [postDatas , setPostDatas] = useState([]);
-  
+  const [selectedOptions, setSelectedOptions] = useState({
+    sort: "recent",
+    search: "",
+    tags: [],
+  });
+  const [postDatas, setPostDatas] = useState([]);
+
   const handleOptionChange = (event) => {
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
-      sort: event.target.id
+      sort: event.target.id,
     }));
   };
 
@@ -39,12 +35,12 @@ function QnA() {
     setSearchInput(event.target.value);
   };
 
-  const onSubmit = () =>{
+  const onSubmit = () => {
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
-      search : searchInput
+      search: searchInput,
     }));
-  }
+  };
 
   const onTags = (value) => {
     setSelectedOptions((prevValues) => ({
@@ -53,49 +49,55 @@ function QnA() {
     }));
   };
 
-  const addTags = (e) =>{
-    if(selectedOptions.tags.length>=4){
-        e.preventDefault();
-        return;
+  const addTags = (e) => {
+    if (selectedOptions.tags.length >= 4) {
+      e.preventDefault();
+      return;
     }
     const inputValue = e.target.value;
-    if(e.key==='Enter' && inputValue !=='' && !selectedOptions.tags.includes(inputValue)) {       
-        e.target.value='';
-        onTags([...selectedOptions.tags, inputValue]);
+    if (
+      e.key === "Enter" &&
+      inputValue !== "" &&
+      !selectedOptions.tags.includes(inputValue)
+    ) {
+      e.target.value = "";
+      onTags([...selectedOptions.tags, inputValue]);
     }
-  }
+  };
   const handleKeyDown = (e) => {
     const inputValue = e.target.value;
-    if (e.key === 'Backspace' && inputValue === '') {
-        removeLastTag();
+    if (e.key === "Backspace" && inputValue === "") {
+      removeLastTag();
     }
   };
 
   const removeLastTag = () => {
     const updatedTags = selectedOptions.tags.slice(0, -1);
-    onTags(updatedTags); 
+    onTags(updatedTags);
   };
 
-  useEffect(()=>{
-    const getData = async () => {
+  useEffect(() => {
+    const getPostData = async () => {
       try {
         const params = new URLSearchParams({
           sort: selectedOptions.sort,
-          sc :selectedOptions.search
+          sc: selectedOptions.search,
         });
         selectedOptions.tags.forEach((tag) => {
           params.append("tag", tag);
         });
-        const requestUrl = `${import.meta.env.VITE_API_URL}/post/qna/list?${params.toString()}`;
-        const responseData = (await apiFunction.getData(requestUrl)).data.data.content;
+        const requestUrl = `${
+          import.meta.env.VITE_API_URL
+        }/post/qna/list?${params.toString()}`;
+
+        const responseData = (await getData(requestUrl)).data.content;
         setPostDatas(responseData);
       } catch (error) {
         console.log(error);
       }
     };
-    getData();
-  },[selectedOptions])
-
+    getPostData();
+  }, [selectedOptions]);
 
   return (
     <div>
@@ -111,23 +113,23 @@ function QnA() {
           />
         </div>
         <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto my-5">
-            <div className="mobile:hidden flex flex-col items-center relative">
-              <label htmlFor="search" className="sr-only">
-                내용 검색하기
-              </label>
-              <input
-                id="search"
-                value={searchInput}
-                type="search"
-                onChange={handleSearchChange}
-                placeholder="검색어를 입력하세요"
-                autoComplete="off"
-                className="border w-full pl-8 py-3 rounded-full placeholder:text-[#121212] outline-none"
-              />
-              <button onClick={onSubmit} className="absolute top-2 right-5 w-9">
-                <img src={search} alt="검색하기" />
-              </button>
-            </div>
+          <div className="mobile:hidden flex flex-col items-center relative">
+            <label htmlFor="search" className="sr-only">
+              내용 검색하기
+            </label>
+            <input
+              id="search"
+              value={searchInput}
+              type="search"
+              onChange={handleSearchChange}
+              placeholder="검색어를 입력하세요"
+              autoComplete="off"
+              className="border w-full pl-8 py-3 rounded-full placeholder:text-[#121212] outline-none"
+            />
+            <button onClick={onSubmit} className="absolute top-2 right-5 w-9">
+              <img src={search} alt="검색하기" />
+            </button>
+          </div>
           <div className="flex justify-between items-center desktop:gap-7 tablet:gap-7 desktop:border-b-2 tablet:border-b-2">
             <div>
               <div className="mobile:block hidden">
@@ -221,17 +223,25 @@ function QnA() {
                 태그 검색창
               </label>
               <div className="border py-2 rounded-full desktop:w-[550px] tablet:w-[300px] flex">
-                <ul className='flex gap-[10px]'>
-                  {selectedOptions.tags.map((tag, index)=>{
+                <ul className="flex gap-[10px]">
+                  {selectedOptions.tags.map((tag, index) => {
                     return (
-                        <li key={index} className='text-nowrap'><span className='bg-[#CED4DA] px-[10px] py-[3px] rounded-md'>{tag}</span></li>
-                    )
+                      <li key={index} className="text-nowrap">
+                        <span className="bg-[#CED4DA] px-[10px] py-[3px] rounded-md">
+                          {tag}
+                        </span>
+                      </li>
+                    );
                   })}
                 </ul>
                 <input
                   type="search"
                   id="filter"
-                  onKeyUp={(e) => {{ addTags(e)}}}
+                  onKeyUp={(e) => {
+                    {
+                      addTags(e);
+                    }
+                  }}
                   onKeyDown={handleKeyDown}
                   className="pl-5 outline-none"
                   autoComplete="off"
@@ -260,9 +270,11 @@ function QnA() {
             <button
               className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
               type="button"
-              onClick={(e)=> nav("/post/qna/new")}
+              onClick={(e) => nav("/post/qna/new")}
             >
-              <span className="mobile:hidden tablet:block desktop:block">글쓰기</span>
+              <span className="mobile:hidden tablet:block desktop:block">
+                글쓰기
+              </span>
               <img
                 src={pen}
                 alt="글쓰기 아이콘"
@@ -272,10 +284,8 @@ function QnA() {
           </div>
         </div>
         <div className="m-auto text-center flex flex-col">
-          {postDatas.map((postData) =>{
-            return (
-              <BoardList key={postData.id} data={postData}/>
-            )
+          {postDatas.map((postData) => {
+            return <BoardList key={postData.id} data={postData} />;
           })}
           {/* <StudyList /> */}
         </div>
