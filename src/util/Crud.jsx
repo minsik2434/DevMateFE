@@ -54,4 +54,15 @@ const patchData = async (url, data, headers) => {
 	}
 };
 
-export { getData, postData, putData, deleteData, patchData };
+const postFormData = async(url, file, headers) =>{
+	const formData = new FormData();
+	formData.append('image', file);
+	try{
+		const response = await axios.post(url, formData, {headers})
+	} catch(error){
+		console.log(`Error in postFormData: ${error}`);
+		throw error;
+	}
+}
+
+export { getData, postData, putData, deleteData, patchData, postFormData };

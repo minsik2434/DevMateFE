@@ -86,7 +86,7 @@ function Header() {
                 { path: "/board/review", label: "취업후기" },
                 { path: "/board/study", label: "스터디" },
                 { path: "/board/mentoring", label: "멘토링" },
-                { path: "/board/jobOpening", label: "모집공고" },
+                { path: "/board/job", label: "모집공고" },
               ].map((item, index) => (
                 <li
                   key={index}

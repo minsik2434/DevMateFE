@@ -12,6 +12,8 @@ import BoardList from "@/components/board/BoardList";
 import StudyList from "@/components/board/StudyList";
 import pen from "@/assets/pen.png";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import apiFunction from "@/util/apiFunction";
 
 function JobOpening() {
   const [selectedOption, setSelectedOption] = useState("recent");
@@ -19,6 +21,24 @@ function JobOpening() {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.id);
   };
+
+
+  const [postDatas , setPostDatas] = useState([]);
+
+  useEffect(()=>{
+    const getDataBySort = async () => {
+      try{
+        const responseData = (await apiFunction.getData(
+          `${import.meta.env.VITE_API_URL}/post/job/list?sort=${selectedOption}`
+        )).data.data.content;
+        setPostDatas(responseData);
+      }
+      catch(error){
+        console.log(error);
+      }
+    }
+    getDataBySort();
+  },[selectedOption])
   return (
     <div>
       <Header />
@@ -184,14 +204,11 @@ function JobOpening() {
           </div>
         </form>
         <div className="m-auto">
-          <BoardList />
-          <BoardList />
-          <BoardList />
-          <BoardList />
-          <BoardList />
-          <BoardList />
-          <BoardList />
-          <BoardList />
+        {postDatas.map((postData) =>{
+            return (
+              <BoardList key={postData.id} data={postData}/>
+            )
+          })}
           {/* <StudyList /> */}
         </div>
         <PageButton />
