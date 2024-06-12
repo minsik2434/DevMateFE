@@ -1,15 +1,16 @@
 import Header from "@/components/Header";
-import apiFunction from "@/util/apiFunction";
 import React from "react";
 import Inform from "@/components/profile/Inform";
 import { useState, useEffect, useLayoutEffect } from "react";
+import { getData } from "@/util/Crud";
 import { useCookies } from "react-cookie";
 import useLoginInfoStore from "@/stores/loginInfo";
 import RelatedPost from "@/components/profile/RelatedPost";
 function Profile() {
   const [cookies] = useCookies();
-  const [searchType , setSearchType] = useState("post");
-  const { grantType, accessToken, setGrantType, setAccessToken } = useLoginInfoStore();
+  const [searchType, setSearchType] = useState("post");
+  const { grantType, accessToken, setGrantType, setAccessToken } =
+    useLoginInfoStore();
   const [relatedPost, setRelatedPost] = useState([]);
   const [memberInfo, setMemberInfo] = useState({
     name: "",
@@ -18,24 +19,19 @@ function Profile() {
     interests: [],
   });
 
-  useEffect(() =>{
+  useEffect(() => {
     setGrantType(cookies.grantType);
     setAccessToken(cookies.accessToken);
-  },[cookies.accessToken, cookies.grantType, setAccessToken, setGrantType])
+  }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
 
   useLayoutEffect(() => {
     const getMember = async () => {
       try {
         const responseData = (
-          await apiFunction.getDataSetHeader(
-            `${import.meta.env.VITE_API_URL}/members`,
-            {
-              headers: {
-                Authorization: `${grantType} ${accessToken}`,
-              },
-            }
-          )
-        ).data.data;
+          await getData(`${import.meta.env.VITE_API_URL}/members`, {
+            Authorization: `${grantType} ${accessToken}`,
+          })
+        ).data;
         setMemberInfo(responseData);
       } catch (error) {
         console.log(error);
@@ -46,28 +42,27 @@ function Profile() {
     }
   }, [accessToken, grantType]);
 
-
-  useLayoutEffect(() =>{
-    const getRelatePost = async () =>{
-      try{
-        const responseData = (await apiFunction.getDataSetHeader(
-          `${import.meta.env.VITE_API_URL}/post/member?type=${searchType}`,
+  useLayoutEffect(() => {
+    const getRelatePost = async () => {
+      try {
+        const responseData = (
+          await getData(
+            `${import.meta.env.VITE_API_URL}/post/member?type=${searchType}`,
             {
-              headers: {
-                Authorization: `${grantType} ${accessToken}`,
-              },
+              Authorization: `${grantType} ${accessToken}`,
             }
-        )).data.data.content;
+          )
+        ).data.content;
         setRelatedPost(responseData);
-      } catch(error){
+      } catch (error) {
         console.log(error);
       }
-    }
+    };
     if (grantType && accessToken) {
       getRelatePost();
     }
-  },[accessToken, grantType, searchType])
-  
+  }, [accessToken, grantType, searchType]);
+
   return (
     <div>
       <header>
@@ -84,34 +79,37 @@ function Profile() {
               <ul className="flex gap-[24px] mt-[10px] text-[15px] mobile:text-[12px]">
                 <li>
                   <button
-                    type="button" 
+                    type="button"
                     value="post"
-                    onClick={(e)=>setSearchType(e.target.value)}
-                    className="border border-black rounded-md px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]">
+                    onClick={(e) => setSearchType(e.target.value)}
+                    className="border border-black rounded-md px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]"
+                  >
                     게시한 글
                   </button>
                 </li>
                 <li>
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     value="comment"
-                    onClick={(e)=>setSearchType(e.target.value)}
-                    className="border border-black rounded-md px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]">
+                    onClick={(e) => setSearchType(e.target.value)}
+                    className="border border-black rounded-md px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]"
+                  >
                     댓글단 글
                   </button>
                 </li>
                 <li>
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     value="good"
-                    onClick={(e)=>setSearchType(e.target.value)}
-                    className="border border-black rounded-md px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]">
+                    onClick={(e) => setSearchType(e.target.value)}
+                    className="border border-black rounded-md px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]"
+                  >
                     좋아요한 글
                   </button>
                 </li>
               </ul>
             </div>
-            <RelatedPost posts={relatedPost}/>
+            <RelatedPost posts={relatedPost} />
           </div>
         </div>
       </section>

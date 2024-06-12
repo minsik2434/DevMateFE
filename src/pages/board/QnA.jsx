@@ -11,13 +11,94 @@ import filter from "@/assets/icon/filter.svg";
 import BoardList from "@/components/board/BoardList";
 import pen from "@/assets/pen.png";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getData } from "@/util/Crud";
 
 function QnA() {
-  const [selectedOption, setSelectedOption] = useState("recent");
   const nav = useNavigate();
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState({
+    sort: "recent",
+    search: "",
+    tags: [],
+  });
+  const [postDatas, setPostDatas] = useState([]);
+
   const handleOptionChange = (event) => {
-    setSelectedOption(event.target.id);
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      sort: event.target.id,
+    }));
   };
+
+  const handleSearchChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  const onSubmit = () => {
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      search: searchInput,
+    }));
+  };
+
+  const onTags = (value) => {
+    setSelectedOptions((prevValues) => ({
+      ...prevValues,
+      tags: value,
+    }));
+  };
+
+  const addTags = (e) => {
+    if (selectedOptions.tags.length >= 4) {
+      e.preventDefault();
+      return;
+    }
+    const inputValue = e.target.value;
+    if (
+      e.key === "Enter" &&
+      inputValue !== "" &&
+      !selectedOptions.tags.includes(inputValue)
+    ) {
+      e.target.value = "";
+      onTags([...selectedOptions.tags, inputValue]);
+    }
+  };
+  const handleKeyDown = (e) => {
+    const inputValue = e.target.value;
+    if (e.key === "Backspace" && inputValue === "") {
+      removeLastTag();
+    }
+  };
+
+  const removeLastTag = () => {
+    const updatedTags = selectedOptions.tags.slice(0, -1);
+    onTags(updatedTags);
+  };
+
+  useEffect(() => {
+    const getPostData = async () => {
+      try {
+        const params = new URLSearchParams({
+          sort: selectedOptions.sort,
+          sc: selectedOptions.search,
+        });
+        selectedOptions.tags.forEach((tag) => {
+          params.append("tag", tag);
+        });
+        const requestUrl = `${
+          import.meta.env.VITE_API_URL
+        }/post/qna/list?${params.toString()}`;
+
+        const responseData = (await getData(requestUrl)).data.content;
+        setPostDatas(responseData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPostData();
+  }, [selectedOptions]);
+
   return (
     <div>
       <Header />
@@ -31,21 +112,21 @@ function QnA() {
             // className="bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED]"
           />
         </div>
-        <form
-          action=""
-          className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto my-5"
-        >
+        <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto my-5">
           <div className="mobile:hidden flex flex-col items-center relative">
             <label htmlFor="search" className="sr-only">
               내용 검색하기
             </label>
             <input
               id="search"
+              value={searchInput}
               type="search"
+              onChange={handleSearchChange}
               placeholder="검색어를 입력하세요"
+              autoComplete="off"
               className="border w-full pl-8 py-3 rounded-full placeholder:text-[#121212] outline-none"
             />
-            <button className="absolute top-2 right-5 w-9">
+            <button onClick={onSubmit} className="absolute top-2 right-5 w-9">
               <img src={search} alt="검색하기" />
             </button>
           </div>
@@ -77,13 +158,13 @@ function QnA() {
                         name="filter"
                         type="radio"
                         className="sr-only"
-                        checked={selectedOption === "recent"}
+                        checked={selectedOptions.sort === "recent"}
                         onChange={handleOptionChange}
                       />
                       <label
                         htmlFor="recent"
                         className={`ml-2 block  ${
-                          selectedOption === "recent"
+                          selectedOptions.sort === "recent"
                             ? "text-gray_8"
                             : "text-gray_5"
                         }`}
@@ -97,13 +178,13 @@ function QnA() {
                         name="filter"
                         type="radio"
                         className="sr-only"
-                        checked={selectedOption === "comment"}
+                        checked={selectedOptions.sort === "comment"}
                         onChange={handleOptionChange}
                       />
                       <label
                         htmlFor="comment"
                         className={`ml-2 block ${
-                          selectedOption === "comment"
+                          selectedOptions.sort === "comment"
                             ? "text-gray_8"
                             : "text-gray_5"
                         }`}
@@ -117,13 +198,13 @@ function QnA() {
                         name="filter"
                         type="radio"
                         className="sr-only"
-                        checked={selectedOption === "like"}
+                        checked={selectedOptions.sort === "like"}
                         onChange={handleOptionChange}
                       />
                       <label
                         htmlFor="like"
                         className={`ml-2 block ${
-                          selectedOption === "like"
+                          selectedOptions.sort === "like"
                             ? "text-gray_8"
                             : "text-gray_5"
                         }`}
@@ -141,15 +222,35 @@ function QnA() {
               <label htmlFor="filter" className="sr-only">
                 태그 검색창
               </label>
-              <input
-                type="search"
-                id="filter"
-                className="border py-2 rounded-full desktop:w-[550px] tablet:w-[300px] pl-5 outline-none"
-                placeholder="# 태그를 입력하세요"
-              />
-              <button className="absolute top-12 right-5">
-                <img src={filter} alt="필터" />
-              </button>
+              <div className="border py-2 rounded-full desktop:w-[550px] tablet:w-[300px] flex">
+                <ul className="flex gap-[10px]">
+                  {selectedOptions.tags.map((tag, index) => {
+                    return (
+                      <li key={index} className="text-nowrap">
+                        <span className="bg-[#CED4DA] px-[10px] py-[3px] rounded-md">
+                          {tag}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <input
+                  type="search"
+                  id="filter"
+                  onKeyUp={(e) => {
+                    {
+                      addTags(e);
+                    }
+                  }}
+                  onKeyDown={handleKeyDown}
+                  className="pl-5 outline-none"
+                  autoComplete="off"
+                  placeholder="# 태그를 입력하세요"
+                />
+                <button className="absolute top-12 right-5">
+                  <img src={filter} alt="필터" />
+                </button>
+              </div>
             </div>
             <div className="hidden mobile:flex flex-col items-center relative">
               <label htmlFor="search_2" className="sr-only">
@@ -169,9 +270,11 @@ function QnA() {
             <button
               className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
               type="button"
-              onClick={(e)=> nav("/post/qna/new")}
+              onClick={(e) => nav("/post/qna/new")}
             >
-              <span className="mobile:hidden tablet:block desktop:block">글쓰기</span>
+              <span className="mobile:hidden tablet:block desktop:block">
+                글쓰기
+              </span>
               <img
                 src={pen}
                 alt="글쓰기 아이콘"
@@ -179,16 +282,11 @@ function QnA() {
               />
             </button>
           </div>
-        </form>
-        <div className="m-auto">
-          <BoardList />
-          <BoardList />
-          <BoardList />
-          <BoardList />
-          <BoardList />
-          <BoardList />
-          <BoardList />
-          <BoardList />
+        </div>
+        <div className="m-auto text-center flex flex-col">
+          {postDatas.map((postData) => {
+            return <BoardList key={postData.id} data={postData} />;
+          })}
           {/* <StudyList /> */}
         </div>
         <PageButton />

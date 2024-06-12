@@ -2,9 +2,9 @@ import Header from "@/components/Header";
 import Banner from "@/components/post/Banner";
 import ContentEdit from "@/components/post/ContentEdit";
 import useLoginInfoStore from "@/stores/loginInfo";
-import apiFunction from "@/util/apiFunction";
+import { getData, postData, patchData } from "@/util/Crud";
 import React from "react";
-import { useEffect, useState, useLayoutEffect} from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -23,43 +23,39 @@ function Post() {
     imgUrl: "test.png",
     interests: [],
   });
-  const postId = searchParams.get('id');
-  const {
-    grantType,
-    accessToken,
-    setGrantType,
-    setAccessToken,
-  } = useLoginInfoStore();
+  const postId = searchParams.get("id");
+  const { grantType, accessToken, setGrantType, setAccessToken } =
+    useLoginInfoStore();
   const [postValues, setPostValues] = useState({
     title: "",
     tags: [],
     content: "",
   });
   const bannerElementByCategory = {
-    qna : {
-      heading:"Q&A",
-      exp:"동료들과 문제를 함께 해결해보아요",
-      style:"bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA]"
+    qna: {
+      heading: "Q&A",
+      exp: "동료들과 문제를 함께 해결해보아요",
+      style: "bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA]",
     },
 
-    community : {
-      heading:"커뮤니티",
-      exp:"여러분의 이야기를 들려주세요",
-      style:"bg-gradient-to-t from-[#F6A2CC] to-[#FCAAAA]"
+    community: {
+      heading: "커뮤니티",
+      exp: "여러분의 이야기를 들려주세요",
+      style: "bg-gradient-to-t from-[#F6A2CC] to-[#FCAAAA]",
     },
 
-    job : {
-      heading:"모집공고",
-      exp:"좋은 회사 또는 직장의 정보를 공유해주세요",
-      style:"bg-gradient-to-t from-[#FCE382] to-[#F38181]"
+    job: {
+      heading: "모집공고",
+      exp: "좋은 회사 또는 직장의 정보를 공유해주세요",
+      style: "bg-gradient-to-t from-[#FCE382] to-[#F38181]",
     },
 
-    review : {
-      heading:"취업 후기",
-      exp:"꿈을 이룬 과정을 자라나는 새싹들에게 들려주세요",
-      style:"bg-gradient-to-t from-[#FDF2F0] to-[#F8DAE2]"
-    }
-  }
+    review: {
+      heading: "취업 후기",
+      exp: "꿈을 이룬 과정을 자라나는 새싹들에게 들려주세요",
+      style: "bg-gradient-to-t from-[#FDF2F0] to-[#F8DAE2]",
+    },
+  };
   const setTitle = (e) => {
     setPostValues((prevValues) => ({
       ...prevValues,
@@ -83,13 +79,11 @@ function Post() {
 
   const handleRegister = async () => {
     try {
-      await apiFunction.postDataSetHeader(
+      await postData(
         `${import.meta.env.VITE_API_URL}/post/${param.category}`,
         postValues,
         {
-          headers: {
-            Authorization: `${grantType} ${accessToken}`,
-          },
+          Authorization: `${grantType} ${accessToken}`,
         }
       );
       alert("게시글 등록 완료");
@@ -100,14 +94,12 @@ function Post() {
   };
 
   const handleEdit = async () => {
-    try{
-      await apiFunction.patchDataSetHeader(
+    try {
+      await patchData(
         `${import.meta.env.VITE_API_URL}/post/${postId}`,
         postValues,
         {
-          headers: {
-            Authorization: `${grantType} ${accessToken}`,
-          }
+          Authorization: `${grantType} ${accessToken}`,
         }
       );
       alert("게시글 수정 완료");
@@ -115,7 +107,7 @@ function Post() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useLayoutEffect(() => {
     const savedTokenInfo = () => {
@@ -129,15 +121,10 @@ function Post() {
     const getMember = async () => {
       try {
         const responseData = (
-          await apiFunction.getDataSetHeader(
-            `${import.meta.env.VITE_API_URL}/members`,
-            {
-              headers: {
-                Authorization: `${grantType} ${accessToken}`,
-              },
-            }
-          )
-        ).data.data;
+          await getData(`${import.meta.env.VITE_API_URL}/members`, {
+            Authorization: `${grantType} ${accessToken}`,
+          })
+        ).data;
         setMemberInfo(responseData);
       } catch (error) {
         console.log(error);
@@ -148,31 +135,32 @@ function Post() {
     }
   }, [accessToken, grantType]);
 
-  useLayoutEffect(()=>{
-    const getPostData = async () =>{
-      try{
+  useLayoutEffect(() => {
+    const getPostData = async () => {
+      try {
         const responsePostData = await (
-          await apiFunction.getData(
-            `${import.meta.env.VITE_API_URL}/post/${postId}`
-          )
-        ).data.data;
+          await getData(`${import.meta.env.VITE_API_URL}/post/${postId}`)
+        ).data;
         setPostValues({
-          title : responsePostData.title,
-          tags : responsePostData.tags,
-          content: responsePostData.content
-        })
-      } catch(error){
+          title: responsePostData.title,
+          tags: responsePostData.tags,
+          content: responsePostData.content,
+        });
+      } catch (error) {
         console.log(error);
       }
-    } 
+    };
     if (location.pathname === `/post/${param.category}/new`) {
       return;
     }
-    getPostData()
-  },[location, memberInfo.nickName, nav, param.category, postId])
+    getPostData();
+  }, [location, memberInfo.nickName, nav, param.category, postId]);
 
-  const { heading, exp, style } = bannerElementByCategory[param.category]
-  const handleSubmit = location.pathname === `/post/${param.category}/new` ? handleRegister : handleEdit;
+  const { heading, exp, style } = bannerElementByCategory[param.category];
+  const handleSubmit =
+    location.pathname === `/post/${param.category}/new`
+      ? handleRegister
+      : handleEdit;
   return (
     <div>
       <header>
@@ -180,11 +168,7 @@ function Post() {
       </header>
       <section className="flex justify-center py-[50px]">
         <div className="w-[60%] mobile:w-[95%] max-w-[750px]">
-          <Banner
-            heading={heading}
-            exp={exp}
-            style={style}
-          />
+          <Banner heading={heading} exp={exp} style={style} />
           <ContentEdit
             onTags={onTags}
             setContent={setContent}
