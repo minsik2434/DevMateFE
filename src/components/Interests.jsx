@@ -1,23 +1,18 @@
 import React from "react";
-import apiFunction from "@/util/apiFunction";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
+import useInterestStore from "@/stores/InterestInfo";
 
 function Interests({ onSelected, selected, type }) {
   const [selectedIds, setSelectedIds] = useState(selected);
-  const [responseInterests, setResponseInterests] = useState([]);
-  useEffect(() => {
-    const getInterests = async () => {
-      try {
-        const responseData = (
-          await apiFunction.getData(`${import.meta.env.VITE_API_URL}/interests`)
-        ).data.data;
-        setResponseInterests(responseData);
-      } catch (error) {
-        console.log(error);
-      }
+  const { interestsInfo } = useInterestStore();
+  const [interests, setInterests] = useState([]);
+
+  useLayoutEffect(() => {
+    const getInterests = () => {
+      setInterests(interestsInfo);
     };
     getInterests();
-  }, []);
+  }, [interestsInfo]);
 
   useEffect(() => {
     const initselectedIds = () => {
@@ -45,7 +40,7 @@ function Interests({ onSelected, selected, type }) {
   return (
     <>
       <ul className={css}>
-        {responseInterests.map((item) => {
+        {interests.map((item) => {
           const itemClass = selectedIds.includes(item.id)
             ? "font-bold bg-[#495057] rounded-full px-[12px] py-[4px] mobile:px-[16px] mobile:py-[6px] text-white"
             : "font-bold bg-[#ADB5BD] rounded-full px-[12px] py-[4px] mobile:px-[16px] mobile:py-[6px]";
