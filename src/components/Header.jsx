@@ -7,6 +7,7 @@ import useIndex from "@/stores/navIndex";
 import Signin from "@/pages/Signin";
 import { getData } from "@/util/Crud";
 import useMember from "@/stores/member";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [showModal, setShowModal] = useState(false);
@@ -20,7 +21,10 @@ function Header() {
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
   const accessToken = cookies.accessToken;
 
-  const { nickName, imgUrl } = useMember();
+  const { name, nickName, imgUrl, setImgUrl, setName, setNickName } =
+    useMember();
+
+  const nav = useNavigate();
 
   const handleButtonClick = (index) => {
     setNavIndex(index);
@@ -39,37 +43,35 @@ function Header() {
 
       localStorage.clear();
       alert("로그아웃 되었습니다.");
+      setShowModal(false);
+      nav("/");
     }
   };
 
-  // const memberInfo = async () => {
-  //   // if (localStorage.getItem("member")) {
-  //   //   console.log("이미있음");
-  //   //   return;
-  //   // }
+  const memberInfo = async () => {
+    if (!accessToken || !cookies.grantType) {
+      return;
+    }
 
-  //   try {
-  //     const headers = {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*",
-  //       Authorization: `${cookies["grantType"]} ${cookies["accessToken"]}`,
-  //     };
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `${cookies["grantType"]} ${cookies["accessToken"]}`,
+      };
 
-  //     const response = await getData(
-  //       `${import.meta.env.VITE_API_URL}/members`,
-  //       headers
-  //     );
+      const response = await getData(
+        `${import.meta.env.VITE_API_URL}/members`,
+        headers
+      );
 
-  //     setImgUrl(response.data["imgUrl"]);
-  //     setName(response.data["name"]);
-  //     setNickName(response.data["nickName"]);
-
-  //     // Save the member info to localStorage
-  //     localStorage.setItem("member", JSON.stringify(response.data));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      setImgUrl(response.data["imgUrl"]);
+      setName(response.data["name"]);
+      setNickName(response.data["nickName"]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", updateHeaderStyle);
@@ -78,6 +80,10 @@ function Header() {
       window.removeEventListener("scroll", updateHeaderStyle);
     };
   }, []);
+
+  useEffect(() => {
+    memberInfo();
+  }, [accessToken]);
 
   return (
     <div
@@ -123,16 +129,23 @@ function Header() {
           <div>
             {accessToken ? (
               <div className="flex items-center gap-3">
-                <img src={imgUrl} alt="" className="w-5 h-5 rounded-full" />
+                <img
+                  src={imgUrl}
+                  alt="사용자 프로필"
+                  className="w-5 h-5 rounded-full"
+                />
                 <div>
                   <span className="underline">{nickName}</span>님
                 </div>
-                <button
-                  className="border border-gray_6 rounded-full text-white bg-red-600 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5 hover:opacity-80"
-                  onClick={handleLogout}
-                >
-                  로그아웃
-                </button>
+                <div className="flex gap-2">
+                  <Link to="/profile">
+                    <button className="hover:opacity-80">MY</button>
+                  </Link>
+                  <span>|</span>
+                  <button className="hover:opacity-80" onClick={handleLogout}>
+                    로그아웃
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="desktop:gap-5 tablet:gap-3 desktop:text-sm tablet:text-[8px] desktop:flex tablet:flex mobile:hidden">

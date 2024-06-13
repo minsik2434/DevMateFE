@@ -34,24 +34,11 @@ function Signin() {
   const submitLoginForm = async (e) => {
     e.preventDefault();
     try {
-      // const { grantType, accessToken, refreshToken } = (
-      //   await apiFunction.postData(
-      //     `${import.meta.env.VITE_API_URL}/members/signin`,
-      //     inputValues
-      //   )
-      // ).data.data;
-
-      // const headers = {
-      //   "Content-Type": "application/json",
-      //   "Access-Control-Allow-Origin": "*",
-      // };
-
       const response = await postData(
         `${import.meta.env.VITE_API_URL}/members/signin`,
         inputValues
         // headers
       );
-      // console.log(response)
 
       const { grantType, accessToken, refreshToken } = response.data;
 
@@ -65,33 +52,7 @@ function Signin() {
         maxAge: 88200,
       });
 
-      console.log(accessToken);
-      console.log(cookies.accessToken);
-
-      // memberInfo();
-
       nav("/");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const memberInfo = async () => {
-    try {
-      const headers = {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        Authorization: `${cookies["grantType"]} ${cookies["accessToken"]}`,
-      };
-
-      const response = await getData(
-        `${import.meta.env.VITE_API_URL}/members`,
-        headers
-      );
-
-      setImgUrl(response.data["imgUrl"]);
-      setName(response.data["name"]);
-      setNickName(response.data["nickName"]);
     } catch (error) {
       console.log(error);
     }

@@ -66,6 +66,22 @@ function Signup() {
               : "비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해야 합니다."
             : "";
         }
+
+        if (name === "name") {
+          newInputValues.nameError = value
+            ? validateName(value)
+              ? ""
+              : "이름은 2글자 이상의 영문 대/소문자 또는 한글이어야 합니다."
+            : "";
+        }
+
+        if (name === "nickName") {
+          newInputValues.nickNameError = value
+            ? validateNickName(value)
+              ? ""
+              : "닉네임은 2글자 이상의 영문 대/소문자 또는 한글이어야 합니다."
+            : "";
+        }
         return newInputValues;
       });
     }, 500), // 300ms 디바운스 타임 설정
@@ -115,6 +131,16 @@ function Signup() {
   const validatePassword = (password) => {
     const passwordPattern = /^[A-Za-z\d!@#$%^&*]{8,16}$/;
     return passwordPattern.test(password);
+  };
+
+  const validateName = (name) => {
+    const namePattern = /^[A-Za-z가-힣]{2,}$/;
+    return namePattern.test(name);
+  };
+
+  const validateNickName = (nickName) => {
+    const nickNamePattern = /^[A-Za-z가-힣]{2,}$/;
+    return nickNamePattern.test(nickName);
   };
 
   // 컴포넌트가 마운트될 때 상태 초기화
@@ -185,22 +211,36 @@ function Signup() {
                     </p>
                   )}
                 </div>
-                <InputField
-                  id="name"
-                  placeholder="Name"
-                  type="signUp_text"
-                  name="name"
-                  value={inputValues.name}
-                  onChange={onChange}
-                />
-                <InputField
-                  id="nick"
-                  placeholder="Nick Name"
-                  type="signUp_text"
-                  name="nickName"
-                  value={inputValues.nickName}
-                  onChange={onChange}
-                />
+                <div>
+                  <InputField
+                    id="name"
+                    placeholder="Name"
+                    type="signUp_text"
+                    name="name"
+                    value={inputValues.name}
+                    onChange={onChange}
+                  />
+                  {inputValues.nameError && (
+                    <p className="text-red-500 text-sm mt-2 ml-2">
+                      {inputValues.nameError}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <InputField
+                    id="nick"
+                    placeholder="Nick Name"
+                    type="signUp_text"
+                    name="nickName"
+                    value={inputValues.nickName}
+                    onChange={onChange}
+                  />
+                  {inputValues.nickNameError && (
+                    <p className="text-red-500 text-sm mt-2 ml-2">
+                      {inputValues.nickNameError}
+                    </p>
+                  )}
+                </div>
               </ul>
             </div>
             <div className="flex items-center">
