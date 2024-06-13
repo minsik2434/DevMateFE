@@ -2,33 +2,91 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Banner from "@/components/board/Banner";
 import React from "react";
-
 import { useState } from "react";
-
 import search from "@/assets/icon/search.svg";
 import PageButton from "@/components/board/PageButton";
 import filter from "@/assets/icon/filter.svg";
 import BoardList from "@/components/board/BoardList";
 import pen from "@/assets/pen.png";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { getData } from "@/util/Crud";
+import { useParams } from "react-router-dom";
+import xButton from "@/assets/xButton.png";
 
-function QnA() {
+function CategoryBoard() {
+  const param = useParams();
   const nav = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [selectedOptions, setSelectedOptions] = useState({
     sort: "recent",
     search: "",
     tags: [],
+    page: 0,
   });
-  const [postDatas, setPostDatas] = useState([]);
 
+  const bannerElementByCategory = {
+    qna: {
+      heading: "Q&A",
+      exp: "동료들과 문제를 함께 해결해보아요",
+      style: "bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA]",
+    },
+
+    community: {
+      heading: "커뮤니티",
+      exp: "여러분의 이야기를 들려주세요",
+      style: "bg-gradient-to-t from-[#F6A2CC] to-[#FCAAAA]",
+    },
+
+    job: {
+      heading: "모집공고",
+      exp: "좋은 회사 또는 직장의 정보를 공유해주세요",
+      style: "bg-gradient-to-t from-[#FCE382] to-[#F38181]",
+    },
+
+    review: {
+      heading: "취업 후기",
+      exp: "꿈을 이룬 과정을 자라나는 새싹들에게 들려주세요",
+      style: "bg-gradient-to-t from-[#FDF2F0] to-[#F8DAE2]",
+    },
+  };
+
+  const [postDatas, setPostDatas] = useState([]);
+  const [pageData, setPageData] = useState({
+    page: "",
+    totalPage: "",
+  });
   const handleOptionChange = (event) => {
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
       sort: event.target.id,
     }));
+  };
+
+  const setCurrentPage = (value) => {
+    setPageData((prev) => ({
+      ...prev,
+      page: value,
+    }));
+  };
+
+  const setSelectedOptionsPage = (value) => {
+    setSelectedOptions((prev) => ({
+      ...prev,
+      page: value,
+    }));
+  };
+
+  const setTotalPage = (value) => {
+    setPageData((prev) => ({
+      ...prev,
+      totalPage: value,
+    }));
+  };
+
+  const removeTag = (index) => {
+    const updatedTags = selectedOptions.tags.filter((_, i) => i !== index);
+    onTags(updatedTags);
   };
 
   const handleSearchChange = (event) => {
@@ -76,41 +134,50 @@ function QnA() {
     onTags(updatedTags);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getPostData = async () => {
       try {
         const params = new URLSearchParams({
           sort: selectedOptions.sort,
           sc: selectedOptions.search,
+          page: selectedOptions.page,
         });
         selectedOptions.tags.forEach((tag) => {
           params.append("tag", tag);
         });
-        const requestUrl = `${
-          import.meta.env.VITE_API_URL
-        }/post/qna/list?${params.toString()}`;
-
-        const responseData = (await getData(requestUrl)).data.content;
-        setPostDatas(responseData);
+        const requestUrl = `${import.meta.env.VITE_API_URL}/post/${
+          param.category
+        }/list?${params.toString()}`;
+        const responseData = (await getData(requestUrl)).data;
+        setPostDatas(responseData.content);
+        setCurrentPage(responseData.pageable.pageNumber);
+        setTotalPage(responseData.totalPages);
       } catch (error) {
         console.log(error);
       }
     };
     getPostData();
-  }, [selectedOptions]);
+  }, [param.category, selectedOptions]);
 
+  useEffect(() => {
+    const initSelectOptions = () => {
+      setSelectedOptions({
+        sort: "recent",
+        search: "",
+        tags: [],
+        page: 0,
+      });
+    };
+    initSelectOptions();
+  }, [param.category]);
+  const { heading, exp, style } = bannerElementByCategory[param.category];
+  console.log(selectedOptions);
   return (
     <div>
       <Header />
       <div className="mx-8 mobile:mx-5 mobile:mb-32">
         <div>
-          <Banner
-            heading="QnA"
-            exp="동료들과 함께 문제를 해결해봐요"
-            style="bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA]"
-
-            // className="bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED]"
-          />
+          <Banner heading={heading} exp={exp} style={style} />
         </div>
         <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto my-5">
           <div className="mobile:hidden flex flex-col items-center relative">
@@ -222,14 +289,20 @@ function QnA() {
               <label htmlFor="filter" className="sr-only">
                 태그 검색창
               </label>
-              <div className="border py-2 rounded-full desktop:w-[550px] tablet:w-[300px] flex">
-                <ul className="flex gap-[10px]">
+              <div className="border py-2 rounded-lg desktop:w-[550px] tablet:w-[300px] flex">
+                <ul className="flex gap-[10px] ml-[7px]">
                   {selectedOptions.tags.map((tag, index) => {
                     return (
                       <li key={index} className="text-nowrap">
-                        <span className="bg-[#CED4DA] px-[10px] py-[3px] rounded-md">
-                          {tag}
-                        </span>
+                        <div className="bg-gray_2 pl-[10px] pr-[5px] py-[3px] gap-[5px] flex rounded-[5px]">
+                          <span>{tag}</span>
+                          <button
+                            className="w-[14px]"
+                            onClick={() => removeTag(index)}
+                          >
+                            <img src={xButton} className="w-full"></img>
+                          </button>
+                        </div>
                       </li>
                     );
                   })}
@@ -243,7 +316,7 @@ function QnA() {
                     }
                   }}
                   onKeyDown={handleKeyDown}
-                  className="pl-5 outline-none"
+                  className="pl-2 outline-none w-full"
                   autoComplete="off"
                   placeholder="# 태그를 입력하세요"
                 />
@@ -270,7 +343,7 @@ function QnA() {
             <button
               className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
               type="button"
-              onClick={(e) => nav("/post/qna/new")}
+              onClick={(e) => nav(`/post/${param.category}/new`)}
             >
               <span className="mobile:hidden tablet:block desktop:block">
                 글쓰기
@@ -289,11 +362,11 @@ function QnA() {
           })}
           {/* <StudyList /> */}
         </div>
-        <PageButton />
+        <PageButton pageData={pageData} setPage={setSelectedOptionsPage} />
       </div>
       <Footer />
     </div>
   );
 }
 
-export default QnA;
+export default CategoryBoard;
