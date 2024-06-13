@@ -1,14 +1,4 @@
-// import { create } from "zustand";
 
-// const indexStore = (set) => ({
-//   navIndex: "",
-
-//   setNavIndex: (navIndex) => set({ navIndex }),
-// });
-
-// const useIndex = create(indexStore);
-
-// export default useIndex;
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";

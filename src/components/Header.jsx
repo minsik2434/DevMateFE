@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "@/assets/logo.svg";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useCookies } from "react-cookie";
 import useIndex from "@/stores/navIndex";
 import Signin from "@/pages/Signin";
@@ -20,14 +20,12 @@ function Header() {
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
   const accessToken = cookies.accessToken;
 
-  const { name, nickName, imgUrl, setImgUrl, setName, setNickName } =
-    useMember();
+  const { nickName, imgUrl } = useMember();
 
   const handleButtonClick = (index) => {
     setNavIndex(index);
   };
 
-  // 스크롤에 따른 헤더 스타일 변경을 처리하는 함수
   const updateHeaderStyle = () => {
     const scrollTop = window.scrollY;
     setIsSticky(scrollTop > 0);
@@ -35,7 +33,6 @@ function Header() {
 
   const handleLogout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
-      // 모든 쿠키 삭제
       Object.keys(cookies).forEach((cookieName) => {
         removeCookie(cookieName, { path: "/" });
       });
@@ -45,31 +42,34 @@ function Header() {
     }
   };
 
-  const memberInfo = async () => {
-    if (localStorage.getItem("member")) {
-      console.log("이미있음");
-      return;
-    }
+  // const memberInfo = async () => {
+  //   // if (localStorage.getItem("member")) {
+  //   //   console.log("이미있음");
+  //   //   return;
+  //   // }
 
-    try {
-      const headers = {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        Authorization: `${cookies["grantType"]} ${cookies["accessToken"]}`,
-      };
+  //   try {
+  //     const headers = {
+  //       "Content-Type": "application/json",
+  //       "Access-Control-Allow-Origin": "*",
+  //       Authorization: `${cookies["grantType"]} ${cookies["accessToken"]}`,
+  //     };
 
-      const response = await getData(
-        `${import.meta.env.VITE_API_URL}/members`,
-        headers
-      );
+  //     const response = await getData(
+  //       `${import.meta.env.VITE_API_URL}/members`,
+  //       headers
+  //     );
 
-      setImgUrl(response.data["imgUrl"]);
-      setName(response.data["name"]);
-      setNickName(response.data["nickName"]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     setImgUrl(response.data["imgUrl"]);
+  //     setName(response.data["name"]);
+  //     setNickName(response.data["nickName"]);
+
+  //     // Save the member info to localStorage
+  //     localStorage.setItem("member", JSON.stringify(response.data));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     window.addEventListener("scroll", updateHeaderStyle);
@@ -78,10 +78,6 @@ function Header() {
       window.removeEventListener("scroll", updateHeaderStyle);
     };
   }, []);
-
-  useEffect(() => {
-    memberInfo();
-  });
 
   return (
     <div
@@ -123,37 +119,7 @@ function Header() {
               ))}
             </ul>
           </nav>
-          {/* <div className="desktop:gap-5 tablet:gap-3 desktop:text-sm tablet:text-[8px]  desktop:flex tablet:flex mobile:hidden ">
-            <button
-              className="border border-gray_6 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  rounded-full hover:opacity-80"
-              onClick={() => setShowModal(true)}
-            >
-              로그인
-            </button>
-            {showModal && (
-              <div
-                className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-blend-darken bg-black bg-opacity-50 z-50"
-                ref={modalBackground}
-                onClick={(e) => {
-                  if (e.target === modalBackground.current) {
-                    setShowModal(false);
-                  }
-                }}
-              >
-                <Signin />
-              </div>
-            )}
 
-            <Link to="/signup">
-              <button className="border border-gray_6 rounded-full text-white bg-gray_7 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5  hover:opacity-90 ">
-                회원가입
-              </button>
-            </Link>
-          </div>
-
-          <div>
-            <p>로그인되었습니다</p>
-          </div> */}
           <div>
             {accessToken ? (
               <div className="flex items-center gap-3">
@@ -161,7 +127,6 @@ function Header() {
                 <div>
                   <span className="underline">{nickName}</span>님
                 </div>
-
                 <button
                   className="border border-gray_6 rounded-full text-white bg-red-600 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5 hover:opacity-80"
                   onClick={handleLogout}
@@ -209,7 +174,7 @@ function Header() {
             <span className="line line2"></span>
             <span className="line line3"></span>
             {toggle && (
-              <div className="dropdown-modal rounded-md text-xs font-medium py-2 bg-white ">
+              <div className="dropdown-modal rounded-md text-xs font-medium py-2 bg-white">
                 {/* 모달창 내용 */}
                 <div className="flex flex-col px-2">
                   <button
@@ -270,7 +235,7 @@ function Header() {
                   </button>
                   <button
                     type="button"
-                    className="w-full text-start hover:bg-gray_5 ml-2 py-1"
+                    className="w-full text-start py-1 border-b pl-2"
                   >
                     모집공고
                   </button>

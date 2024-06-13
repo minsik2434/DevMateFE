@@ -24,18 +24,6 @@ function Signup() {
 
   const [passwordMismatch, setPasswordMismatch] = useState(false);
 
-  // const debouncedChangeHandler = useCallback(
-  //   debounce((name, value, type, checked) => {
-  //     setInputValues((prevInputValues) => ({
-  //       ...prevInputValues,
-  //       [name]: type === "checkbox" ? checked : value,
-  //     }));
-
-  //     console.log("디바운스 테스트");
-  //   }, 300), // 300ms 디바운스 타임 설정
-  //   []
-  // );
-
   const debouncedChangeHandler = useCallback(
     debounce((name, value, type, checked) => {
       setInputValues((prevInputValues) => {
@@ -50,6 +38,22 @@ function Signup() {
               newInputValues.password !== newInputValues.confirmPassword
           );
         }
+
+        if (name === "loginId") {
+          newInputValues.loginIdError = value
+            ? validateLoginId(value)
+              ? ""
+              : "아이디는 5~20자의 영문 소문자, 숫자와 특수기호 ( _ , - ) 만 사용 가능합니다."
+            : "";
+        }
+
+        if (name === "password") {
+          newInputValues.passwordError = value
+            ? validatePassword(value)
+              ? ""
+              : "비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해야 합니다."
+            : "";
+        }
         return newInputValues;
       });
     }, 500), // 300ms 디바운스 타임 설정
@@ -60,14 +64,6 @@ function Signup() {
     const { value, name, type, checked } = e.target;
     debouncedChangeHandler(name, value, type, checked);
   };
-
-  // const onChange = (e) => {
-  //   const { value, name, type, checked } = e.target;
-  //   setInputValues((prevInputValues) => ({
-  //     ...prevInputValues,
-  //     [name]: type === "checkbox" ? checked : value,
-  //   }));
-  // };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -90,6 +86,23 @@ function Signup() {
         ? prevInputValues.interests.filter((id) => id != value)
         : [...prevInputValues.interests, value],
     }));
+  };
+
+  const [errors, setErrors] = useState({
+    loginId: "",
+    password: "",
+  });
+
+  //유효성 검사
+
+  const validateLoginId = (loginId) => {
+    const loginIdPattern = /^[a-z0-9_-]{5,20}$/;
+    return loginIdPattern.test(loginId);
+  };
+
+  const validatePassword = (password) => {
+    const passwordPattern = /^[A-Za-z\d!@#$%^&*]{8,16}$/;
+    return passwordPattern.test(password);
   };
 
   // 컴포넌트가 마운트될 때 상태 초기화
@@ -115,35 +128,51 @@ function Signup() {
           <form onSubmit={onSubmit}>
             <div>
               <ul className="flex flex-col gap-[23px] mobile:gap-[13px] text-[14px] mobile:text-[10px]">
-                <InputField
-                  id="id"
-                  placeholder="Id"
-                  type="signUp_text"
-                  name="loginId"
-                  value={inputValues.loginId}
-                  onChange={onChange}
-                />
-                <InputField
-                  id="pw"
-                  placeholder="Password"
-                  type="signUp_pw"
-                  name="password"
-                  value={inputValues.password}
-                  onChange={onChange}
-                />
-                <InputField
-                  id="con_pw"
-                  placeholder="Confirm Password"
-                  type="signUp_pw"
-                  name="confirmPassword"
-                  value={inputValues.confirmPassword}
-                  onChange={onChange}
-                />
-                {passwordMismatch && (
-                  <p className="text-red-500 text-sm -mt-4 ml-1">
-                    비밀번호가 일치하지 않습니다.
-                  </p>
-                )}
+                <div>
+                  <InputField
+                    id="id"
+                    placeholder="Id"
+                    type="signUp_text"
+                    name="loginId"
+                    value={inputValues.loginId}
+                    onChange={onChange}
+                  />
+                  {inputValues.loginIdError && (
+                    <p className="text-red-500 text-sm mt-2 ml-2">
+                      {inputValues.loginIdError}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <InputField
+                    id="pw"
+                    placeholder="Password"
+                    type="signUp_pw"
+                    name="password"
+                    value={inputValues.password}
+                    onChange={onChange}
+                  />
+                  {inputValues.passwordError && (
+                    <p className="text-red-500 text-sm mt-2 ml-2">
+                      {inputValues.passwordError}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <InputField
+                    id="con_pw"
+                    placeholder="Confirm Password"
+                    type="signUp_pw"
+                    name="confirmPassword"
+                    value={inputValues.confirmPassword}
+                    onChange={onChange}
+                  />
+                  {passwordMismatch && (
+                    <p className="text-red-500 text-sm mt-2 ml-2">
+                      비밀번호가 일치하지 않습니다.
+                    </p>
+                  )}
+                </div>
                 <InputField
                   id="name"
                   placeholder="Name"
