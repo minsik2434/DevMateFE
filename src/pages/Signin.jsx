@@ -2,14 +2,22 @@ import Logo from "@/components/Logo";
 import InputField from "@/components/sign/InputField";
 import LinkList from "@/components/sign/LinkList";
 import LoginButton from "@/components/sign/SignButton";
-import { postData } from "@/util/Crud";
+import useLoginInfoStore from "@/stores/loginInfo";
+import useMember from "@/stores/member";
+import { getData, postData } from "@/util/Crud";
+import apiFunction from "@/util/apiFunction";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 function Signin() {
-  const [cookies, setCookie] = useCookies([]);
+  const [cookies, setCookie, removeCookie] = useCookies([]);
+
   const nav = useNavigate();
+
+  const { name, nickName, imgUrl, setImgUrl, setName, setNickName } =
+    useMember();
+
   const [inputValues, setInputValues] = useState({
     loginId: "",
     password: "",
@@ -26,12 +34,14 @@ function Signin() {
   const submitLoginForm = async (e) => {
     e.preventDefault();
     try {
-      const { grantType, accessToken, refreshToken } = (
-        await postData(
-          `${import.meta.env.VITE_API_URL}/members/signin`,
-          inputValues
-        )
-      ).data;
+      const response = await postData(
+        `${import.meta.env.VITE_API_URL}/members/signin`,
+        inputValues
+        // headers
+      );
+
+      const { grantType, accessToken, refreshToken } = response.data;
+
       setCookie("grantType", grantType, { sameSite: "strict", maxAge: 88200 });
       setCookie("accessToken", accessToken, {
         sameSite: "strict",
@@ -41,6 +51,7 @@ function Signin() {
         sameSite: "strict",
         maxAge: 88200,
       });
+
       nav("/");
     } catch (error) {
       console.log(error);
