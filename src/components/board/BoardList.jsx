@@ -6,15 +6,19 @@ import formatTimeDifference from "@/util/get_time_current_diff";
 import removeHTMLTags from "@/util/getTextexcludingHtmlTag";
 import { useNavigate } from "react-router-dom";
 
-function BoardList({data}) {
+function BoardList({ data }) {
   const nav = useNavigate();
-  
-  const onClick = () =>{
-    nav(`/${data.category}/${data.id}`)
-  }
+
+  const onClick = () => {
+    nav(`/${data.category}/${data.id}`);
+  };
 
   return (
-    <button type="button" onClick={onClick} className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] w-full mx-auto">
+    <button
+      type="button"
+      onClick={onClick}
+      className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] w-full mx-auto"
+    >
       <div className="mobile:mb-5">
         <div className="flex flex-col p-2">
           <div className="flex items-end desktop:gap-16 tablet:gap-12 mobile:gap-8 font-medium">
@@ -24,12 +28,10 @@ function BoardList({data}) {
             </span>
           </div>
           <div className="mt-[5px] text-[15px] mobile:text-[12px] text-start">
-            <p>
-                {removeHTMLTags(data.content)}
-            </p>
+            <p>{removeHTMLTags(data.content)}</p>
           </div>
         </div>
-        <div className="flex items-center justify-between border-b-2  border-b-gray_4 pb-8 p-2 mobile:pb-2">
+        <div className="flex items-center justify-between border-b-2 border-b-gray_4 pb-8 p-2 mobile:pb-2">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1">
               <img
@@ -43,17 +45,20 @@ function BoardList({data}) {
             </div>
             <div className="desktop:w-[500px]">
               <ul className="flex flex-wrap justify-start text-sm desktop:gap-3 tablet:gap-2 mobile:gap-1">
-                {data.tags.map((tag,index) =>{
+                {data.tags.map((tag, index) => {
                   return (
-                    <li key={index} className="px-2 rounded-3xl text-sm desktop:py-1 tablet:py-1 mobile:py-0.5 mobile:rounded-3xl mobile:text-[10px] bg-gray_5">
+                    <li
+                      key={index}
+                      className="px-2 rounded-xl text-sm desktop:py-1 tablet:py-1 mobile:py-0.5 mobile:rounded-3xl mobile:text-[10px] bg-gray_2"
+                    >
                       {tag}
                     </li>
-                  )
+                  );
                 })}
               </ul>
             </div>
           </div>
-          <div> 
+          <div>
             <ul className="flex gap-3 desktop:text-sm mobile:text-[10px]">
               <li className="flex gap-1 items-center">
                 <img src={comment} alt="댓글 수" className="mobile:w-3" />
