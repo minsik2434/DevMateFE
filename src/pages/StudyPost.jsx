@@ -105,7 +105,6 @@ function StudyPost() {
   }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
   const handleSubmit =
     location.pathname === `/post/study/new` ? handleRegister : handleEdit;
-  console.log(postValues);
   return (
     <div>
       <header>
