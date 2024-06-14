@@ -8,9 +8,9 @@ import { useState } from "react";
 import search from "@/assets/icon/search.svg";
 import PageButton from "@/components/board/PageButton";
 import filter from "@/assets/icon/filter.svg";
-import BoardList from "@/components/board/BoardList";
 import StudyList from "@/components/board/StudyList";
 import pen from "@/assets/pen.png";
+import { useNavigate } from "react-router-dom";
 
 function Study() {
   const [selectedOption, setSelectedOption] = useState("recent");
@@ -18,6 +18,8 @@ function Study() {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.id);
   };
+
+  const nav = useNavigate();
   return (
     <div>
       <Header />
@@ -169,6 +171,7 @@ function Study() {
             <button
               className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 mobile:rounded"
               type="button"
+              onClick={() => nav("/post/study/new")}
             >
               <span className="mobile:hidden tablet:block desktop:block">
                 글쓰기
