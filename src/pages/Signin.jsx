@@ -5,7 +5,6 @@ import LoginButton from "@/components/sign/SignButton";
 import useLoginInfoStore from "@/stores/loginInfo";
 import useMember from "@/stores/member";
 import { getData, postData } from "@/util/Crud";
-import apiFunction from "@/util/apiFunction";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
@@ -41,15 +40,22 @@ function Signin() {
       );
 
       const { grantType, accessToken, refreshToken } = response.data;
-
-      setCookie("grantType", grantType, { sameSite: "strict", maxAge: 88200 });
+      removeCookie("grantType");
+      removeCookie("accessToken");
+      setCookie("grantType", grantType, {
+        sameSite: "strict",
+        maxAge: 88200,
+        path: "/",
+      });
       setCookie("accessToken", accessToken, {
         sameSite: "strict",
         maxAge: 88200,
+        path: "/",
       });
       setCookie("refreshToken", refreshToken, {
         sameSite: "strict",
         maxAge: 88200,
+        path: "/",
       });
 
       nav("/");
