@@ -82,7 +82,9 @@ function Profile() {
                     type="button"
                     value="post"
                     onClick={(e) => setSearchType(e.target.value)}
-                    className="border border-black rounded-md px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]"
+                    className={`border border-black rounded-md px-[22px] hover:bg-gray_4 mobile:px-[12px] py-[6px] mobile:py-[6px] ${
+                      searchType === "post" ? "bg-gray_4" : ""
+                    }`}
                   >
                     게시한 글
                   </button>
@@ -92,7 +94,9 @@ function Profile() {
                     type="button"
                     value="comment"
                     onClick={(e) => setSearchType(e.target.value)}
-                    className="border border-black rounded-md px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]"
+                    className={`border border-black rounded-md px-[22px] hover:bg-gray_4 mobile:px-[12px] py-[6px] mobile:py-[6px] ${
+                      searchType === "comment" ? "bg-gray_4" : ""
+                    }`}
                   >
                     댓글단 글
                   </button>
@@ -102,7 +106,9 @@ function Profile() {
                     type="button"
                     value="good"
                     onClick={(e) => setSearchType(e.target.value)}
-                    className="border border-black rounded-md px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]"
+                    className={`border border-black rounded-md px-[22px] hover:bg-gray_4 mobile:px-[12px] py-[6px] mobile:py-[6px] ${
+                      searchType === "good" ? "bg-gray_4" : ""
+                    }`}
                   >
                     좋아요한 글
                   </button>
