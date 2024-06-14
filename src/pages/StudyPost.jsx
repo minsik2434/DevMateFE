@@ -1,106 +1,149 @@
-import React from 'react'
-import EditorBox from '@/components/Editorbox'
-import Header from '@/components/Header'
-import getStringedDate from '@/util/get_stringed_date.js';
+import React from "react";
+import Header from "@/components/Header";
+import Banner from "@/components/post/Banner";
+import { useState } from "react";
+import StudyPostExp from "@/components/post/StudyPostExp";
+import ContentEdit from "@/components/post/ContentEdit";
+import { patchData, postData } from "@/util/Crud";
+import { useNavigate } from "react-router-dom";
+import { useLayoutEffect } from "react";
+import useLoginInfoStore from "@/stores/loginInfo";
+import { useCookies } from "react-cookie";
+import { useSearchParams } from "react-router-dom";
 function StudyPost() {
-    const date = new Date();
+  const [cookies] = useCookies();
+  const [searchParams] = useSearchParams();
+  const postId = searchParams.get("id");
+  const { grantType, accessToken, setGrantType, setAccessToken } =
+    useLoginInfoStore();
+  const [postValues, setPostValues] = useState({
+    title: "",
+    tags: [],
+    content: "",
+    recruitCount: 1,
+    proceed: "오프라인",
+    deadLine: "",
+  });
+  const nav = useNavigate();
+  const setRecruitCount = (e) => {
+    setPostValues((prev) => ({
+      ...prev,
+      recruitCount: e.target.value,
+    }));
+  };
 
+  const setProceed = (e) => {
+    setPostValues((prev) => ({
+      ...prev,
+      proceed: e.target.value,
+    }));
+  };
+
+  const setDeadLine = (e) => {
+    const date = new Date(e.target.value);
+    const value = date.toISOString().slice(0, 19);
+    setPostValues((prev) => ({
+      ...prev,
+      deadLine: value,
+    }));
+  };
+
+  const setTitle = (e) => {
+    setPostValues((prevValues) => ({
+      ...prevValues,
+      title: e.target.value,
+    }));
+  };
+
+  const onTags = (value) => {
+    setPostValues((prevValues) => ({
+      ...prevValues,
+      tags: value,
+    }));
+  };
+
+  const setContent = (value) => {
+    setPostValues((prevValues) => ({
+      ...prevValues,
+      content: value,
+    }));
+  };
+
+  const handleRegister = async () => {
+    try {
+      await postData(`${import.meta.env.VITE_API_URL}/post/study`, postValues, {
+        Authorization: `${grantType} ${accessToken}`,
+      });
+      alert("게시글 등록 완료");
+      nav(`/board/study`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleEdit = async () => {
+    try {
+      await patchData(
+        `${import.meta.env.VITE_API_URL}/post/${postId}`,
+        postValues,
+        {
+          Authorization: `${grantType} ${accessToken}`,
+        }
+      );
+      alert("게시글 수정 완료");
+      nav(`/board/study`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    const savedTokenInfo = () => {
+      setGrantType(cookies.grantType);
+      setAccessToken(cookies.accessToken);
+    };
+    savedTokenInfo();
+  }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
+  const handleSubmit =
+    location.pathname === `/post/study/new` ? handleRegister : handleEdit;
   return (
     <div>
-        <header>
-            <Header />
-        </header>
-        <section className='flex justify-center py-[50px]'>
-          <div className='w-[60%] mobile:w-[95%] max-w-[740px]'>
-            <div className='w-full px-[60px] py-[16px] mobile:px-[16px] mobile:py-[10px] bg-[#EDEDED] rounded-lg'>
-              <h2 className='text-[25px] mobile:text-[15px] font-bold'>스터디</h2>
-              <p className='text-[15px] mobile:text-[10px] font-bold'>함께 공부해 목표를 이뤄보세요</p>
-            </div>
-            <div className='w-full mt-[62px] mobile:mt-[42px]'>
-                <ul className='flex flex-col gap-[32px] mobile:gap-[12px]'>
-                    <li>
-                        <div className='flex gap-[42px] items-center'>
-                            <span className='text-[20px] mobile:text-[15px] font-bold'>모집 인원</span> 
-                            <select className='border border-black rounded-[5px] px-[4px] mobile:px-[2px]'>
-                                <option>1명</option>
-                                <option>2명</option>
-                                <option>3명</option>
-                                <option>4명</option>
-                                <option>5명</option>
-                            </select>
-                        </div>
-                    </li>
-                    <li>
-                        <div className='flex gap-[42px] items-center'>
-                            <span className='text-[20px] mobile:text-[15px] font-bold'>모집 기간</span>
-                            <input value={getStringedDate(date)} type="date" className='border border-black px-[4px] rounded-[5px]'/>
-                        </div>
-                    </li>
-                    <li>
-                        <div className='flex gap-[42px] items-center'>
-                            <span className='text-[20px] mobile:text-[15px] font-bold'>진행 방식</span>
-                            <select className='border border-black px-[4px] rounded-[5px]'>
-                                <option>오프라인</option>
-                                <option>온라인</option>
-                                <option>온/오프라인</option>
-                            </select>
-                        </div>
-                    </li>
-                    <li>
-                        <div className='flex gap-[43px]'>
-                            <span className='text-[20px] mobile:text-[15px] font-bold text-nowrap'>모집 분야</span>
-                            <ul className='mobile:hidden flex gap-[20px] mobile:gap-[10px] items-center text-[18px] mobile:text-[12px] flex-wrap'>
-                                <li>
-                                    <button className='font-bold bg-[#e0e0e0] px-[30px] mobile:px-[8px] py-[6px] mobile:py-[4px] rounded-full'>FrontEnd</button>
-                                </li>
-                                <li>
-                                    <button className='font-bold bg-[#e0e0e0] px-[30px] mobile:px-[8px] py-[6px] mobile:py-[4px] rounded-full'>BackEnd</button>
-                                </li>
-                                <li>
-                                    <button className='font-bold bg-[#e0e0e0] px-[30px] mobile:px-[8px] py-[6px] mobile:py-[4px] rounded-full'>Designer</button>
-                                </li>
-                                <li>
-                                    <button className='font-bold bg-[#e0e0e0] px-[30px] mobile:px-[8px] py-[6px] mobile:py-[4px] rounded-full'>Planning</button>
-                                </li>
-                                <li>
-                                    <button className='font-bold bg-[#e0e0e0] px-[30px] mobile:px-[8px] py-[6px] mobile:py-[4px] rounded-full'>IOS</button>
-                                </li>
-                                <li>
-                                    <button className='font-bold bg-[#e0e0e0] px-[30px] mobile:px-[8px] py-[6px] mobile:py-[4px] rounded-full'>IOS</button>
-                                </li>
-                            </ul>
-                            <select className='laptop:hidden desktop:hidden border border-black px-[4px] rounded-[5px]'>
-                                <option>FrontEnd</option>
-                                <option>BackEnd</option>
-                                <option>Planning</option>
-                                <option>AI</option>
-                                <option>IOS</option>
-                            </select>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <ul className='flex flex-col gap-[40px] mobile:gap-[14px] mt-[62px] mobile:mt-[30px]'>
-              <li>
-                <label className='sr-only' htmlFor='title'>title</label>
-                <input id='title' placeholder='제목을 입력하세요' className='w-full focus:outline-none placeholder:font-bold placeholder:text-[25px] mobile:placeholder:text-[20px] text-[25px] mobile:text-[20px] font-bold'/>
-              </li>
-              <li>
-                <label className='sr-only' htmlFor='tag'>tag</label>
-                <input id='tag' placeholder='태그를 입력하세요' className='w-full focus:outline-none placeholder:text-[16px] text-[16px]'/> 
-              </li>
-              <li>
-                <EditorBox/>
-              </li>
-            </ul>
-            <div className='flex justify-end gap-[43px] mobile:gap-[18px] mt-[42px] mobile:mt-[20px]'>
-              <button className='px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-[#979797] text-white font-bold rounded-md'>등록</button>
-              <button className='px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] border border-[#979797] text-black font-bold rounded-md'>취소</button>
-            </div>
+      <header>
+        <Header />
+      </header>
+      <section className="flex justify-center py-[50px]">
+        <div className="w-[60%] mobile:w-[95%] max-w-[740px]">
+          <Banner
+            heading="스터디"
+            exp="함께 공부해 목표를 이뤄보세요"
+            style="bg-gradient-to-t from-[#EDEDED] to-[#E6E6FA]"
+          />
+          <StudyPostExp
+            postValues={postValues}
+            setRecruitCount={setRecruitCount}
+            setProceed={setProceed}
+            setDeadLine={setDeadLine}
+          />
+          <ContentEdit
+            onTags={onTags}
+            setContent={setContent}
+            setTitle={setTitle}
+            postValues={postValues}
+          />
+          <div className="flex justify-end gap-[43px] mobile:gap-[18px] mt-[42px] mobile:mt-[20px]">
+            <button
+              onClick={handleSubmit}
+              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-[#979797] text-white font-bold rounded-md"
+            >
+              등록
+            </button>
+            <button className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] border border-[#979797] text-black font-bold rounded-md">
+              취소
+            </button>
           </div>
-        </section>
+        </div>
+      </section>
     </div>
-  )
+  );
 }
 
-export default StudyPost
+export default StudyPost;

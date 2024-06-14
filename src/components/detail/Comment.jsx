@@ -2,6 +2,7 @@ import React from "react";
 import penImg from "@/assets/pen.png";
 import { useEffect, useLayoutEffect } from "react";
 import { getData, postData, deleteData, patchData } from "@/util/Crud";
+import profileDefault from "@/assets/profileDefault.png";
 import useLoginInfoStore from "@/stores/loginInfo";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -97,18 +98,26 @@ function Comment() {
     setEditInputs((prevInputs) => ({ ...prevInputs, [id]: content }));
   };
 
+  const placeholder =
+    accessToken && grantType
+      ? "댓글을 작성해보세요"
+      : "댓글을 작성하려면 로그인이 필요합니다";
+
+  const profileImage = accessToken && grantType ? imgUrl : profileDefault;
+
   return (
     <div className="border-t border-[#9b9b9b] mt-[40px] py-[30px] px-[50px] mobile:px-0 flex flex-col items-center">
       <div className="w-full px-[30px] py-[20px] border border-[#9b9b9b] rounded-lg">
         <form onSubmit={onSubmit}>
           <div className="flex gap-[30px] items-center mobile:gap-[10px]">
-            <img src={imgUrl} className="w-[50px] mobile:w-[30px]" />
+            <img src={profileImage} className="w-[50px] mobile:w-[30px]" />
             <label htmlFor="comment" className="sr-only"></label>
             <input
               id="comment"
-              placeholder="댓글을 작성해보세요"
+              placeholder={placeholder}
               value={input.comment}
               onChange={onChnage}
+              disabled={!(accessToken && grantType)}
               autoComplete="comment"
               className="w-full py-[10px] mobile:py-[3px] px-[13px] placeholder:text-[14px] mobile:placeholder:text-[10px] placeholder:font-bold border border-[#9b9b9b] rounded-lg"
             />

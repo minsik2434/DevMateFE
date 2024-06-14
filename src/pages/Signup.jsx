@@ -1,7 +1,6 @@
 import React from "react";
 import InputField from "@/components/sign/InputField";
 import SingUpButton from "@/components/sign/SignButton";
-import apiFunction from "@/util/apiFunction";
 import { useState, useEffect, useCallback, useLayoutEffect } from "react";
 import Interests from "@/components/Interests";
 import { useNavigate } from "react-router-dom";
