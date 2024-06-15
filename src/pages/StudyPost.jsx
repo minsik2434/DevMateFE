@@ -4,14 +4,16 @@ import Banner from "@/components/post/Banner";
 import { useState } from "react";
 import StudyPostExp from "@/components/post/StudyPostExp";
 import ContentEdit from "@/components/post/ContentEdit";
-import { patchData, postData } from "@/util/Crud";
+import { getData, patchData, postData } from "@/util/Crud";
 import { useNavigate } from "react-router-dom";
 import { useLayoutEffect } from "react";
 import useLoginInfoStore from "@/stores/loginInfo";
 import { useCookies } from "react-cookie";
 import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 function StudyPost() {
   const [cookies] = useCookies();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const postId = searchParams.get("id");
   const { grantType, accessToken, setGrantType, setAccessToken } =
@@ -23,6 +25,12 @@ function StudyPost() {
     recruitCount: 1,
     proceed: "오프라인",
     deadLine: "",
+  });
+  const [memberInfo, setMemberInfo] = useState({
+    name: "",
+    nickName: "",
+    imgUrl: "test.png",
+    interests: [],
   });
   const nav = useNavigate();
   const setRecruitCount = (e) => {
@@ -80,10 +88,11 @@ function StudyPost() {
       console.log(error);
     }
   };
+
   const handleEdit = async () => {
     try {
       await patchData(
-        `${import.meta.env.VITE_API_URL}/post/${postId}`,
+        `${import.meta.env.VITE_API_URL}/post/${postId}/study`,
         postValues,
         {
           Authorization: `${grantType} ${accessToken}`,
@@ -95,7 +104,6 @@ function StudyPost() {
       console.log(error);
     }
   };
-
   useLayoutEffect(() => {
     const savedTokenInfo = () => {
       setGrantType(cookies.grantType);
@@ -103,6 +111,48 @@ function StudyPost() {
     };
     savedTokenInfo();
   }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
+  useLayoutEffect(() => {
+    const getMember = async () => {
+      try {
+        const responseData = (
+          await getData(`${import.meta.env.VITE_API_URL}/members`, {
+            Authorization: `${grantType} ${accessToken}`,
+          })
+        ).data;
+        setMemberInfo(responseData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (grantType && accessToken) {
+      getMember();
+    }
+  }, [accessToken, grantType]);
+
+  useLayoutEffect(() => {
+    const getPostData = async () => {
+      try {
+        const responsePostData = await (
+          await getData(`${import.meta.env.VITE_API_URL}/post/${postId}`)
+        ).data;
+        setPostValues({
+          title: responsePostData.title,
+          tags: responsePostData.tags,
+          content: responsePostData.content,
+          recruitCount: responsePostData.recruitCount,
+          proceed: responsePostData.proceed,
+          deadLine: responsePostData.deadLine,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (location.pathname === `/post/study/new`) {
+      return;
+    }
+    getPostData();
+  }, [location.pathname, memberInfo.nickName, nav, postId]);
+
   const handleSubmit =
     location.pathname === `/post/study/new` ? handleRegister : handleEdit;
   return (
@@ -136,7 +186,10 @@ function StudyPost() {
             >
               등록
             </button>
-            <button className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] border border-[#979797] text-black font-bold rounded-md">
+            <button
+              onClick={() => nav(`/board/study`)}
+              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] border border-[#979797] text-black font-bold rounded-md"
+            >
               취소
             </button>
           </div>

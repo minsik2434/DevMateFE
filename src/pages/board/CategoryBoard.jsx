@@ -171,7 +171,6 @@ function CategoryBoard() {
     initSelectOptions();
   }, [param.category]);
   const { heading, exp, style } = bannerElementByCategory[param.category];
-  console.log(selectedOptions);
   return (
     <div>
       <Header />
