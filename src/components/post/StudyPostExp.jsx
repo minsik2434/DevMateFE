@@ -1,11 +1,13 @@
-import React from "react";
 import getStringedDate from "@/util/get_stringed_date";
+import React from "react";
 function StudyPostExp({
   postValues,
   setRecruitCount,
   setProceed,
   setDeadLine,
 }) {
+  const deadLine = getStringedDate(new Date(postValues.deadLine));
+
   return (
     <div className="w-full mt-[62px] mobile:mt-[42px]">
       <ul className="flex flex-col gap-[32px] mobile:gap-[12px]">
@@ -34,6 +36,7 @@ function StudyPostExp({
             </span>
             <input
               type="date"
+              value={deadLine}
               onChange={setDeadLine}
               className="border border-black px-[4px] rounded-[5px]"
             />
@@ -47,6 +50,7 @@ function StudyPostExp({
             <select
               className="border border-black px-[4px] rounded-[5px]"
               onChange={setProceed}
+              value={postValues.proceed}
             >
               <option value="오프라인">오프라인</option>
               <option value="온라인">온라인</option>

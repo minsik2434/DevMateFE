@@ -183,7 +183,7 @@ function Post() {
               등록
             </button>
             <button
-              onClick={(e) => nav(`/board/${param.category}`)}
+              onClick={() => nav(`/board/${param.category}`)}
               className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] border border-[#979797] text-black font-bold rounded-md"
             >
               취소

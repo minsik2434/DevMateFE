@@ -141,7 +141,6 @@ function Study() {
     };
     initSelectOptions();
   }, []);
-  console.log(searchInput);
   return (
     <div>
       <Header />

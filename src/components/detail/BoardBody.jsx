@@ -13,7 +13,7 @@ function BoardBody({ data, writer }) {
   const { nickName } = useMemberStore();
   const param = useParams();
   const nav = useNavigate();
-
+  console.log(nickName);
   const onDelete = async () => {
     if (confirm("정말 게시글을 삭제하시겠습니까?") == true) {
       try {
