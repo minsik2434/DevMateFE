@@ -30,7 +30,7 @@ function BoardDetail() {
       try {
         const responseData = (
           await getData(`${import.meta.env.VITE_API_URL}/members`, {
-            Authorization: `${grantType} ${accessToken}`,
+            Authorization: `${cookies.grantType} ${cookies.accessToken}`,
           })
         ).data;
         setName(responseData.name);
@@ -40,10 +40,16 @@ function BoardDetail() {
         console.log(error);
       }
     };
-    if (accessToken && grantType) {
+    if (cookies.grantType && cookies.accessToken) {
       getMemberData();
+      return;
+    } else {
+      setName();
+      setNickName();
+      setImgUrl();
+      return;
     }
-  }, [accessToken, grantType, setImgUrl, setName, setNickName]);
+  }, [cookies.accessToken, cookies.grantType, setImgUrl, setName, setNickName]);
 
   useEffect(() => {
     const header = document.querySelector("header");

@@ -4,7 +4,7 @@ import Edit from "@/components/profile/Edit";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import useInterestStore from "@/stores/InterestInfo";
-import { getData, patchData } from "@/util/Crud";
+import { getData, patchData, postFormData } from "@/util/Crud";
 function ProfileEdit() {
   const nav = useNavigate();
   const { setInterestsInfo } = useInterestStore();
@@ -16,6 +16,8 @@ function ProfileEdit() {
     experienced: false,
     interests: [],
   });
+
+  const [imgFile, setImgFile] = useState();
 
   useLayoutEffect(() => {
     const setInterests = async () => {
@@ -63,11 +65,38 @@ function ProfileEdit() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      await patchData(`${import.meta.env.VITE_API_URL}/members`, inputValues, {
-        Authorization: `${cookies.grantType} ${cookies.accessToken}`,
-      });
+      let imageUrl = inputValues.imgUrl;
+      if (imgFile) {
+        imageUrl = await uploadImage(imgFile);
+      }
+      const updatedValues = { ...inputValues, imgUrl: imageUrl };
+      await patchData(
+        `${import.meta.env.VITE_API_URL}/members`,
+        updatedValues,
+        {
+          Authorization: `${cookies.grantType} ${cookies.accessToken}`,
+        }
+      );
       alert("수정이 완료되었습니다");
       nav("/profile");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const uploadImage = async (file) => {
+    try {
+      const url = await (
+        await postFormData(
+          `${import.meta.env.VITE_API_URL}/image/upload`,
+          file,
+          {
+            "Content-Type": "multipart/form-data",
+            Authorization: `${cookies.grantType} ${cookies.accessToken}`,
+          }
+        )
+      ).data;
+      return url;
     } catch (error) {
       console.log(error);
     }
@@ -86,6 +115,7 @@ function ProfileEdit() {
                 onChange={onChange}
                 onSelected={updateSelectedInterests}
                 values={inputValues}
+                setImgFile={setImgFile}
               />
               <div className="flex justify-center gap-[20px] mt-[50px] mobile:mt-[25px] text-[14px] mobile:text-[12px] text-white">
                 <button
