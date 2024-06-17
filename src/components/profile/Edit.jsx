@@ -1,7 +1,30 @@
 import React from "react";
 import Interests from "@/components/Interests";
+import { useLayoutEffect } from "react";
+import { useState } from "react";
+import { useRef } from "react";
 
-function Edit({ onChange, onSelected, values }) {
+function Edit({ onChange, onSelected, values, setImgFile }) {
+  const [img, setImg] = useState("");
+  const fileInputRef = useRef(null);
+  const handlebuttonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      setImgFile(file);
+      reader.onloadend = () => {
+        setImg(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  useLayoutEffect(() => {
+    setImg(values.imgUrl);
+  }, [values.imgUrl]);
   return (
     <ul className="pl-[20%] flex flex-col gap-[20px] mobile:gap-[10px] text-[18px] mobile:text-[14px]">
       <li className="flex items-center justify-start">
@@ -32,10 +55,20 @@ function Edit({ onChange, onSelected, values }) {
       </li>
       <li className="flex items-start justify-start gap-[10px]">
         <span className="min-w-[20%]">프로필</span>
-        <img src={values.imgUrl} className="w-[100px] mobile:w-[50px]"></img>
-        <button className="font-bold text-[14px] mobile:text-[10px] text-white px-[20px] mobile:px-[10px] py-[6px] mobile:py-[3px] bg-slate-400 rounded-2xl">
+        <img src={img} className="w-[100px] mobile:w-[50px]"></img>
+        <button
+          type="button"
+          onClick={handlebuttonClick}
+          className="font-bold text-[14px] mobile:text-[10px] text-white px-[20px] mobile:px-[10px] py-[6px] mobile:py-[3px] bg-slate-400 rounded-2xl"
+        >
           change
         </button>
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        />
       </li>
       <li className="flex items-center justify-start gap-[10px] mobile:gap-[5px]">
         <span className="min-w-[20%]">경력자이신가요?</span>
