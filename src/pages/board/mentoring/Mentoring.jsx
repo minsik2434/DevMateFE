@@ -13,13 +13,40 @@ import BoardList from "@/components/board/BoardList";
 import StudyList from "@/components/board/StudyList";
 import pen from "@/assets/pen.png";
 import MentoringList from "@/components/board/MentoringList";
+import { useNavigate } from "react-router-dom";
+import { getData } from "@/util/Crud";
+import { useLayoutEffect } from "react";
+import { useCookies } from "react-cookie";
 
 function Mentoring() {
+  const [cookies] = useCookies();
   const [selectedOption, setSelectedOption] = useState("recent");
+
+  const nav = useNavigate();
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.id);
   };
+
+  useLayoutEffect(() => {
+    const getPostData = async () => {
+      try {
+        const requestUrl = `${
+          import.meta.env.VITE_API_URL
+        }/post/mentoring/list`;
+
+        const responseData = (await getData(requestUrl),{
+          Authorization: `${cookies.grantType} ${cookies.accessToken}`,
+        }).data;
+
+        console.log(responseData)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPostData();
+  }, []);
+
   return (
     <div>
       <Header />
@@ -171,6 +198,7 @@ function Mentoring() {
             <button
               className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 mobile:rounded"
               type="button"
+              onClick={() => nav("/borad/mentoring/register")}
             >
               <span className="mobile:hidden tablet:block desktop:block">
                 글쓰기
@@ -185,17 +213,18 @@ function Mentoring() {
         </form>
         <div className="m-auto desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] tablet:px-10 mobile:px-3">
           <div className="grid desktop:grid-cols-3 desktop:gap-20 tablet:grid-cols-2 tablet:gap-12 mobile:grid-cols-1 mobile:gap-10 mobile:pt-7">
-            <Link to="/borad/mentoring/detail">
+            {/* <Link to="/borad/mentoring/detail">
               <MentoringList />
             </Link>
             <MentoringList />
             <MentoringList />
             <MentoringList />
             <MentoringList />
+            <MentoringList /> */}
             <MentoringList />
           </div>
         </div>
-        <PageButton />
+        {/* <PageButton /> */}
       </div>
       <Footer />
     </div>
