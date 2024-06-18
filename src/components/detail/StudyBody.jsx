@@ -11,7 +11,6 @@ function StudyBody({ data, writer }) {
   const postingDate = useFormattedDateTime(data.postingDateTime);
   const { nickName } = useMemberStore();
   const deadLine = useFormattedDateTime(data.deadLine);
-  const param = useParams();
   const { accessToken, grantType } = useLoginInfoStore();
   const nav = useNavigate();
   const onDelete = async () => {
@@ -20,7 +19,7 @@ function StudyBody({ data, writer }) {
         await deleteData(`${import.meta.env.VITE_API_URL}/post/${data.id}`, {
           Authorization: `${grantType} ${accessToken}`,
         });
-        nav(`/board/${param.category}`);
+        nav(`/board/study`);
       } catch (error) {
         console.log(error);
       }

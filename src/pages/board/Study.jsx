@@ -234,17 +234,17 @@ function Study() {
                     </div>
                     <div className="flex items-center">
                       <input
-                        id="like"
+                        id="good"
                         name="filter"
                         type="radio"
                         className="sr-only"
-                        checked={selectedOptions === "like"}
+                        checked={selectedOptions === "good"}
                         onChange={handleOptionChange}
                       />
                       <label
-                        htmlFor="like"
+                        htmlFor="good"
                         className={`ml-2 block ${
-                          selectedOptions.sort === "like"
+                          selectedOptions.sort === "good"
                             ? "text-gray_8"
                             : "text-gray_5"
                         }`}
