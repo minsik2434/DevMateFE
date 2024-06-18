@@ -96,7 +96,7 @@ function Post() {
   const handleEdit = async () => {
     try {
       await patchData(
-        `${import.meta.env.VITE_API_URL}/post/${postId}`,
+        `${import.meta.env.VITE_API_URL}/post/${postId}/${param.category}`,
         postValues,
         {
           Authorization: `${grantType} ${accessToken}`,

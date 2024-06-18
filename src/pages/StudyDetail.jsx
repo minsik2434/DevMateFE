@@ -1,6 +1,4 @@
 import Header from "@/components/Header";
-import profileImg from "@/assets/profile.png";
-import penImg from "@/assets/pen.png";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { getData, postData } from "@/util/Crud";
@@ -31,7 +29,7 @@ function StudyDetail() {
       try {
         const responseData = (
           await getData(`${import.meta.env.VITE_API_URL}/members`, {
-            Authorization: `${grantType} ${accessToken}`,
+            Authorization: `${cookies.grantType} ${cookies.accessToken}`,
           })
         ).data;
         setName(responseData.name);
@@ -41,10 +39,15 @@ function StudyDetail() {
         console.log(error);
       }
     };
-    if (accessToken && grantType) {
+    if (cookies.accessToken && cookies.grantType) {
       getMemberData();
+      return;
+    } else {
+      setName();
+      setNickName();
+      setImgUrl();
     }
-  }, [accessToken, grantType, setImgUrl, setName, setNickName]);
+  }, [cookies.accessToken, cookies.grantType, setImgUrl, setName, setNickName]);
 
   useEffect(() => {
     setGrantType(cookies.grantType);
