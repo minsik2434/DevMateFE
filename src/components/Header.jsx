@@ -91,8 +91,9 @@ function Header() {
         isSticky ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm" : ""
       }`}
     >
-      <div className="desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] mx-auto">
-        <div className="flex items-center justify-between desktop:mx-[7%] tablet:mx-[5%] mobile:mx-3">
+      {/* desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] */}
+      <div className=" mx-auto">
+        <div className="flex items-center justify-between gap-20 desktop:mx-[7%] tablet:mx-[5%] mobile:mx-3">
           <Link to="/">
             <h1 onClick={() => handleButtonClick("")}>
               <img
@@ -103,8 +104,8 @@ function Header() {
             </h1>
           </Link>
 
-          <nav className="mobile:hidden tablet:flex desktop:flex">
-            <ul className="flex tablet:justify-between desktop:gap-8 desktop:text-base tablet:gap-7 tablet:text-[10px] font-medium">
+          <nav className="mobile:hidden flex flex-[0.7] items-center justify-center">
+            <ul className="flex items-center justify-between desktop:gap-8 desktop:text-base tablet:gap-7 tablet:text-[14px] font-medium">
               {[
                 { path: "/board/qna", label: "Q&A" },
                 { path: "/board/community", label: "커뮤니티" },

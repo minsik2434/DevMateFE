@@ -2,16 +2,25 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Banner from "@/components/board/Banner";
 import TagEdit from "@/components/post/TagEdit";
-import { postData } from "@/util/Crud";
+import useLoginInfoStore from "@/stores/loginInfo";
+import { getData, patchData, postData } from "@/util/Crud";
 import React from "react";
 import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
+import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function MentoringRegister() {
   const [cookies] = useCookies();
+  const location = useLocation();
   const nav = useNavigate();
+  const [searchParams] = useSearchParams();
+  const postId = searchParams.get("id");
+  const { grantType, accessToken, setGrantType, setAccessToken } =
+    useLoginInfoStore();
 
   const [postValues, setPostValues] = useState({
     //멘토링명
@@ -57,7 +66,7 @@ function MentoringRegister() {
           Authorization: `${cookies.grantType} ${cookies.accessToken}`,
         }
       ).data;
-      console.log(Response)
+      // console.log(Response)
       alert("게시글 등록 완료");
       nav(`/board/mentoring`);
     } catch (error) {
@@ -65,7 +74,74 @@ function MentoringRegister() {
     }
   };
 
+  const handleEdit = async () => {
+    try {
+      await patchData(
+        `${import.meta.env.VITE_API_URL}/post/${postId}/mentoring`,
+        postValues,
+        {
+          Authorization: `${grantType} ${accessToken}`,
+        }
+      );
+      alert("게시글 수정 완료");
+      nav(`/board/mentoring`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    const savedTokenInfo = () => {
+      setGrantType(cookies.grantType);
+      setAccessToken(cookies.accessToken);
+    };
+    savedTokenInfo();
+  }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
   
+  // useLayoutEffect(() => {
+  //   const getMember = async () => {
+  //     try {
+  //       const responseData = (
+  //         await getData(`${import.meta.env.VITE_API_URL}/members`, {
+  //           Authorization: `${grantType} ${accessToken}`,
+  //         })
+  //       ).data;
+  //       setMemberInfo(responseData);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   if (grantType && accessToken) {
+  //     getMember();
+  //   }
+  // }, [accessToken, grantType]);
+
+  // useLayoutEffect(() => {
+  //   const getPostData = async () => {
+  //     try {
+  //       const responsePostData = await (
+  //         await getData(`${import.meta.env.VITE_API_URL}/post/${postId}`)
+  //       ).data;
+  //       setPostValues({
+  //         title: responsePostData.title,
+  //         tags: responsePostData.tags,
+  //         content: responsePostData.content,
+  //         recruitCount: responsePostData.recruitCount,
+  //         proceed: responsePostData.proceed,
+  //         deadLine: responsePostData.deadLine,
+  //       });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   if (location.pathname === `/post/study/new`) {
+  //     return;
+  //   }
+  //   getPostData();
+  // }, [location.pathname, memberInfo.nickName, nav, postId]);
+
+  const handleSubmit =
+    location.pathname === `/post/study/new` ? handleRegister : handleEdit;
 
   return (
     <div>

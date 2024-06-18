@@ -3,9 +3,91 @@ import Header from "@/components/Header";
 import Banner from "@/components/board/Banner";
 import DetailComment from "@/components/board/DetailComment";
 import DetailCommentList from "@/components/board/DetailCommentList";
+import Comment from "@/components/detail/Comment";
+import MentoringBody from "@/components/detail/MentoringBody";
+import useLoginInfoStore from "@/stores/loginInfo";
+import useMemberStore from "@/stores/memberInfo";
+import { getData, postData } from "@/util/Crud";
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useLayoutEffect } from "react";
+import { useCookies } from "react-cookie";
+import { useParams } from "react-router-dom";
 
 function MentoringDetail() {
+  const param = useParams();
+  const [postingData, setPostingData] = useState({});
+  const { setName, setNickName, setImgUrl } = useMemberStore();
+  const { accessToken, grantType, setGrantType, setAccessToken } =
+    useLoginInfoStore();
+  const [cookies] = useCookies();
+  const [writerData, setWriterData] = useState({
+    nickName: "",
+    imgUrl: "",
+    interests: [],
+  });
+
+  useEffect(() => {
+    const getMemberData = async () => {
+      try {
+        const responseData = (
+          await getData(`${import.meta.env.VITE_API_URL}/members`, {
+            Authorization: `${grantType} ${accessToken}`,
+          })
+        ).data;
+
+        console.log(responseData);
+        setName(responseData.name);
+        setNickName(responseData.nickName);
+        setImgUrl(responseData.imgUrl);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (accessToken && grantType) {
+      getMemberData();
+    }
+  }, [accessToken, grantType, setImgUrl, setName, setNickName]);
+
+  useEffect(() => {
+    setGrantType(cookies.grantType);
+    setAccessToken(cookies.accessToken);
+  }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
+
+  useLayoutEffect(() => {
+    const getPostingData = async () => {
+      try {
+        const responsePostData = await (
+          await getData(`${import.meta.env.VITE_API_URL}/post/${param.id}`)
+        ).data;
+        setPostingData(responsePostData);
+        const memberResponseData = await (
+          await getData(
+            `${import.meta.env.VITE_API_URL}/members/${
+              responsePostData.writer.nickName
+            }`
+          )
+        ).data;
+        setWriterData(memberResponseData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const addView = async () => {
+      try {
+        await postData(
+          `${import.meta.env.VITE_API_URL}/post/${param.id}/addview`
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPostingData();
+    addView();
+  }, [param.id]);
+
   return (
     <div>
       <Header />
@@ -20,7 +102,7 @@ function MentoringDetail() {
           />
         </div>
 
-        <div className="flex flex-col desktop:gap-20 tablet:gap-16 mobile:gap-10 tablet:mt-12 mobile:mt-8">
+        {/* <div className="flex flex-col desktop:gap-20 tablet:gap-16 mobile:gap-10 tablet:mt-12 mobile:mt-8">
           <div className="border border-gray_5 rounded-2xl desktop:px-5 desktop:py-8 tablet:px-5 tablet:py-8 mobile:px-4 mobile:py-5 flex flex-col gap-5">
             <span className="text-lg mobile:text-sm font-semibold text-gray_6">
               멘토 정보
@@ -72,12 +154,15 @@ function MentoringDetail() {
               멘토링소개
             </span>
 
-            <p className="desktop:h-[450px] desktop:mt-5 tablet:h-[300px] mobile:h-[200px] mobile:text-xs">탕탕 후루후루 탕탕 후루루루루</p>
+            <p className="desktop:h-[450px] desktop:mt-5 tablet:h-[300px] mobile:h-[200px] mobile:text-xs">
+              탕탕 후루후루 탕탕 후루루루루
+            </p>
           </div>
-        </div>
+        </div> */}
+        <MentoringBody data={postingData} writer={writerData}/>
 
         <div className="mt-28">
-          <DetailComment />
+          {/* <DetailComment />
           <div className="py-[50px] mobile:py-[18px]">
             <ul className="flex flex-col gap-8">
               <li>
@@ -90,7 +175,8 @@ function MentoringDetail() {
                 <DetailCommentList />
               </li>
             </ul>
-          </div>
+          </div> */}
+          <Comment />
         </div>
       </div>
       <Footer />
