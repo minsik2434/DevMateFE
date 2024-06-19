@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 function MentoringList({ data }) {
   const nav = useNavigate();
   const onClick = () => {
-    nav(`/borad/mentoring/${data.id}`);
+    nav(`/board/mentoring/${data.id}`);
   };
 
 

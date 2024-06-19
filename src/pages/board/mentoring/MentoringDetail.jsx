@@ -7,6 +7,7 @@ import Comment from "@/components/detail/Comment";
 import MentoringBody from "@/components/detail/MentoringBody";
 import useLoginInfoStore from "@/stores/loginInfo";
 import useMemberStore from "@/stores/memberInfo";
+import useLike from "@/stores/useLike";
 import { getData, postData } from "@/util/Crud";
 import React from "react";
 import { useState } from "react";
@@ -28,6 +29,8 @@ function MentoringDetail() {
     interests: [],
   });
 
+  const { likeState, setLikeState } = useLike();
+
   useEffect(() => {
     const getMemberData = async () => {
       try {
@@ -37,7 +40,7 @@ function MentoringDetail() {
           })
         ).data;
 
-        console.log(responseData);
+        // console.log(responseData);
         setName(responseData.name);
         setNickName(responseData.nickName);
         setImgUrl(responseData.imgUrl);
@@ -61,7 +64,9 @@ function MentoringDetail() {
         const responsePostData = await (
           await getData(`${import.meta.env.VITE_API_URL}/post/${param.id}`)
         ).data;
+        // console.log(responsePostData)
         setPostingData(responsePostData);
+        setLikeState(responsePostData);
         const memberResponseData = await (
           await getData(
             `${import.meta.env.VITE_API_URL}/members/${
@@ -86,6 +91,7 @@ function MentoringDetail() {
     };
     getPostingData();
     addView();
+
   }, [param.id]);
 
   return (
@@ -159,7 +165,7 @@ function MentoringDetail() {
             </p>
           </div>
         </div> */}
-        <MentoringBody data={postingData} writer={writerData}/>
+        <MentoringBody data={postingData} writer={writerData} />
 
         <div className="mt-28">
           {/* <DetailComment />

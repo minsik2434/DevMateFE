@@ -9,6 +9,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+
 function Signin() {
   const [cookies, setCookie, removeCookie] = useCookies([]);
 
@@ -40,8 +42,8 @@ function Signin() {
       );
 
       const { grantType, accessToken, refreshToken } = response.data;
-      removeCookie("grantType");
-      removeCookie("accessToken");
+      // removeCookie("grantType");
+      // removeCookie("accessToken");
       setCookie("grantType", grantType, {
         sameSite: "strict",
         maxAge: 88200,
@@ -58,10 +60,22 @@ function Signin() {
         path: "/",
       });
 
+      toast.success(`로그인 되었습니다`, {
+        duration: 2000,
+      });
+
       nav("/");
     } catch (error) {
       console.log(error);
-      console.log(error.response)
+      console.log(error.response);
+      toast.error(`아이디 또는 비밀번호가 일치하지 않습니다`, {
+        duration: 2000,
+      });
+
+      setInputValues({
+        loginId: "",
+        password: "",
+      });
     }
   };
 

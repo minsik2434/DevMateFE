@@ -147,6 +147,7 @@ function Mentoring() {
       });
     };
     initSelectOptions();
+    localStorage.removeItem("like");
   }, []);
 
   return (
@@ -344,7 +345,7 @@ function Mentoring() {
             <button
               className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 mobile:rounded"
               type="button"
-              onClick={() => nav("/borad/mentoring/register")}
+              onClick={() => nav("/board/mentoring/register")}
             >
               <span className="mobile:hidden tablet:block desktop:block">
                 글쓰기

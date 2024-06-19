@@ -22,6 +22,8 @@ function Inform({ value }) {
         nav("/");
         removeCookie("grantType");
         removeCookie("accessToken");
+        removeCookie("refreshToken");
+        localStorage.clear();
       }
     }
   };
