@@ -83,13 +83,21 @@ function Signup() {
         }
         return newInputValues;
       });
-    }, 500), // 300ms 디바운스 타임 설정
+    }, 300), // 300ms 디바운스 타임 설정
     []
   );
 
   const onChange = (e) => {
     const { value, name, type, checked } = e.target;
     debouncedChangeHandler(name, value, type, checked);
+    // if (name === "confirmPassword") {
+    //   setPasswordMismatch(
+    //     inputValues.password &&
+    //       inputValues.confirmPassword &&
+    //       inputValues.password !== value
+    //   );
+    // }
+    // // console.log(inputValues);
   };
 
   const onSubmit = async (e) => {

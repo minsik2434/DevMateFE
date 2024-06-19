@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "@/assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useCookies } from "react-cookie";
 import useIndex from "@/stores/navIndex";
@@ -28,6 +28,13 @@ function Header() {
 
   const handleButtonClick = (index) => {
     setNavIndex(index);
+    // nav(path);
+
+    // Scroll to top
+    window.scrollTo({
+      top: 0,
+      behavior: "auto"
+    });
   };
 
   const updateHeaderStyle = () => {
@@ -91,20 +98,20 @@ function Header() {
         isSticky ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm" : ""
       }`}
     >
-      <div className="desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] mx-auto">
-        <div className="flex items-center justify-between desktop:mx-[7%] tablet:mx-[5%] mobile:mx-3">
+      {/* desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] */}
+      <div className="mobile:w-[320px] mx-auto py-3">
+        <div className="flex items-center justify-between gap-20 desktop:mx-[7%] tablet:mx-[5%] mobile:mx-3">
           <Link to="/">
             <h1 onClick={() => handleButtonClick("")}>
               <img
                 src={logo}
                 alt="데브 메이트 바로가기"
-                className="desktop:w-28 tablet:w-20 mobile:w-20"
+                className="desktop:w-32 tablet:w-20 mobile:w-20"
               />
             </h1>
           </Link>
-
-          <nav className="mobile:hidden tablet:flex desktop:flex">
-            <ul className="flex tablet:justify-between desktop:gap-8 desktop:text-base tablet:gap-7 tablet:text-[10px] font-medium">
+          <nav className="mobile:hidden flex items-center justify-center flex-grow">
+            <ul className="flex items-center justify-between desktop:gap-16 desktop:text-base tablet:gap-7 tablet:text-[13px] font-medium">
               {[
                 { path: "/board/qna", label: "Q&A" },
                 { path: "/board/community", label: "커뮤니티" },

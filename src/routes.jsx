@@ -86,11 +86,15 @@ const router = createBrowserRouter([
         element: <Study />,
       },
       {
-        path: "/borad/mentoring/detail",
+        path: "/board/mentoring/:id",
         element: <MentoringDetail />,
       },
       {
-        path: "/borad/mentoring/register",
+        path: "/board/mentoring/register",
+        element: <MentoringRegister />,
+      },
+      {
+        path: "/board/mentoring/edit",
         element: <MentoringRegister />,
       },
       {
