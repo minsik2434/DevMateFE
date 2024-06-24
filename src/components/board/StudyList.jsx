@@ -4,6 +4,7 @@ import recommend from "@/assets/icon/recommend.svg";
 import view from "@/assets/icon/view.svg";
 import comment from "@/assets/icon/comment.svg";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function StudyList({ data }) {
   const nav = useNavigate();
@@ -11,9 +12,15 @@ function StudyList({ data }) {
     nav(`/${data.category}/${data.id}`);
   };
   return (
-    <button
+    <motion.button
       onClick={onClick}
       className="flex flex-col items-start border border-gray_6 rounded-xl desktop:p-8 tablet:p-6  mobile:p-6 gap-3 "
+      whileHover={{ y: -5 }} // 마우스 호버 시 y축으로 -10 이동
+      transition={{
+        type: "tween",
+        stiffness: 300,
+        duration: 0.2,
+      }} // transition 설정
     >
       <div className="flex items-center gap-2 font-semibold ">
         <img
@@ -69,7 +76,7 @@ function StudyList({ data }) {
           })}
         </ul>
       </div>
-    </button>
+    </motion.button>
   );
 }
 

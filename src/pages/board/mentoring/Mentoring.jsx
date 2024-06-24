@@ -17,6 +17,8 @@ import { useLayoutEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useEffect } from "react";
 import xButton from "@/assets/xButton.png";
+import { motion } from "framer-motion";
+
 
 function Mentoring() {
   const [postDatas, setPostDatas] = useState([]);
