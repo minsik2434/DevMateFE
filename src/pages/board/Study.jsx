@@ -142,14 +142,14 @@ function Study() {
     initSelectOptions();
   }, []);
   return (
-    <div>
+    <div className="bg-gray_0">
       <Header />
       <div className="mx-8 mobile:mx-5 mobile:mb-32">
         <div>
           <Banner
             heading="스터디"
             exp="원하는 사람들과 함께 공부해봐요"
-            style="bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED]"
+            style="bg-banner_study bg-center bg-cover border border-gray_2"
           />
         </div>
         <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto my-5">
@@ -262,7 +262,7 @@ function Study() {
               <label htmlFor="filter" className="sr-only">
                 태그 검색창
               </label>
-              <div className="border py-2 rounded-lg desktop:w-[550px] tablet:w-[300px] flex">
+              <div className="border py-2 rounded-lg desktop:w-[550px] tablet:w-[300px] flex bg-white">
                 <ul className="flex gap-[10px] ml-[7px]">
                   {selectedOptions.tags.map((tag, index) => {
                     return (

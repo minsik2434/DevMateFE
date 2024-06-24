@@ -2,28 +2,16 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Banner from "@/components/board/Banner";
 import TagEdit from "@/components/post/TagEdit";
-import useLoginInfoStore from "@/stores/loginInfo";
-import useLike from "@/stores/useLike";
-import { getData, patchData, postData } from "@/util/Crud";
+import { postData } from "@/util/Crud";
 import React from "react";
 import { useEffect } from "react";
-import { useLayoutEffect } from "react";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import { useSearchParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function MentoringRegister() {
   const [cookies] = useCookies();
-  const location = useLocation();
   const nav = useNavigate();
-  const [searchParams] = useSearchParams();
-  const postId = searchParams.get("id");
-  const { grantType, accessToken, setGrantType, setAccessToken } =
-    useLoginInfoStore();
-
-  const { likeState } = useLike();
 
   const [postValues, setPostValues] = useState({
     //멘토링명
@@ -62,105 +50,22 @@ function MentoringRegister() {
   const handleRegister = async (e) => {
     e.preventDefault(); // 기본 폼 제출 동작 방지
     try {
-      const response = await postData(
+      const responst = await postData(
         `${import.meta.env.VITE_API_URL}/post/mentoring`,
         postValues,
         {
           Authorization: `${cookies.grantType} ${cookies.accessToken}`,
         }
       ).data;
-      console.log(response);
-      alert("게시글 등록 완료");
-      nav(`/board/mentoring`);
+      console.log(Response)
+      // alert("게시글 등록 완료");
+      // nav(`/board/mentoring`);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleEdit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await patchData(
-        `${import.meta.env.VITE_API_URL}/post/${postId}/mentoring`,
-        postValues,
-        {
-          Authorization: `${grantType} ${accessToken}`,
-        }
-      );
-
-      alert("게시글 수정 완료");
-      nav(`/board/mentoring`);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useLayoutEffect(() => {
-    const savedTokenInfo = () => {
-      setGrantType(cookies.grantType);
-      setAccessToken(cookies.accessToken);
-    };
-    savedTokenInfo();
-  }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
-
-  // useLayoutEffect(() => {
-  //   const getMember = async () => {
-  //     try {
-  //       const responseData = (
-  //         await getData(`${import.meta.env.VITE_API_URL}/members`, {
-  //           Authorization: `${grantType} ${accessToken}`,
-  //         })
-  //       ).data;
-  //       setMemberInfo(responseData);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   if (grantType && accessToken) {
-  //     getMember();
-  //   }
-  // }, [accessToken, grantType]);
-
-  useLayoutEffect(() => {
-    const getPostData = async () => {
-      try {
-        const responsePostData = await (
-          await getData(`${import.meta.env.VITE_API_URL}/post/${postId}`)
-        ).data;
-
-        setPostValues({
-          //멘토링명
-          title: responsePostData.title,
-          //멘토링소개
-          content: responsePostData.content,
-          // 태그
-          // tags: [],
-          // 전화번호
-          phoneNumber: responsePostData.phoneNumber,
-          // 이메일
-          email: responsePostData.email,
-          // 직무
-          job: responsePostData.job,
-          // 경력
-          career: responsePostData.career,
-          // url
-          githubUrl: responsePostData.githubUrl,
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    if (location.pathname === `/board/mentoring/register`) {
-      return;
-    }
-    getPostData();
-  }, [location.pathname, nav, postId]);
-
-  const handleSubmit =
-    location.pathname === `/board/mentoring/register`
-      ? handleRegister
-      : handleEdit;
+  
 
   return (
     <div>
@@ -324,14 +229,13 @@ function MentoringRegister() {
           <div className="desktop:px-5 desktop:py-8 tablet:px-5 tablet:py-8 mobile:px-4 mobile:py-5 flex justify-end gap-5 font-semibold mobile:text-xs ">
             <button
               className="bg-brand_blue w-[120px] py-2 mobile:w-[60px] mobile:py-1 rounded"
-              onClick={handleSubmit}
+              onClick={handleRegister}
             >
               등록
             </button>
             <button
               className="bg-brand_red w-[120px] py-2 mobile:w-[60px] mobile:py-1 rounded"
               type="button"
-              onClick={() => nav(`/board/mentoring`)}
             >
               취소
             </button>

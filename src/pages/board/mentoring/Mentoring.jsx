@@ -18,8 +18,6 @@ import { useCookies } from "react-cookie";
 import { useEffect } from "react";
 import xButton from "@/assets/xButton.png";
 
-
-
 function Mentoring() {
   const [postDatas, setPostDatas] = useState([]);
   const nav = useNavigate();
@@ -151,16 +149,15 @@ function Mentoring() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-gray_0">
       <Header />
       <div className="mx-8 mobile:mx-5 mobile:mb-32">
         <div>
           <Banner
             heading="멘토링"
             exp="선배 또는 동료들의 경험을 들어봐요"
-            style="bg-[#C9DECF]"
+            style="bg-banner_mento bg-center bg-cover"
 
-            // className="bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED]"
           />
         </div>
         <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto my-5">
@@ -273,7 +270,7 @@ function Mentoring() {
               <label htmlFor="filter" className="sr-only">
                 태그 검색창
               </label>
-              <div className="border py-2 rounded-lg desktop:w-[550px] tablet:w-[300px] flex">
+              <div className="border py-2 rounded-lg desktop:w-[550px] tablet:w-[300px] flex bg-white">
                 <ul className="flex gap-[10px] ml-[7px]">
                   {selectedOptions.tags.map((tag, index) => {
                     return (
@@ -360,17 +357,8 @@ function Mentoring() {
         </div>
         <div className="m-auto desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] tablet:px-10 mobile:px-3">
           <div className="grid desktop:grid-cols-3 desktop:gap-20 tablet:grid-cols-2 tablet:gap-12 mobile:grid-cols-1 mobile:gap-10 mobile:pt-7">
-            {/* <Link to="/borad/mentoring/detail">
-              <MentoringList />
-            </Link>
-            <MentoringList />
-            <MentoringList />
-            <MentoringList />
-            <MentoringList />
-            <MentoringList /> */}
-            {/* <MentoringList /> */}
             {postDatas.map((postData) => {
-              return <MentoringList key={postData.id} data={postData} />;
+              return <MentoringList key={postData.id} data={postData}/>;
             })}
           </div>
         </div>

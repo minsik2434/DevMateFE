@@ -9,6 +9,9 @@ import { debounce } from "lodash";
 import useInterestStore from "@/stores/InterestInfo";
 import { getData, postData } from "@/util/Crud";
 
+import check from "@/assets/icon/check.svg";
+import uncheck from "@/assets/icon/uncheck.svg";
+
 function Signup() {
   const { interestsInfo, setInterestsInfo } = useInterestStore();
 
@@ -165,6 +168,14 @@ function Signup() {
     };
   }, []);
 
+  // 이미지 클릭 시 experienced 상태 토글 함수
+  const toggleExperienced = () => {
+    setInputValues((prevInputValues) => ({
+      ...prevInputValues,
+      experienced: !prevInputValues.experienced,
+    }));
+  };
+
   return (
     <div className="flex justify-center py-[50px] mobile:py-[28px]">
       <div className="w-[38%] mobile:w-[80%] mobile:max-w-[400px] desktop:max-w-[470px]">
@@ -250,17 +261,27 @@ function Signup() {
                 </div>
               </ul>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center mt-5">
               <p className="text-[14px] mobile:text-[12px]">경력자이신가요?</p>
               <input
                 type="checkbox"
-                className="ml-2"
+                className="ml-2 sr-only"
                 value={inputValues.experienced}
                 name="experienced"
                 onChange={onChange}
               />
+              <div
+                onClick={toggleExperienced}
+                className="cursor-pointer desktop:w-[28px] tablet:w-[28px] ml-3"
+              >
+                {inputValues.experienced ? (
+                  <img src={check} alt="Checked" />
+                ) : (
+                  <img src={uncheck} alt="Unchecked" />
+                )}
+              </div>
             </div>
-            <div>
+            <div className="mt-3">
               <span className="text-[14px] mobile:text-[12px]">관심 분야</span>
               <Interests
                 onSelected={updateSelectedInterests}
@@ -272,11 +293,13 @@ function Signup() {
               <SingUpButton text="SIGNUP" type="submit" />
             </div>
           </form>
-          <div className="flex items-center gap-1">
-            <p className="text-[12px] mobile:text-[8px]">이미 회원이십니까?</p>
+          <div className="flex items-center gap-1 justify-center desktop:mt-10">
+            <p className="text-[12px] mobile:text-[8px] text-[#868E96]">
+              이미 계정이 있으신가요?
+            </p>
             <a href="/">
               <p className="underline font-bold text-[12px] mobile:text-[8px]">
-                Login
+                로그인하기
               </p>
             </a>
           </div>
