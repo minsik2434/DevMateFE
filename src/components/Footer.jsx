@@ -55,7 +55,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <p className="desktop:text-base tablet:text-sm text-gray_6 desktop:mt-20 tablet:mt-10 mobile:text-center tablet:text-left desktop:text-left mobile:text-[12px] mobile:mt-8">
+      <p className="desktop:text-base tablet:text-sm text-gray_6 desktop:mt-20 tablet:mt-10 text-center tablet:text-left desktop:text-left mobile:text-[12px] mobile:mt-8">
         &copy;DEVMATE. ALL RIGHTS RESERVED
       </p>
     </div>

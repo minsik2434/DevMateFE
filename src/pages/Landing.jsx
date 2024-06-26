@@ -21,7 +21,7 @@ function Landing() {
         />
       </div>
 
-      <div className="relative desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto">
+      <div className="relative desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto mb-[200px]">
         <div className="grid desktop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 desktop:gap-x-8 desktop:gap-y-56 tablet:gap-x-5 tablet:gap-y-36 mobile:gap-y-24 desktop:mt-32 tablet:mt-28 mobile:mt-20 desktop:pt-20 tablet:pt-16 mobile:pt-12 desktop:px-5 tablet:px-5 mobile:px-3">
           <p className="absolute desktop:text-3xl tablet:text-2xl mobile:text-xl font-medium desktop:left-5 desktop:top-0 tablet:left-5 tablet:top-[10px] mobile:top-0">
             소통해요
@@ -32,35 +32,35 @@ function Landing() {
           </p>
           <LandingBoard
             heading="QnA"
-            style="from-[#98D8DB] to-[#6ECEDA]"
+            style="bg-banner_qna bg-center bg-cover"
             order="desktop:order-1 tablet:order-1"
           />
 
           <LandingBoard
             heading="커뮤니티"
-            style="from-[#F6A2CC] to-[#FCAAAA]"
+            style="bg-banner_commu bg-center bg-cover"
             order="desktop:order-2 tablet:order-2"
           />
           <LandingBoard
             heading="취업후기"
-            style="from-[#FDF2F0] to-[#F8DAE2]"
+            style="bg-banner_review bg-center bg-cover"
             order="desktop:order-3 tablet:order-3"
           />
 
           <LandingBoard
             heading="멘토링"
-            style="bg-[#C9DECF]"
+            style="bg-banner_mento bg-center bg-cover"
             order="desktop:order-4 tablet:order-5"
           />
 
           <LandingBoard
             heading="스터디"
-            style="from-[#E6E6FA] to-[#EDEDED]"
+            style="bg-banner_study bg-center bg-cover"
             order="desktop:order-5 tablet:order-6"
           />
           <LandingBoard
             heading="모집공고"
-            style="from-[#FCE382] to-[#F38181]"
+            style="bg-banner_job bg-center bg-cover"
             order="desktop:order-6 tablet:order-4"
           />
         </div>

@@ -26,6 +26,7 @@ function StudyPost() {
     proceed: "오프라인",
     deadLine: "",
   });
+  
   const [memberInfo, setMemberInfo] = useState({
     name: "",
     nickName: "",

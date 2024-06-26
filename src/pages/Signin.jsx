@@ -103,17 +103,17 @@ function Signin() {
             />
           </ul>
         </div>
+        <LinkList
+          links={[
+            { to: "/find-id", text: "아이디 찾기" },
+            { to: "/find-pw", text: "비밀번호 찾기" },
+            { to: "/signup", text: "회원가입" },
+          ]}
+        />
         <div className="mt-[30px] mobile:mt-[14px]">
           <LoginButton text="LOGIN" type="submit" />
         </div>
       </form>
-      <LinkList
-        links={[
-          { to: "/find-id", text: "아이디 찾기" },
-          { to: "/find-pw", text: "비밀번호 찾기" },
-          { to: "/signup", text: "회원가입" },
-        ]}
-      />
     </div>
   );
 }

@@ -69,7 +69,6 @@ function MentoringRegister() {
           Authorization: `${cookies.grantType} ${cookies.accessToken}`,
         }
       ).data;
-      console.log(response);
       alert("게시글 등록 완료");
       nav(`/board/mentoring`);
     } catch (error) {

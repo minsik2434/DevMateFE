@@ -9,6 +9,9 @@ import { debounce } from "lodash";
 import useInterestStore from "@/stores/InterestInfo";
 import { getData, postData } from "@/util/Crud";
 
+import check from "@/assets/icon/check.svg";
+import uncheck from "@/assets/icon/uncheck.svg";
+
 function Signup() {
   const { interestsInfo, setInterestsInfo } = useInterestStore();
 
@@ -56,6 +59,15 @@ function Signup() {
               ? ""
               : "아이디는 5~20자의 영문 소문자, 숫자와 특수기호 ( _ , - ) 만 사용 가능합니다."
             : "";
+
+          if (validateLoginId(value)) {
+            checkDuplicate(name, value, (errorMessage) => {
+              setInputValues((prevInputValues) => ({
+                ...prevInputValues,
+                loginIdError: errorMessage,
+              }));
+            });
+          }
         }
 
         if (name === "password") {
@@ -80,6 +92,15 @@ function Signup() {
               ? ""
               : "닉네임은 2글자 이상의 영문 대/소문자 또는 한글이어야 합니다."
             : "";
+
+          if (validateNickName(value)) {
+            checkDuplicate(name, value, (errorMessage) => {
+              setInputValues((prevInputValues) => ({
+                ...prevInputValues,
+                nickNameError: errorMessage,
+              }));
+            });
+          }
         }
         return newInputValues;
       });
@@ -109,6 +130,41 @@ function Signup() {
       );
       alert(`성공적으로 가입되었습니다`);
       nav("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const checkDuplicate = async (name, value) => {
+  //   try {
+  //     const response = await getData(
+  //       `${import.meta.env.VITE_API_URL}/members/${value}/check?type=${name}`
+  //     );
+
+  //     console.log(response.data);
+  //     if (response.data==="Duplicate") {
+  //       console.log("yes");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const checkDuplicate = async (name, value, callback) => {
+    try {
+      const response = await getData(
+        `${import.meta.env.VITE_API_URL}/members/${value}/check?type=${name}`
+      );
+
+      if (response.data === "Duplicate") {
+        callback(
+          name === "loginId"
+            ? "이미 사용 중인 아이디입니다."
+            : "이미 사용 중인 닉네임입니다."
+        );
+      } else {
+        callback(""); // No error if not duplicate
+      }
     } catch (error) {
       console.log(error);
     }
@@ -164,6 +220,14 @@ function Signup() {
       });
     };
   }, []);
+
+  // 이미지 클릭 시 experienced 상태 토글 함수
+  const toggleExperienced = () => {
+    setInputValues((prevInputValues) => ({
+      ...prevInputValues,
+      experienced: !prevInputValues.experienced,
+    }));
+  };
 
   return (
     <div className="flex justify-center py-[50px] mobile:py-[28px]">
@@ -250,17 +314,27 @@ function Signup() {
                 </div>
               </ul>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center mt-5">
               <p className="text-[14px] mobile:text-[12px]">경력자이신가요?</p>
               <input
                 type="checkbox"
-                className="ml-2"
+                className="ml-2 sr-only"
                 value={inputValues.experienced}
                 name="experienced"
                 onChange={onChange}
               />
+              <div
+                onClick={toggleExperienced}
+                className="cursor-pointer desktop:w-[28px] tablet:w-[28px] ml-3"
+              >
+                {inputValues.experienced ? (
+                  <img src={check} alt="Checked" />
+                ) : (
+                  <img src={uncheck} alt="Unchecked" />
+                )}
+              </div>
             </div>
-            <div>
+            <div className="mt-3">
               <span className="text-[14px] mobile:text-[12px]">관심 분야</span>
               <Interests
                 onSelected={updateSelectedInterests}
@@ -272,11 +346,13 @@ function Signup() {
               <SingUpButton text="SIGNUP" type="submit" />
             </div>
           </form>
-          <div className="flex items-center gap-1">
-            <p className="text-[12px] mobile:text-[8px]">이미 회원이십니까?</p>
+          <div className="flex items-center gap-1 justify-center desktop:mt-10">
+            <p className="text-[12px] mobile:text-[8px] text-[#868E96]">
+              이미 계정이 있으신가요?
+            </p>
             <a href="/">
               <p className="underline font-bold text-[12px] mobile:text-[8px]">
-                Login
+                로그인하기
               </p>
             </a>
           </div>
