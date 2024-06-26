@@ -23,31 +23,22 @@ function Profile() {
   const commentBtn = useRef();
   const goodBtn = useRef();
   const [selectBtn, setSelectBtn] = useState("post");
-  const [btnUnderLine, setBtnUnderLine] = useState({
-    xpos: 0,
-    ypos: 0,
-    width: 0,
-  });
-
+  const [xpos, setXpos] = useState();
+  const [ypos, setYpos] = useState();
+  const [width, setWidth] = useState();
   useEffect(() => {
     if (selectBtn === "post") {
-      setBtnUnderLine({
-        xpos: postBtn.current.offsetLeft,
-        ypos: postBtn.current.offsetTop + postBtn.current.offsetHeight,
-        width: postBtn.current.offsetWidth,
-      });
+      setXpos(postBtn.current.offsetLeft);
+      setYpos(postBtn.current.offsetTop + postBtn.current.offsetHeight);
+      setWidth(postBtn.current.offsetWidth);
     } else if (selectBtn === "comment") {
-      setBtnUnderLine({
-        xpos: commentBtn.current.offsetLeft,
-        ypos: commentBtn.current.offsetTop + commentBtn.current.offsetHeight,
-        width: commentBtn.current.offsetWidth,
-      });
+      setXpos(commentBtn.current.offsetLeft);
+      setYpos(commentBtn.current.offsetTop + commentBtn.current.offsetHeight);
+      setWidth(commentBtn.current.offsetWidth);
     } else {
-      setBtnUnderLine({
-        xpos: goodBtn.current.offsetLeft,
-        ypos: goodBtn.current.offsetTop + goodBtn.current.offsetHeight,
-        width: goodBtn.current.offsetWidth,
-      });
+      setXpos(goodBtn.current.offsetLeft);
+      setYpos(goodBtn.current.offsetTop + goodBtn.current.offsetHeight);
+      setWidth(goodBtn.current.offsetWidth);
     }
   }, [selectBtn]);
 
@@ -106,11 +97,11 @@ function Profile() {
           <div>
             <div
               style={{
-                left: `${btnUnderLine.xpos}px`,
-                top: `${btnUnderLine.ypos}px`,
+                left: `${xpos}px`,
+                top: `${ypos}px`,
                 backgroundColor: "#000000",
                 height: "3px",
-                width: `${btnUnderLine.width}px`,
+                width: `${width}px`,
                 transition: "0.5s",
               }}
               className="absolute"
