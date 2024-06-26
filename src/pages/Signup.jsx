@@ -59,6 +59,15 @@ function Signup() {
               ? ""
               : "아이디는 5~20자의 영문 소문자, 숫자와 특수기호 ( _ , - ) 만 사용 가능합니다."
             : "";
+
+          if (validateLoginId(value)) {
+            checkDuplicate(name, value, (errorMessage) => {
+              setInputValues((prevInputValues) => ({
+                ...prevInputValues,
+                loginIdError: errorMessage,
+              }));
+            });
+          }
         }
 
         if (name === "password") {
@@ -83,6 +92,15 @@ function Signup() {
               ? ""
               : "닉네임은 2글자 이상의 영문 대/소문자 또는 한글이어야 합니다."
             : "";
+
+          if (validateNickName(value)) {
+            checkDuplicate(name, value, (errorMessage) => {
+              setInputValues((prevInputValues) => ({
+                ...prevInputValues,
+                nickNameError: errorMessage,
+              }));
+            });
+          }
         }
         return newInputValues;
       });
@@ -112,6 +130,41 @@ function Signup() {
       );
       alert(`성공적으로 가입되었습니다`);
       nav("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const checkDuplicate = async (name, value) => {
+  //   try {
+  //     const response = await getData(
+  //       `${import.meta.env.VITE_API_URL}/members/${value}/check?type=${name}`
+  //     );
+
+  //     console.log(response.data);
+  //     if (response.data==="Duplicate") {
+  //       console.log("yes");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const checkDuplicate = async (name, value, callback) => {
+    try {
+      const response = await getData(
+        `${import.meta.env.VITE_API_URL}/members/${value}/check?type=${name}`
+      );
+
+      if (response.data === "Duplicate") {
+        callback(
+          name === "loginId"
+            ? "이미 사용 중인 아이디입니다."
+            : "이미 사용 중인 닉네임입니다."
+        );
+      } else {
+        callback(""); // No error if not duplicate
+      }
     } catch (error) {
       console.log(error);
     }

@@ -14,7 +14,7 @@ function StudyList({ data }) {
   return (
     <motion.button
       onClick={onClick}
-      className="flex flex-col items-start border border-gray_6 rounded-xl desktop:p-8 tablet:p-6  mobile:p-6 gap-3 "
+      className="bg-white flex flex-col items-start border border-gray_3 shadow-lg hover:shadow-xl rounded-xl desktop:p-8 tablet:p-6  mobile:p-6 gap-3 cursor-pointer"
       whileHover={{ y: -5 }} // 마우스 호버 시 y축으로 -10 이동
       transition={{
         type: "tween",
