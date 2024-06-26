@@ -13,7 +13,6 @@ function BoardBody({ data, writer }) {
   const { nickName } = useMemberStore();
   const param = useParams();
   const nav = useNavigate();
-  console.log(nickName);
   const onDelete = async () => {
     if (confirm("정말 게시글을 삭제하시겠습니까?") == true) {
       try {
@@ -51,7 +50,7 @@ function BoardBody({ data, writer }) {
           </div>
         </div>
         {writer.nickName === nickName && (
-          <div className="flex gap-[15px]">
+          <div className="flex gap-[15px] text-gray_6">
             <button type="button" onClick={() => handleEditNav({ data })}>
               수정
             </button>

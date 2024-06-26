@@ -42,8 +42,8 @@ function Interests({ onSelected, selected, type }) {
       <ul className={css}>
         {interests.map((item) => {
           const itemClass = selectedIds.includes(item.id)
-            ? "font-bold bg-[#495057] rounded-full px-[12px] py-[4px] mobile:px-[16px] mobile:py-[6px] text-white"
-            : "font-bold bg-[#ADB5BD] rounded-full px-[12px] py-[4px] mobile:px-[16px] mobile:py-[6px]";
+            ? "font-bold bg-[#343A40] rounded-xl px-[12px] py-[4px] mobile:px-[16px] mobile:py-[6px] text-[#f1f3f5]"
+            : "font-bold bg-[#f1f3f5] rounded-xl px-[12px] py-[4px] mobile:px-[16px] mobile:py-[6px] text-[#343A40]";
           return (
             <li key={item.id}>
               <button

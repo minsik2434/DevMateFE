@@ -17,7 +17,7 @@ function BoardList({ data }) {
     <button
       type="button"
       onClick={onClick}
-      className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] w-full mx-auto"
+      className="desktop:max-w-[1240px] px-[20px] py-[10px] tablet:max-w-[768px] hover:bg-gray_0 border-b border-gray_3 mobile:max-w-[320px] w-full mx-auto"
     >
       <div className="mobile:mb-5">
         <div className="flex flex-col p-2">
@@ -31,7 +31,7 @@ function BoardList({ data }) {
             <p>{removeHTMLTags(data.content)}</p>
           </div>
         </div>
-        <div className="flex items-center justify-between border-b-2 border-b-gray_4 pb-8 p-2 mobile:pb-2">
+        <div className="flex items-center justify-between mobile:pb-2">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1">
               <img
