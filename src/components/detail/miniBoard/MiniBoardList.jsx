@@ -6,15 +6,19 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { getData } from "@/util/Crud";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function MiniBoardList() {
   const param = useParams();
+  const nav = useNavigate();
   const [items, setItems] = useState([]);
   useEffect(() => {
     const getPostList = async () => {
       try {
         const responseData = (
           await getData(
-            `${import.meta.env.VITE_API_URL}/post/${param.category}/list`
+            `${import.meta.env.VITE_API_URL}/post/${
+              param.category
+            }/list?sort=good`
           )
         ).data.content;
         setItems(responseData);
@@ -26,13 +30,18 @@ function MiniBoardList() {
   }, [param.category]);
 
   return (
-    <div className="border-l border-r border-b border-black rounded-b-lg px-[16px] py-[12px]">
-      <ul className="flex flex-col gap-[12px] mobile:gap-[10px]">
+    <div className="border-l border-r border-b border-[#f1f3f5] shadow-lg rounded-b-lg px-[16px] py-[12px]">
+      <ul className="flex flex-col mobile:gap-[10px]">
         {items.slice(0, 5).map((item) => {
           return (
             <li key={item.id}>
-              <div className="border-b px-[10px] border-[#9b9b9b]">
-                <p className="text-[16px] mobile:text-[15px]">{item.title}</p>
+              <button
+                onClick={() => nav(`/${item.category}/${item.id}`)}
+                className="border-b w-full px-[10px] py-[3px] border-[#9b9b9b] hover:bg-[#f1f3f5]"
+              >
+                <p className="text-[16px] mobile:text-[15px] text-start">
+                  {item.title}
+                </p>
                 <div className="flex justify-between py-[6px]">
                   <div className="flex items-center">
                     <div className="flex gap-[5px]">
@@ -80,7 +89,7 @@ function MiniBoardList() {
                     </li>
                   </ul>
                 </div>
-              </div>
+              </button>
             </li>
           );
         })}

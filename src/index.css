@@ -80,12 +80,12 @@
   z-index: 1000; /* 다른 요소 위에 표시 */
 }
 
-/* header {
-  position: fixed;
-  background: white;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  border-bottom: 1px solid #9b9b9b;
-} */
+/*input 태그 type이 search 인경우  크롬에서 x 버튼 삭제 */
+input {
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+}

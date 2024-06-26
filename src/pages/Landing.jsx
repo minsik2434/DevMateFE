@@ -21,7 +21,7 @@ function Landing() {
         />
       </div>
 
-      <div className="relative desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto">
+      <div className="relative desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto mb-[200px]">
         <div className="grid desktop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 desktop:gap-x-8 desktop:gap-y-56 tablet:gap-x-5 tablet:gap-y-36 mobile:gap-y-24 desktop:mt-32 tablet:mt-28 mobile:mt-20 desktop:pt-20 tablet:pt-16 mobile:pt-12 desktop:px-5 tablet:px-5 mobile:px-3">
           <p className="absolute desktop:text-3xl tablet:text-2xl mobile:text-xl font-medium desktop:left-5 desktop:top-0 tablet:left-5 tablet:top-[10px] mobile:top-0">
             소통해요
