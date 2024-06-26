@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "@/assets/logo.svg";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useCookies } from "react-cookie";
 import useIndex from "@/stores/navIndex";
@@ -33,7 +33,7 @@ function Header() {
     // Scroll to top
     window.scrollTo({
       top: 0,
-      behavior: "auto"
+      behavior: "auto",
     });
   };
 

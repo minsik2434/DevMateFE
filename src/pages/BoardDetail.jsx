@@ -10,6 +10,7 @@ import Comment from "@/components/detail/Comment";
 import { useCookies } from "react-cookie";
 import useLoginInfoStore from "@/stores/loginInfo";
 import useMemberStore from "@/stores/memberInfo";
+import Footer from "@/components/Footer";
 
 function BoardDetail() {
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -96,7 +97,7 @@ function BoardDetail() {
 
   return (
     <div>
-      <header>
+      <header className="shadow">
         <Header />
       </header>
       <section className="flex justify-center">
@@ -115,7 +116,7 @@ function BoardDetail() {
           </div>
         </div>
       </section>
-      <footer></footer>
+      <Footer />
     </div>
   );
 }

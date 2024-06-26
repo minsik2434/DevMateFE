@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 function RelatedPost({ posts }) {
   const nav = useNavigate();
   return (
-    <div className="py-[15px]">
-      <ul className="flex flex-col gap-[20px]">
+    <div className="">
+      <ul className="flex flex-col">
         {posts.length === 0 && (
           <li className="flex justify-center"> 게시글이 없습니다 </li>
         )}
@@ -17,7 +17,7 @@ function RelatedPost({ posts }) {
           return (
             <li key={post.id}>
               <button
-                className="border-b border-[#9b9b9b] w-full"
+                className="border-b border-[#9b9b9b] py-[10px] w-full hover:bg-[#f1f3f5]"
                 onClick={(e) => nav(`/${post.category}/${post.id}`)}
               >
                 <div className="flex gap-[50px] items-center">

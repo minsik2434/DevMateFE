@@ -187,6 +187,11 @@ function CategoryBoard() {
               id="search"
               value={searchInput}
               type="search"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  onSubmit();
+                }
+              }}
               onChange={handleSearchChange}
               placeholder="검색어를 입력하세요"
               autoComplete="off"
@@ -229,10 +234,10 @@ function CategoryBoard() {
                       />
                       <label
                         htmlFor="recent"
-                        className={`ml-2 block  ${
+                        className={`ml-2 block cursor-pointer ${
                           selectedOptions.sort === "recent"
                             ? "text-gray_8"
-                            : "text-gray_5"
+                            : "text-gray_5 hover:brightness-90"
                         }`}
                       >
                         • 최신순
@@ -249,10 +254,10 @@ function CategoryBoard() {
                       />
                       <label
                         htmlFor="comment"
-                        className={`ml-2 block ${
+                        className={`ml-2 block cursor-pointer ${
                           selectedOptions.sort === "comment"
                             ? "text-gray_8"
-                            : "text-gray_5"
+                            : "text-gray_5 hover:brightness-90"
                         }`}
                       >
                         • 댓글순
@@ -269,10 +274,10 @@ function CategoryBoard() {
                       />
                       <label
                         htmlFor="good"
-                        className={`ml-2 block ${
+                        className={`ml-2 block cursor-pointer ${
                           selectedOptions.sort === "good"
                             ? "text-gray_8"
-                            : "text-gray_5"
+                            : "text-gray_5 hover:brightness-90"
                         }`}
                       >
                         • 좋아요순

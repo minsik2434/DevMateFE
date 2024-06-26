@@ -7,6 +7,7 @@ import { useCookies } from "react-cookie";
 import useLoginInfoStore from "@/stores/loginInfo";
 import RelatedPost from "@/components/profile/RelatedPost";
 import { useRef } from "react";
+import Footer from "@/components/Footer";
 function Profile() {
   const [cookies] = useCookies();
   const [searchType, setSearchType] = useState("post");
@@ -159,6 +160,7 @@ function Profile() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }
