@@ -117,17 +117,17 @@ function ProfileEdit() {
                 values={inputValues}
                 setImgFile={setImgFile}
               />
-              <div className="flex justify-center gap-[20px] mt-[50px] mobile:mt-[25px] text-[14px] mobile:text-[12px] text-white">
+              <div className="flex justify-center gap-[20px] mt-[50px] mobile:mt-[25px] text-[14px] mobile:text-[12px]">
                 <button
                   type="submit"
-                  className="font-bold px-[30px] py-[10px] mobile:px-[15px] mobile:py-[5px] bg-brand_blue rounded-full"
+                  className="font-bold px-[30px] py-[10px] mobile:px-[15px] mobile:py-[5px] bg-[#343A40] rounded-full text-[#f1f3f5]"
                 >
-                  등록하기
+                  저장하기
                 </button>
                 <button
                   type="button"
                   onClick={() => nav("/profile")}
-                  className="font-bold px-[30px] py-[10px] mobile:px-[15px] mobile:py-[5px] bg-brand_red rounded-full"
+                  className="font-bold px-[30px] py-[10px] mobile:px-[15px] mobile:py-[5px] bg-[#f1f3f5] rounded-full text-[#495057]"
                 >
                   취소
                 </button>

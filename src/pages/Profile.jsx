@@ -6,6 +6,7 @@ import { getData } from "@/util/Crud";
 import { useCookies } from "react-cookie";
 import useLoginInfoStore from "@/stores/loginInfo";
 import RelatedPost from "@/components/profile/RelatedPost";
+import { useRef } from "react";
 function Profile() {
   const [cookies] = useCookies();
   const [searchType, setSearchType] = useState("post");
@@ -18,6 +19,37 @@ function Profile() {
     imgUrl: "test.png",
     interests: [],
   });
+  const postBtn = useRef();
+  const commentBtn = useRef();
+  const goodBtn = useRef();
+  const [selectBtn, setSelectBtn] = useState("post");
+  const [btnUnderLine, setBtnUnderLine] = useState({
+    xpos: 0,
+    ypos: 0,
+    width: 0,
+  });
+
+  useEffect(() => {
+    if (selectBtn === "post") {
+      setBtnUnderLine({
+        xpos: postBtn.current.offsetLeft,
+        ypos: postBtn.current.offsetTop + postBtn.current.offsetHeight,
+        width: postBtn.current.offsetWidth,
+      });
+    } else if (selectBtn === "comment") {
+      setBtnUnderLine({
+        xpos: commentBtn.current.offsetLeft,
+        ypos: commentBtn.current.offsetTop + commentBtn.current.offsetHeight,
+        width: commentBtn.current.offsetWidth,
+      });
+    } else {
+      setBtnUnderLine({
+        xpos: goodBtn.current.offsetLeft,
+        ypos: goodBtn.current.offsetTop + goodBtn.current.offsetHeight,
+        width: goodBtn.current.offsetWidth,
+      });
+    }
+  }, [selectBtn]);
 
   useEffect(() => {
     setGrantType(cookies.grantType);
@@ -62,53 +94,70 @@ function Profile() {
       getRelatePost();
     }
   }, [accessToken, grantType, searchType]);
-
   return (
     <div>
       <header>
         <Header />
       </header>
       <section className="flex justify-center">
-        <div className="w-[60%] mobile:w-[95%] max-w-[750px] tablet:min-w-[570px]">
+        <div className="h-[30%] w-full -z-10 bg-[#C9E2EA] absolute" />
+        <div className="w-[60%] mobile:w-[95%] max-w-[750px] tablet:min-w-[570px] relative">
           <Inform value={memberInfo} />
           <div>
-            <div className="py-[20px] border-b-2 border-[#9b9b9b]">
+            <div
+              style={{
+                left: `${btnUnderLine.xpos}px`,
+                top: `${btnUnderLine.ypos}px`,
+                backgroundColor: "#000000",
+                height: "3px",
+                width: `${btnUnderLine.width}px`,
+                transition: "0.5s",
+              }}
+              className="absolute"
+            />
+            <div className="pt-[20px] border-b-2 border-[#9b9b9b]">
               <span className="font-bold text-[25px] mobile:text-[20px]">
                 내 활동
               </span>
-              <ul className="flex gap-[24px] mt-[10px] text-[15px] mobile:text-[12px]">
+              <ul className="flex mt-[10px] text-[15px] mobile:text-[12px]">
                 <li>
                   <button
+                    ref={postBtn}
                     type="button"
                     value="post"
-                    onClick={(e) => setSearchType(e.target.value)}
-                    className={`border border-black rounded-md px-[22px] hover:bg-gray_4 mobile:px-[12px] py-[6px] mobile:py-[6px] ${
-                      searchType === "post" ? "bg-gray_4" : ""
-                    }`}
+                    onClick={(e) => {
+                      setSearchType(e.target.value);
+                      setSelectBtn(e.target.value);
+                    }}
+                    className="px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]"
                   >
                     게시한 글
                   </button>
                 </li>
                 <li>
                   <button
+                    ref={commentBtn}
                     type="button"
                     value="comment"
-                    onClick={(e) => setSearchType(e.target.value)}
-                    className={`border border-black rounded-md px-[22px] hover:bg-gray_4 mobile:px-[12px] py-[6px] mobile:py-[6px] ${
-                      searchType === "comment" ? "bg-gray_4" : ""
-                    }`}
+                    onClick={(e) => {
+                      setSearchType(e.target.value);
+                      setSelectBtn(e.target.value);
+                    }}
+                    className="px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]"
                   >
                     댓글단 글
                   </button>
                 </li>
                 <li>
                   <button
+                    ref={goodBtn}
                     type="button"
                     value="good"
-                    onClick={(e) => setSearchType(e.target.value)}
-                    className={`border border-black rounded-md px-[22px] hover:bg-gray_4 mobile:px-[12px] py-[6px] mobile:py-[6px] ${
-                      searchType === "good" ? "bg-gray_4" : ""
-                    }`}
+                    onClick={(e) => {
+                      setSearchType(e.target.value);
+                      setSelectBtn(e.target.value);
+                    }}
+                    className="px-[22px] mobile:px-[12px] py-[6px] mobile:py-[6px]"
                   >
                     좋아요한 글
                   </button>
