@@ -102,7 +102,7 @@ function BoardDetail() {
       </header>
       <section className="flex justify-center">
         <div className="w-[80%] mobile:w-[95%] max-w-[1200px] flex mobile:flex-col mobile:items-center relative">
-          <div className="w-[65%] mobile:w-full border-r pt-[46px] mobile:px-[10px] mobile:pt-[26px] border-[#9b9b9b] mobile:border-none">
+          <div className="w-[65%] mobile:w-full border-r pt-[46px] pb-[90px] mobile:px-[10px] mobile:pt-[26px] border-gray_3 mobile:border-none">
             <div className="flex justify-start px-[20px] mobile:px-0">
               <div className="w-full">
                 <BoardBody data={postingData} writer={writerData} />

@@ -178,7 +178,7 @@ function CategoryBoard() {
         <div>
           <Banner heading={heading} exp={exp} style={style} />
         </div>
-        <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto my-5">
+        <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto">
           <div className="mobile:hidden flex flex-col items-center relative">
             <label htmlFor="search" className="sr-only">
               내용 검색하기
@@ -201,7 +201,7 @@ function CategoryBoard() {
               <img src={search} alt="검색하기" />
             </button>
           </div>
-          <div className="flex justify-between items-center desktop:gap-7 tablet:gap-7 desktop:border-b-2 tablet:border-b-2">
+          <div className="flex justify-between items-center desktop:gap-7 tablet:gap-7 desktop:border-b tablet:border-b-2">
             <div>
               <div className="mobile:block hidden">
                 <label htmlFor="dropdown" className="sr-only">

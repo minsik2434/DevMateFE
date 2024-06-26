@@ -106,7 +106,7 @@ function Comment() {
   const profileImage = accessToken && grantType ? imgUrl : profileDefault;
 
   return (
-    <div className="border-t border-[#9b9b9b] mt-[40px] py-[30px] px-[50px] mobile:px-0 flex flex-col items-center">
+    <div className="border-t border-gray_3 mt-[40px] py-[30px] px-[50px] mobile:px-0 flex flex-col items-center">
       <div className="w-full px-[30px] py-[20px] border border-[#9b9b9b] rounded-lg">
         <form onSubmit={onSubmit}>
           <div className="flex gap-[30px] items-center mobile:gap-[10px]">
@@ -138,7 +138,7 @@ function Comment() {
             const isEditing = editStates[comment.id] || false;
             return (
               <li key={comment.id}>
-                <div className="w-full border-b border-[#9b9b9b] py-[10px] px-[38px] mobile:px-0 relative">
+                <div className="w-full border-b border-gray_3 py-[10px] px-[38px] mobile:px-0 relative">
                   {nickName === comment.writer.nickName && (
                     <div className="absolute right-0">
                       <ul className="flex gap-[8px]">
@@ -146,6 +146,7 @@ function Comment() {
                           {!isEditing && (
                             <button
                               type="button"
+                              className="text-gray_6 text-[14px]"
                               onClick={() =>
                                 toggleEditState(comment.id, comment.content)
                               }
@@ -158,6 +159,7 @@ function Comment() {
                         <li>
                           <button
                             type="button"
+                            className="text-gray_6 text-[14px]"
                             value={comment.id}
                             onClick={onDelete}
                           >

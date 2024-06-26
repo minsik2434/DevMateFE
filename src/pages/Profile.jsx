@@ -91,23 +91,23 @@ function Profile() {
       <header>
         <Header />
       </header>
-      <section className="flex justify-center">
+      <section className="flex justify-center pb-[50px]">
         <div className="h-[30%] w-full -z-10 bg-[#C9E2EA] absolute" />
-        <div className="w-[60%] mobile:w-[95%] max-w-[750px] tablet:min-w-[570px] relative">
+        <div className="w-[60%] mobile:w-[95%] max-w-[750px] tablet:min-w-[570px]">
           <Inform value={memberInfo} />
-          <div>
+          <div className="relative">
             <div
               style={{
                 left: `${xpos}px`,
                 top: `${ypos}px`,
                 backgroundColor: "#000000",
-                height: "3px",
+                height: "2px",
                 width: `${width}px`,
                 transition: "0.5s",
               }}
               className="absolute"
             />
-            <div className="pt-[20px] border-b-2 border-[#9b9b9b]">
+            <div className="pt-[20px] border-b border-[#9b9b9b]">
               <span className="font-bold text-[25px] mobile:text-[20px]">
                 내 활동
               </span>

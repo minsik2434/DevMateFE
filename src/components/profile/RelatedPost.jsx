@@ -11,13 +11,16 @@ function RelatedPost({ posts }) {
     <div className="">
       <ul className="flex flex-col">
         {posts.length === 0 && (
-          <li className="flex justify-center"> 게시글이 없습니다 </li>
+          <li className="flex justify-center text-[20px] py-[40px]">
+            {" "}
+            게시글이 없습니다{" "}
+          </li>
         )}
         {posts.map((post) => {
           return (
             <li key={post.id}>
               <button
-                className="border-b border-[#9b9b9b] py-[10px] w-full hover:bg-[#f1f3f5]"
+                className="border-b border-gray_3 px-[20px] py-[10px] w-full hover:bg-gray_0"
                 onClick={(e) => nav(`/${post.category}/${post.id}`)}
               >
                 <div className="flex gap-[50px] items-center">
