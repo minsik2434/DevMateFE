@@ -16,12 +16,12 @@ function RightBox({ headerHeight, writerData }) {
             {writerData.nickName}
           </strong>
         </div>
-        <ul className="flex items-center flex-wrap text-[12px] mt-[20px] gap-[16px] font-bold">
+        <ul className="flex items-center flex-wrap text-[12px] mt-[20px] gap-[10px] font-bold">
           <span>관심 분야</span>
           {interests.map((interest) => {
             return (
               <li key={interest.id}>
-                <div className="bg-[#d9d9d9] px-[9px] py-[3px] rounded-xl">
+                <div className="bg-gray_8 text-gray_0 px-[9px] py-[3px] rounded-lg">
                   <span>{interest.name}</span>
                 </div>
               </li>

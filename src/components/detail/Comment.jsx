@@ -107,26 +107,26 @@ function Comment() {
 
   return (
     <div className="border-t border-gray_3 mt-[40px] py-[30px] px-[50px] mobile:px-0 flex flex-col items-center">
-      <div className="w-full px-[30px] py-[20px] border border-[#9b9b9b] rounded-lg">
+      <div className="w-full px-[30px] py-[20px] border border-gray_3 rounded-lg">
         <form onSubmit={onSubmit}>
           <div className="flex gap-[30px] items-center mobile:gap-[10px]">
             <img src={profileImage} className="w-[50px] mobile:w-[30px]" />
             <label htmlFor="comment" className="sr-only"></label>
-            <input
+            <textarea
               id="comment"
               placeholder={placeholder}
               value={input.comment}
               onChange={onChnage}
               disabled={!(accessToken && grantType)}
               autoComplete="comment"
-              className="w-full py-[10px] mobile:py-[3px] px-[13px] placeholder:text-[14px] mobile:placeholder:text-[10px] placeholder:font-bold border border-[#9b9b9b] rounded-lg"
+              className="w-full resize-none py-[10px] mobile:py-1.5 px-[13px] placeholder:text-[14px] mobile:placeholder:text-[10px] placeholder:font-bold border border-gray_3 mobile:text-[10px] rounded-lg"
             />
-            <button className="tablet:hidden desktop:hidden p-[7px] rounded-md border border-[#9b9b9b]">
+            <button className="tablet:hidden desktop:hidden p-2 rounded-md bg-gray_8">
               <img src={penImg} className="w-[20px]" />
             </button>
           </div>
           <div className="text-end mt-[15px] mobile:hidden">
-            <button className="px-[30px] py-[6px] bg-gray_4 hover:bg-gray_5 rounded-[30px]">
+            <button className="px-[15px] py-[6px] bg-gray_8 hover:bg-gray_9 text-gray_0 rounded-lg">
               댓글 작성
             </button>
           </div>
@@ -146,7 +146,7 @@ function Comment() {
                           {!isEditing && (
                             <button
                               type="button"
-                              className="text-gray_6 text-[14px]"
+                              className="text-gray_6 text-[14px] mobile:text-[10px]"
                               onClick={() =>
                                 toggleEditState(comment.id, comment.content)
                               }
@@ -159,7 +159,7 @@ function Comment() {
                         <li>
                           <button
                             type="button"
-                            className="text-gray_6 text-[14px]"
+                            className="text-gray_6 text-[14px] mobile:text-[10px]"
                             value={comment.id}
                             onClick={onDelete}
                           >
@@ -184,33 +184,33 @@ function Comment() {
                     </div>
                   </div>
                   {!isEditing && (
-                    <p className="mt-[16px] mobile:mt-[9px] text-[14px] mobile:text-[10px]">
+                    <p className="mt-[16px] mobile:mt-[9px] w-full text-[14px] mobile:text-[10px] break-all whitespace-pre-wrap">
                       {comment.content}
                     </p>
                   )}
                   {isEditing && (
                     <div className="py-[15px]">
-                      <input
-                        className="w-full border border-[#9b9b9b] rounded-md px-[10px] py-[10px] outline-none"
+                      <textarea
+                        className="w-full border resize-none border-[#9b9b9b] mobile:text-[10px] rounded-md px-[10px] py-[10px] mobile:py-[5px] outline-none"
                         value={editInputs[comment.id] || ""}
                         onChange={(e) => onEditChange(e, comment.id)}
                       />
-                      <div className="flex gap-[15px] justify-end mt-[10px] text-white outline-none">
+                      <div className="flex gap-[15px] justify-end mt-[10px] text-gray_0 outline-none">
                         <button
-                          className="px-[15px] py-[3px] rounded-md bg-brand_red"
+                          className="px-[15px] py-[3px] rounded-md bg-gray_8 hover:bg-gray_9"
+                          value={comment.id}
+                          onClick={(e) => onEdit(e, comment.id)}
+                        >
+                          수정
+                        </button>
+                        <button
+                          className="px-[15px] py-[3px] rounded-md bg-gray_1 hover:bg-gray_2 text-gray_8"
                           type="button"
                           onClick={() =>
                             toggleEditState(comment.id, comment.content)
                           }
                         >
                           취소
-                        </button>
-                        <button
-                          className="px-[15px] py-[3px] rounded-md bg-brand_blue"
-                          value={comment.id}
-                          onClick={(e) => onEdit(e, comment.id)}
-                        >
-                          수정
                         </button>
                       </div>
                     </div>

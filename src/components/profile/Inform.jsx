@@ -45,12 +45,12 @@ function Inform({ value }) {
               <span>닉네임 : {value.nickName}</span>
             </li>
             <li className="flex gap-[10px]">
-              <span className="text-nowrap">관심기술</span>
-              <ul className="flex gap-[20px] mobile:gap-[4px] text-[14px] mobile:text-[10px] flex-wrap">
+              <span className="text-nowrap">관심기술 : </span>
+              <ul className="flex gap-[10px] mobile:gap-[4px] text-[14px] mobile:text-[10px] flex-wrap">
                 {interests.map((interest) => {
                   return (
                     <li key={interest.id}>
-                      <div className="font-bold bg-[#e0e0e0] px-[10px] py-[3px] mobile:px-[9px] mobile:py-[6px] rounded-full">
+                      <div className="font-bold bg-gray_8 text-gray_0 px-[10px] py-[3px] mobile:px-[9px] mobile:py-[6px] rounded-lg">
                         {interest.name}
                       </div>
                     </li>

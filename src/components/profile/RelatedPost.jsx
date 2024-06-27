@@ -5,8 +5,19 @@ import viewImg from "@/assets/view.png";
 import formatTimeDifference from "@/util/get_time_current_diff";
 import removeHTMLTags from "@/util/getTextexcludingHtmlTag";
 import { useNavigate } from "react-router-dom";
+import useMedia from "@/hooks/useMedia";
 function RelatedPost({ posts }) {
   const nav = useNavigate();
+  const isMobile = useMedia("(max-width: 767px)");
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + "...";
+  };
+
+  const titleMaxLength = isMobile ? 15 : 50;
+  const contentMaxLength = isMobile ? 40 : 90;
   return (
     <div className="">
       <ul className="flex flex-col">
@@ -25,14 +36,19 @@ function RelatedPost({ posts }) {
               >
                 <div className="flex gap-[50px] items-center">
                   <h2 className="text-[20px] mobile:text-[15px] font-bold">
-                    {post.title}
+                    {truncateText(post.title, titleMaxLength)}
                   </h2>
                   <span className="font-bold text-[12px] mobile:text-[10px]">
                     {formatTimeDifference(post.postingDateTime)}
                   </span>
                 </div>
                 <div className="mt-[5px] text-[15px] mobile:text-[12px] text-start">
-                  <p>{removeHTMLTags(post.content)}</p>
+                  <p>
+                    {truncateText(
+                      removeHTMLTags(post.content),
+                      contentMaxLength
+                    )}
+                  </p>
                 </div>
                 <div className="flex justify-between py-[9px]">
                   <div className="flex items-center">

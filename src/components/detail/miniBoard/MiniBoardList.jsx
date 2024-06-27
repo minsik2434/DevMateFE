@@ -7,8 +7,17 @@ import { useState } from "react";
 import { getData } from "@/util/Crud";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import useMedia from "@/hooks/useMedia";
 function MiniBoardList() {
   const param = useParams();
+  const isMobile = useMedia("(max-width: 767px)");
+  const truncateText = (text) => {
+    if (text.length <= 30) {
+      return text;
+    }
+    return text.substring(0, 30) + "...";
+  };
+
   const nav = useNavigate();
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -40,7 +49,7 @@ function MiniBoardList() {
                 className="border-b w-full px-[10px] py-[3px] border-[#9b9b9b] hover:bg-[#f1f3f5]"
               >
                 <p className="text-[16px] mobile:text-[15px] text-start">
-                  {item.title}
+                  {truncateText(item.title)}
                 </p>
                 <div className="flex justify-between py-[6px]">
                   <div className="flex items-center">
@@ -54,15 +63,16 @@ function MiniBoardList() {
                       </span>
                     </div>
                     <ul className="flex text-[10px] font-bold flex-wrap gap-[3px] ml-[8px]">
-                      {item.tags.map((tag, index) => {
+                      {item.tags.slice(0, 2).map((tag, index) => {
                         return (
                           <li key={index}>
-                            <div className="bg-[#d9d9d9] px-[3px] py-[2px] rounded-xl">
+                            <div className="bg-gray_8 text-gray_0 px-[9px] py-[2px] rounded-lg">
                               <span>{tag}</span>
                             </div>
                           </li>
                         );
                       })}
+                      {item.tags.length > 2 && <li>...</li>}
                     </ul>
                   </div>
                   <ul className="flex gap-[10px] items-center text-[10px] font-bold">
