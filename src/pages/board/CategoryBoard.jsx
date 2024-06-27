@@ -13,6 +13,7 @@ import { useEffect, useLayoutEffect } from "react";
 import { getData } from "@/util/Crud";
 import { useParams } from "react-router-dom";
 import xButton from "@/assets/xButton.png";
+import { useRef } from "react";
 
 function CategoryBoard() {
   const param = useParams();
@@ -25,6 +26,7 @@ function CategoryBoard() {
     page: 0,
   });
 
+  const tagRef = useRef();
   const bannerElementByCategory = {
     qna: {
       heading: "Q&A",
@@ -170,6 +172,7 @@ function CategoryBoard() {
     };
     initSelectOptions();
   }, [param.category]);
+
   const { heading, exp, style } = bannerElementByCategory[param.category];
   return (
     <div>
@@ -300,18 +303,23 @@ function CategoryBoard() {
               <label htmlFor="filter" className="sr-only">
                 태그 검색창
               </label>
-              <div className="border py-2 mobile:py-1.55 rounded-md desktop:w-[550px] tablet:w-[300px] mobile:w-[200px] flex relative mobile:text-[10px]">
-                <ul className="flex gap-[10px] px-[7px] items-center flex-wrap">
+              <div
+                className="border py-2 mobile:py-1.55 rounded-md desktop:w-[550px] tablet:w-[300px] mobile:w-[200px] flex relative mobile:text-[10px] cursor-text"
+                onClick={() => {
+                  tagRef.current.focus();
+                }}
+              >
+                <ul className="flex gap-[10px] w-[550px] px-[7px] items-center flex-wrap">
                   {selectedOptions.tags.map((tag, index) => {
                     return (
                       <li key={index} className="text-nowrap">
-                        <div className="bg-gray_2 pl-[10px] pr-[5px] py-[3px] gap-[5px] flex rounded-[5px]">
+                        <div className="bg-gray_8 text-gray_0 pl-[10px] pr-[7px] py-[3px] gap-[5px] flex items-center rounded-lg">
                           <span>{tag}</span>
                           <button
-                            className="w-[14px]"
+                            className="w-[8px]"
                             onClick={() => removeTag(index)}
                           >
-                            <img src={xButton} className="w-full"></img>
+                            <img src={xButton} className="w-full" />
                           </button>
                         </div>
                       </li>
@@ -319,6 +327,7 @@ function CategoryBoard() {
                   })}
                   <li>
                     <input
+                      ref={tagRef}
                       type="search"
                       id="filter"
                       onKeyUp={(e) => {
@@ -327,14 +336,14 @@ function CategoryBoard() {
                         }
                       }}
                       onKeyDown={handleKeyDown}
-                      className="pl-2 outline-none w-full mobile:placeholder:text-[12px]"
+                      className="pl-2 outline-none mobile:placeholder:text-[12px]"
                       autoComplete="off"
                       placeholder="# 태그를 입력하세요"
                     />
                   </li>
                 </ul>
 
-                <button className="absolute top-2 right-4 mobile:top-1 mobile:right-2 mobile:w-5">
+                <button className="absolute top-2.1 right-4 mobile:top-1 mobile:right-2 mobile:w-5">
                   <img src={filter} alt="필터" />
                 </button>
               </div>
@@ -360,7 +369,6 @@ function CategoryBoard() {
           {postDatas.map((postData) => {
             return <BoardList key={postData.id} data={postData} />;
           })}
-          {/* <StudyList /> */}
         </div>
         <PageButton pageData={pageData} setPage={setSelectedOptionsPage} />
       </div>

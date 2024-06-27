@@ -7,8 +7,17 @@ import { useState } from "react";
 import { getData } from "@/util/Crud";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import useMedia from "@/hooks/useMedia";
 function MiniBoardList() {
   const param = useParams();
+  const isMobile = useMedia("(max-width: 767px)");
+  const truncateText = (text) => {
+    if (text.length <= 30) {
+      return text;
+    }
+    return text.substring(0, 30) + "...";
+  };
+
   const nav = useNavigate();
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -40,7 +49,7 @@ function MiniBoardList() {
                 className="border-b w-full px-[10px] py-[3px] border-[#9b9b9b] hover:bg-[#f1f3f5]"
               >
                 <p className="text-[16px] mobile:text-[15px] text-start">
-                  {item.title}
+                  {truncateText(item.title)}
                 </p>
                 <div className="flex justify-between py-[6px]">
                   <div className="flex items-center">

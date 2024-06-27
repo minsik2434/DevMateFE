@@ -5,14 +5,25 @@ import comment from "@/assets/icon/comment.svg";
 import formatTimeDifference from "@/util/get_time_current_diff";
 import removeHTMLTags from "@/util/getTextexcludingHtmlTag";
 import { useNavigate } from "react-router-dom";
+import useMedia from "@/hooks/useMedia";
 
 function BoardList({ data }) {
   const nav = useNavigate();
 
+  const isMobile = useMedia("(max-width: 767px)");
   const onClick = () => {
     nav(`/${data.category}/${data.id}`);
   };
 
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + "...";
+  };
+
+  const titleMaxLength = isMobile ? 20 : 70;
+  const contentMaxLength = isMobile ? 40 : 100;
   return (
     <button
       type="button"
@@ -21,13 +32,15 @@ function BoardList({ data }) {
     >
       <div className="flex flex-col p-2">
         <div className="flex items-start desktop:gap-16 tablet:gap-12 mobile:gap-8 font-medium">
-          <p className="text-xl text-start mobile:text-base">{data.title}</p>
+          <p className="text-xl text-start mobile:text-base">
+            {truncateText(data.title, titleMaxLength)}
+          </p>
           <span className="text-sm  mobile:text-[8px] font-semibold mb-1 pt-1 text-nowrap">
             {formatTimeDifference(data.postingDateTime)}
           </span>
         </div>
         <div className="mt-[5px] text-[15px] mobile:text-[12px] text-start">
-          <p>{removeHTMLTags(data.content)}</p>
+          <p>{truncateText(removeHTMLTags(data.content), contentMaxLength)}</p>
         </div>
       </div>
       <div className="flex items-center justify-between mobile:pb-2">
