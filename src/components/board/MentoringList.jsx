@@ -1,5 +1,4 @@
 import React from "react";
-import profile from "@/assets/profile/avatar1.svg";
 import like from "@/assets/icon/like.svg";
 import view from "@/assets/icon/view.svg";
 import comment from "@/assets/icon/comment.svg";
@@ -72,7 +71,10 @@ function MentoringList({ data }) {
           {/* <li className="bg-brand_blue px-3 py-2 rounded-full">프론트엔드</li> */}
           {data.tags.map((tag, index) => {
             return (
-              <li key={index} className="bg-brand_blue px-3 py-2 rounded-full">
+              <li
+                key={index}
+                className="bg-gray_8 text-white px-3 py-2 rounded-lg"
+              >
                 {tag}
               </li>
             );
