@@ -20,9 +20,9 @@ function BoardList({ data }) {
       className="desktop:max-w-[1240px] px-[20px] py-[10px] mobile:py-1 tablet:max-w-[768px] hover:bg-gray_0 border-b border-gray_3 mobile:max-w-[320px] w-full mx-auto"
     >
       <div className="flex flex-col p-2">
-        <div className="flex items-end desktop:gap-16 tablet:gap-12 mobile:gap-8 font-medium">
+        <div className="flex items-start desktop:gap-16 tablet:gap-12 mobile:gap-8 font-medium">
           <p className="text-xl text-start mobile:text-base">{data.title}</p>
-          <span className="text-sm  mobile:text-[8px] font-semibold mb-1 text-nowrap">
+          <span className="text-sm  mobile:text-[8px] font-semibold mb-1 pt-1 text-nowrap">
             {formatTimeDifference(data.postingDateTime)}
           </span>
         </div>

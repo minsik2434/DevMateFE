@@ -39,8 +39,8 @@ function BoardBody({ data, writer }) {
       <h1 className="font-bold text-black text-[25px] mobile:text-[15px]">
         {data.title}
       </h1>
-      <div className="flex justify-between pr-[50px] mobile:gap-[20px] text-[14px] mobile:text-[8px] mt-[15px] mobile:mt-[10px]">
-        <div className="flex gap-[30px]">
+      <div className="flex justify-between pr-10 mobile:pr-4 mobile:gap-[20px] text-[14px] mobile:text-[8px] mt-[15px] mobile:mt-[10px]">
+        <div className="flex gap-[30px] mobile:gap-[10px]">
           <span className="font-bold text-[#553e3e]">{postingDate} 작성</span>
           <div>
             <span>조회수 : {data.viewCount}</span>
@@ -68,7 +68,7 @@ function BoardBody({ data, writer }) {
           {Array.isArray(data.tags) &&
             data.tags.map((tag, index) => (
               <li key={index}>
-                <div className="bg-[#d9d9d9] px-[14px] mobile:px-[9px] mobile:py-[3px] py-[2px] rounded-xl">
+                <div className="bg-gray_8 text-gray_0 px-[9px] py-[3px] rounded-lg">
                   <span>{tag}</span>
                 </div>
               </li>

@@ -54,15 +54,16 @@ function MiniBoardList() {
                       </span>
                     </div>
                     <ul className="flex text-[10px] font-bold flex-wrap gap-[3px] ml-[8px]">
-                      {item.tags.map((tag, index) => {
+                      {item.tags.slice(0, 2).map((tag, index) => {
                         return (
                           <li key={index}>
-                            <div className="bg-[#d9d9d9] px-[3px] py-[2px] rounded-xl">
+                            <div className="bg-gray_8 text-gray_0 px-[9px] py-[2px] rounded-lg">
                               <span>{tag}</span>
                             </div>
                           </li>
                         );
                       })}
+                      {item.tags.length > 2 && <li>...</li>}
                     </ul>
                   </div>
                   <ul className="flex gap-[10px] items-center text-[10px] font-bold">

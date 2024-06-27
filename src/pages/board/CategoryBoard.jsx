@@ -343,7 +343,7 @@ function CategoryBoard() {
             <button
               className="bg-gray_8 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-3 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
               type="button"
-              onClick={(e) => nav(`/post/${param.category}/new`)}
+              onClick={() => nav(`/post/${param.category}/new`)}
             >
               <span className="mobile:hidden tablet:block desktop:block">
                 글쓰기
