@@ -64,7 +64,7 @@ function BoardBody({ data, writer }) {
         <Viewerbox initString={data.content} />
       </div>
       <div className="mt-[29px]">
-        <ul className="flex text-[13px] mobile:text-[8px] gap-[16px] font-bold">
+        <ul className="flex text-[13px] mobile:text-[8px] gap-[16px] mobile:gap-[10px] font-bold">
           {Array.isArray(data.tags) &&
             data.tags.map((tag, index) => (
               <li key={index}>

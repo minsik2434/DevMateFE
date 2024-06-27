@@ -121,12 +121,12 @@ function Comment() {
               autoComplete="comment"
               className="w-full resize-none py-[10px] mobile:py-1.5 px-[13px] placeholder:text-[14px] mobile:placeholder:text-[10px] placeholder:font-bold border border-gray_3 mobile:text-[10px] rounded-lg"
             />
-            <button className="tablet:hidden desktop:hidden p-1.5 rounded-md bg-gray_8">
+            <button className="tablet:hidden desktop:hidden p-2 rounded-md bg-gray_8">
               <img src={penImg} className="w-[20px]" />
             </button>
           </div>
           <div className="text-end mt-[15px] mobile:hidden">
-            <button className="px-[30px] py-[6px] bg-gray_4 hover:bg-gray_5 rounded-[30px]">
+            <button className="px-[15px] py-[6px] bg-gray_8 hover:bg-gray_9 text-gray_0 rounded-lg">
               댓글 작성
             </button>
           </div>
@@ -195,16 +195,16 @@ function Comment() {
                         value={editInputs[comment.id] || ""}
                         onChange={(e) => onEditChange(e, comment.id)}
                       />
-                      <div className="flex gap-[15px] justify-end mt-[10px] text-white outline-none">
+                      <div className="flex gap-[15px] justify-end mt-[10px] text-gray_0 outline-none">
                         <button
-                          className="px-[15px] py-[3px] rounded-md bg-brand_blue"
+                          className="px-[15px] py-[3px] rounded-md bg-gray_8 hover:bg-gray_9"
                           value={comment.id}
                           onClick={(e) => onEdit(e, comment.id)}
                         >
                           수정
                         </button>
                         <button
-                          className="px-[15px] py-[3px] rounded-md bg-brand_red"
+                          className="px-[15px] py-[3px] rounded-md bg-gray_1 hover:bg-gray_2 text-gray_8"
                           type="button"
                           onClick={() =>
                             toggleEditState(comment.id, comment.content)
