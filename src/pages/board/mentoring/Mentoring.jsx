@@ -8,16 +8,13 @@ import { useState } from "react";
 import search from "@/assets/icon/search.svg";
 import PageButton from "@/components/board/PageButton";
 import filter from "@/assets/icon/filter.svg";
-import BoardList from "@/components/board/BoardList";
 import pen from "@/assets/pen.png";
 import MentoringList from "@/components/board/MentoringList";
 import { useNavigate } from "react-router-dom";
 import { getData } from "@/util/Crud";
 import { useLayoutEffect } from "react";
-import { useCookies } from "react-cookie";
 import { useEffect } from "react";
 import xButton from "@/assets/xButton.png";
-import { motion } from "framer-motion";
 
 function Mentoring() {
   const [postDatas, setPostDatas] = useState([]);
@@ -153,7 +150,7 @@ function Mentoring() {
     <div className="bg-gray_0">
       <Header />
       <div className="mx-8 mobile:mx-5 mobile:mb-32">
-        <div>
+        <div className="flex justify-center">
           <Banner
             heading="멘토링"
             exp="선배 또는 동료들의 경험을 들어봐요"

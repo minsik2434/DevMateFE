@@ -167,7 +167,7 @@ function Post() {
       <header>
         <Header />
       </header>
-      <section className="flex justify-center pt-[50px] pb-[100px]">
+      <section className="flex justify-center pb-[100px]">
         <div className="w-[60%] mobile:w-[95%] max-w-[750px]">
           <Banner heading={heading} exp={exp} style={style} />
           <ContentEdit

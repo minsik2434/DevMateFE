@@ -46,7 +46,7 @@ function MiniBoardList() {
             <li key={item.id}>
               <button
                 onClick={() => nav(`/${item.category}/${item.id}`)}
-                className="border-b w-full px-[10px] py-[3px] border-[#9b9b9b] hover:bg-[#f1f3f5]"
+                className="border-b w-full px-[10px] py-[3px] border-[#9b9b9b] hover:bg-[#f1f3f5] break-all"
               >
                 <p className="text-[16px] mobile:text-[15px] text-start">
                   {truncateText(item.title)}
@@ -62,18 +62,6 @@ function MiniBoardList() {
                         {item.writer.nickName}
                       </span>
                     </div>
-                    <ul className="flex text-[10px] font-bold flex-wrap gap-[3px] ml-[8px]">
-                      {item.tags.slice(0, 2).map((tag, index) => {
-                        return (
-                          <li key={index}>
-                            <div className="bg-gray_8 text-gray_0 px-[9px] py-[2px] rounded-lg">
-                              <span>{tag}</span>
-                            </div>
-                          </li>
-                        );
-                      })}
-                      {item.tags.length > 2 && <li>...</li>}
-                    </ul>
                   </div>
                   <ul className="flex gap-[10px] items-center text-[10px] font-bold">
                     <li className="flex">
