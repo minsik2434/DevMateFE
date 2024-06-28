@@ -10,6 +10,7 @@ import LandingList from "@/components/landing/LandingList";
 import LandingBoard from "@/components/landing/LandingBoard";
 import useIndex from "@/stores/navIndex";
 import { useEffect } from "react";
+import banner1 from "@/assets/banner/banner_main.jpg"
 
 function Landing() {
   const { navIndex, setNavIndex } = useIndex();
@@ -22,9 +23,9 @@ function Landing() {
       <Header />
       <div>
         <img
-          src={banner}
+          src={banner1}
           alt="배너 이미지"
-          className="w-full desktop:mx-auto desktop:my-20 tablet:my-16 desktop:h-72 tablet:h-52 mobile:hidden tablet:block"
+          className="w-full desktop:mx-auto desktop:my-20 tablet:my-16 desktop:h-[500px] tablet:h-52 mobile:hidden tablet:block"
         />
       </div>
 

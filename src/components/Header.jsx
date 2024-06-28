@@ -10,6 +10,8 @@ import useMember from "@/stores/member";
 import { useNavigate } from "react-router-dom";
 import useLike from "@/stores/useLike";
 
+import ml from "@/assets/logo_main.png"
+
 function Header() {
   const [showModalD, setShowModalD] = useState(false);
   const [showModalM, setShowModalM] = useState(false);
@@ -110,12 +112,12 @@ function Header() {
       }`}
     >
       {/* desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] */}
-      <div className="mx-auto border-b-2 border-b-gray_3">
+      <div className="mx-auto border-b-2 border-b-gray_3 py-2">
         <div className="flex items-center justify-between gap-20 desktop:mx-[7%] tablet:mx-[5%] mobile:mx-3">
           <Link to="/">
             <h1 onClick={() => handleButtonClick("")}>
               <img
-                src={logo}
+                src={ml}
                 alt="데브 메이트 바로가기"
                 className="desktop:w-32 tablet:w-20 mobile:w-20"
               />
