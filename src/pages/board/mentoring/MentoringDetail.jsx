@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Banner from "@/components/board/Banner";
+import Banner from "@/components/Banner";
 import DetailComment from "@/components/board/DetailComment";
 import DetailCommentList from "@/components/board/DetailCommentList";
 import Comment from "@/components/detail/Comment";
@@ -64,7 +64,6 @@ function MentoringDetail() {
         const responsePostData = await (
           await getData(`${import.meta.env.VITE_API_URL}/post/${param.id}`)
         ).data;
-        // console.log(responsePostData)
         setPostingData(responsePostData);
         setLikeState(responsePostData);
         const memberResponseData = await (
@@ -91,7 +90,6 @@ function MentoringDetail() {
     };
     getPostingData();
     addView();
-
   }, [param.id]);
 
   return (

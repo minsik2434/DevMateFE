@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Banner from "@/components/board/Banner";
+import Banner from "@/components/Banner";
 import React from "react";
 
 import search from "@/assets/icon/search.svg";
@@ -162,7 +162,7 @@ function Board() {
           <BoardList />
           {/* <StudyList /> */}
         </div>
-        <PageButton/>
+        <PageButton />
       </div>
       <Footer />
     </div>

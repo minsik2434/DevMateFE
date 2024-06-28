@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "@/components/Header";
-import Banner from "@/components/post/Banner";
+import Banner from "@/components/Banner";
 import { useState } from "react";
 import StudyPostExp from "@/components/post/StudyPostExp";
 import ContentEdit from "@/components/post/ContentEdit";
@@ -11,6 +11,7 @@ import useLoginInfoStore from "@/stores/loginInfo";
 import { useCookies } from "react-cookie";
 import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import Footer from "@/components/Footer";
 function StudyPost() {
   const [cookies] = useCookies();
   const location = useLocation();
@@ -26,7 +27,7 @@ function StudyPost() {
     proceed: "오프라인",
     deadLine: "",
   });
-  
+
   const [memberInfo, setMemberInfo] = useState({
     name: "",
     nickName: "",
@@ -183,19 +184,20 @@ function StudyPost() {
           <div className="flex justify-end gap-[43px] mobile:gap-[18px] mt-[42px] mobile:mt-[20px]">
             <button
               onClick={handleSubmit}
-              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-[#979797] text-white font-bold rounded-md"
+              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-gray_8 text-gray_0 hover:bg-gray_9 font-bold rounded-md"
             >
               등록
             </button>
             <button
               onClick={() => nav(`/board/study`)}
-              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] border border-[#979797] text-black font-bold rounded-md"
+              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-gray_1 text-gray_8 hover:bg-gray_2 font-bold rounded-md"
             >
               취소
             </button>
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

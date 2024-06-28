@@ -10,7 +10,8 @@ import { useEffect } from "react";
 import useLoginInfoStore from "@/stores/loginInfo";
 import { useCookies } from "react-cookie";
 import Comment from "@/components/detail/Comment";
-import Banner from "@/components/board/Banner";
+import Banner from "@/components/Banner";
+import useLike from "@/stores/useLike";
 function StudyDetail() {
   const param = useParams();
   const [postingData, setPostingData] = useState({});
@@ -24,6 +25,7 @@ function StudyDetail() {
     interests: [],
   });
 
+  const { likeState, setLikeState } = useLike();
   useEffect(() => {
     const getMemberData = async () => {
       try {
@@ -61,6 +63,7 @@ function StudyDetail() {
           await getData(`${import.meta.env.VITE_API_URL}/post/${param.id}`)
         ).data;
         setPostingData(responsePostData);
+        setLikeState(responsePostData);
         const memberResponseData = await (
           await getData(
             `${import.meta.env.VITE_API_URL}/members/${
@@ -93,7 +96,7 @@ function StudyDetail() {
         <Header />
       </header>
       <section className="flex justify-center py-[50px] mobile:py-[25px]">
-        <div className="w-[60%] mobile:w-[95%] max-w-[740px]">
+        <div className="w-[80%] mobile:w-[95%]">
           <Banner
             heading="스터디"
             exp="원하는 사람들과 함께 공부해봐요"
@@ -101,7 +104,7 @@ function StudyDetail() {
           />
           <div className="px-[18px] mobile:px-[5px]">
             <StudyBody data={postingData} writer={writerData} />
-            <div className="mt-[30px] w-full">
+            <div className="mt-[30px] w-full border-t border-gray_3">
               <Comment />
             </div>
           </div>

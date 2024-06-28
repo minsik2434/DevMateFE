@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Banner from "@/components/post/Banner";
+import Banner from "@/components/Banner";
 import ContentEdit from "@/components/post/ContentEdit";
 import useLoginInfoStore from "@/stores/loginInfo";
 import { getData, postData, patchData } from "@/util/Crud";
@@ -167,7 +167,7 @@ function Post() {
       <header>
         <Header />
       </header>
-      <section className="flex justify-center pt-[50px] pb-[100px]">
+      <section className="flex justify-center pb-[100px]">
         <div className="w-[60%] mobile:w-[95%] max-w-[750px]">
           <Banner heading={heading} exp={exp} style={style} />
           <ContentEdit
