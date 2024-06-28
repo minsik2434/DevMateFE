@@ -1,5 +1,6 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Banner from "@/components/post/Banner";
+import Banner from "@/components/Banner";
 import ContentEdit from "@/components/post/ContentEdit";
 import useLoginInfoStore from "@/stores/loginInfo";
 import { getData, postData, patchData } from "@/util/Crud";
@@ -166,7 +167,7 @@ function Post() {
       <header>
         <Header />
       </header>
-      <section className="flex justify-center py-[50px]">
+      <section className="flex justify-center pb-[100px]">
         <div className="w-[60%] mobile:w-[95%] max-w-[750px]">
           <Banner heading={heading} exp={exp} style={style} />
           <ContentEdit
@@ -178,19 +179,20 @@ function Post() {
           <div className="flex justify-end gap-[43px] mobile:gap-[18px] mt-[42px] mobile:mt-[20px]">
             <button
               onClick={handleSubmit}
-              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-[#979797] text-white font-bold rounded-md"
+              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-gray_8 text-gray_0 hover:bg-gray_9 font-bold rounded-md"
             >
               등록
             </button>
             <button
               onClick={() => nav(`/board/${param.category}`)}
-              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] border border-[#979797] text-black font-bold rounded-md"
+              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-gray_1 hover:bg-gray_2 text-gray_8 font-bold rounded-md"
             >
               취소
             </button>
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

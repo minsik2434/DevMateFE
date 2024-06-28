@@ -1,6 +1,6 @@
 import React from "react";
 import getStringedDate from "@/util/get_stringed_date";
-import recommend from "@/assets/icon/recommend.svg";
+import like from "@/assets/icon/like.svg";
 import view from "@/assets/icon/view.svg";
 import comment from "@/assets/icon/comment.svg";
 import { useNavigate } from "react-router-dom";
@@ -57,7 +57,7 @@ function StudyList({ data }) {
           </li>
           <li className="flex gap-1 items-center">
             <img
-              src={recommend}
+              src={like}
               alt="추천 수"
               className="mobile:w-3 tablet:w-4 desktop:w-5"
             />
@@ -66,10 +66,10 @@ function StudyList({ data }) {
         </ul>
       </div>
       <div>
-        <ul className="flex gap-[5px] text-sm text-[#253CCE] font-bold">
+        <ul className="flex gap-[5px] text-sm text-gray_0 font-bold flex-wrap">
           {data.tags.map((tag, index) => {
             return (
-              <li key={index} className="bg-brand_blue px-3 py-2 rounded-full">
+              <li key={index} className="bg-gray_8 px-3 py-2 rounded-lg">
                 {tag}
               </li>
             );

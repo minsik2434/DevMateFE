@@ -108,7 +108,7 @@ function Header() {
   return (
     <div
       className={`${
-        isSticky ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm" : ""
+        isSticky ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm" : "bg-white"
       }`}
     >
       {/* desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] */}

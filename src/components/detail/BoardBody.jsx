@@ -6,6 +6,7 @@ import useLoginInfoStore from "@/stores/loginInfo";
 import { deleteData } from "@/util/Crud";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import LikeList from "../LikeList";
 
 function BoardBody({ data, writer }) {
   const { accessToken, grantType } = useLoginInfoStore();
@@ -36,11 +37,16 @@ function BoardBody({ data, writer }) {
 
   return (
     <>
-      <h1 className="font-bold text-black text-[25px] mobile:text-[15px]">
-        {data.title}
-      </h1>
-      <div className="flex justify-between pr-[50px] mobile:gap-[20px] text-[14px] mobile:text-[8px] mt-[15px] mobile:mt-[10px]">
-        <div className="flex gap-[30px]">
+      <div className="flex justify-between">
+        <h1 className="font-bold text-black text-[25px] mobile:text-[15px] break-all whitespace-pre-wrap">
+          {data.title}
+        </h1>
+        <div className="pr-[38px]">
+          <LikeList postId={data.id} />
+        </div>
+      </div>
+      <div className="flex justify-between pr-10 mobile:pr-4 mobile:gap-[20px] text-[14px] mobile:text-[8px] mt-[15px] mobile:mt-[10px] text-nowrap">
+        <div className="flex gap-[30px] mobile:gap-[10px]">
           <span className="font-bold text-[#553e3e]">{postingDate} 작성</span>
           <div>
             <span>조회수 : {data.viewCount}</span>
@@ -64,11 +70,11 @@ function BoardBody({ data, writer }) {
         <Viewerbox initString={data.content} />
       </div>
       <div className="mt-[29px]">
-        <ul className="flex text-[13px] mobile:text-[8px] gap-[16px] font-bold">
+        <ul className="flex text-[13px] mobile:text-[8px] gap-[16px] mobile:gap-[10px] font-bold">
           {Array.isArray(data.tags) &&
             data.tags.map((tag, index) => (
               <li key={index}>
-                <div className="bg-[#d9d9d9] px-[14px] mobile:px-[9px] mobile:py-[3px] py-[2px] rounded-xl">
+                <div className="bg-gray_8 text-gray_0 px-[9px] py-[3px] rounded-lg">
                   <span>{tag}</span>
                 </div>
               </li>

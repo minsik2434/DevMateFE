@@ -1,18 +1,23 @@
 import React from "react";
 import LandingList from "./LandingList";
+import { useNavigate } from "react-router-dom";
 
-function LandingBoard({ heading, style ,order}) {
+function LandingBoard({ heading, style, order, data, type }) {
+  const nav = useNavigate();
   return (
     <div className={`${order}`}>
       <div>
-        <h2 className={`text-[#121212] ${style} desktop:p-3 tablet:p-3 mobile:p-2 font-medium rounded-md`}>
+        <button
+          className={`text-[#121212] ${style} w-full text-start desktop:p-3 tablet:p-3 mobile:p-2 font-medium rounded-md`}
+          onClick={() => nav(`board/${type}`)}
+        >
           {heading}
-        </h2>
-        <LandingList/>
-        <LandingList />
-        <LandingList />
-        <LandingList />
-        <LandingList />
+        </button>
+        {data.length < 5
+          ? data.map((post) => <LandingList key={post.id} post={post} />)
+          : data
+              .slice(0, 5)
+              .map((post) => <LandingList key={post.id} post={post} />)}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ function StudyPostExp({
             <select
               onChange={setRecruitCount}
               value={postValues.recruitCount}
-              className="border border-black rounded-[5px] px-[4px] mobile:px-[2px]"
+              className="border border-gray_5 rounded-[5px] px-[4px] py-1 mobile:px-[2px] mobile:py-[3px] mobile:text-[12px]"
             >
               {Array.from({ length: 5 }, (_, index) => (
                 <option key={index} value={index + 1}>
@@ -38,7 +38,7 @@ function StudyPostExp({
               type="date"
               value={deadLine}
               onChange={setDeadLine}
-              className="border border-black px-[4px] rounded-[5px]"
+              className="border border-gray_5 px-[4px] py-1 rounded-[5px] mobile:py-[2px] mobile:text-[12px]"
             />
           </div>
         </li>
@@ -48,7 +48,7 @@ function StudyPostExp({
               진행 방식
             </span>
             <select
-              className="border border-black px-[4px] rounded-[5px]"
+              className="border border-gray_5 px-[4px] py-1 mobile:text-[12px] mobile:py-[3px] rounded-[5px]"
               onChange={setProceed}
               value={postValues.proceed}
             >

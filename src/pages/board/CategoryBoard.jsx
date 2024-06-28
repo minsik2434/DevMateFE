@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Banner from "@/components/board/Banner";
+import Banner from "@/components/Banner";
 import React from "react";
 import { useState } from "react";
 import search from "@/assets/icon/search.svg";
@@ -13,6 +13,7 @@ import { useEffect, useLayoutEffect } from "react";
 import { getData } from "@/util/Crud";
 import { useParams } from "react-router-dom";
 import xButton from "@/assets/xButton.png";
+import { useRef } from "react";
 
 function CategoryBoard() {
   const param = useParams();
@@ -25,6 +26,7 @@ function CategoryBoard() {
     page: 0,
   });
 
+  const tagRef = useRef();
   const bannerElementByCategory = {
     qna: {
       heading: "Q&A",
@@ -59,7 +61,7 @@ function CategoryBoard() {
   const handleOptionChange = (event) => {
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
-      sort: event.target.id,
+      sort: event.target.value,
     }));
   };
 
@@ -170,16 +172,17 @@ function CategoryBoard() {
     };
     initSelectOptions();
   }, [param.category]);
+
   const { heading, exp, style } = bannerElementByCategory[param.category];
   return (
     <div>
       <Header />
       <div className="mx-8 mobile:mx-5 mobile:mb-32">
-        <div>
+        <div className="flex justify-center">
           <Banner heading={heading} exp={exp} style={style} />
         </div>
-        <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto">
-          <div className="mobile:hidden flex flex-col items-center relative">
+        <div className="max-w-[1240px] mobile:min-w-[280px] m-auto mt-8 mobile:mt-4">
+          <div className="flex flex-col items-center relative">
             <label htmlFor="search" className="sr-only">
               내용 검색하기
             </label>
@@ -195,13 +198,16 @@ function CategoryBoard() {
               onChange={handleSearchChange}
               placeholder="검색어를 입력하세요"
               autoComplete="off"
-              className="border w-full pl-8 py-3 rounded-full placeholder:text-[#121212] outline-none"
+              className="border w-full pl-8 py-3 rounded-full mobile:pl-4 mobile:text-[12px] mobile:placeholder:text-[12px] mobile:py-1 placeholder:text-[#121212] outline-none"
             />
-            <button onClick={onSubmit} className="absolute top-2 right-5 w-9">
+            <button
+              onClick={onSubmit}
+              className="absolute top-2 right-5 w-9 mobile:w-4 mobile:top-1.5 mobile:right-3"
+            >
               <img src={search} alt="검색하기" />
             </button>
           </div>
-          <div className="flex justify-between items-center desktop:gap-7 tablet:gap-7 desktop:border-b tablet:border-b-2">
+          <div className="flex justify-between items-start desktop:gap-7 tablet:gap-7 mobile:mt-[10px] border-b py-10 mobile:pt-1 mobile:pb-5 text-nowrap">
             <div>
               <div className="mobile:block hidden">
                 <label htmlFor="dropdown" className="sr-only">
@@ -210,16 +216,17 @@ function CategoryBoard() {
                 <select
                   id="dropdown"
                   name="dropdown"
-                  className="block border border-gray_7 font-semibold w-[62px] py-2 pl-1 rounded text-[10px] outline-none"
+                  onChange={handleOptionChange}
+                  className="block border border-gray_3 font-semibold w-[62px] py-2 pl-1 rounded text-[10px] outline-none"
                 >
-                  <option>최신순</option>
-                  <option>댓글순</option>
-                  <option>좋아요순</option>
+                  <option value="recent">최신순</option>
+                  <option value="comment">댓글순</option>
+                  <option value="good">좋아요순</option>
                 </select>
               </div>
 
               {/* 라디오 버튼 */}
-              <div className="mobile:hidden tablet:block">
+              <div className="mobile:hidden tablet:block pt-2">
                 <fieldset>
                   <legend className="sr-only">정렬 방법</legend>
                   <div className="space-x-4 flex font-bold desktop:text-lg">
@@ -228,6 +235,7 @@ function CategoryBoard() {
                         id="recent"
                         name="filter"
                         type="radio"
+                        value="recent"
                         className="sr-only"
                         checked={selectedOptions.sort === "recent"}
                         onChange={handleOptionChange}
@@ -248,6 +256,7 @@ function CategoryBoard() {
                         id="comment"
                         name="filter"
                         type="radio"
+                        value="comment"
                         className="sr-only"
                         checked={selectedOptions.sort === "comment"}
                         onChange={handleOptionChange}
@@ -268,6 +277,7 @@ function CategoryBoard() {
                         id="good"
                         name="filter"
                         type="radio"
+                        value="good"
                         className="sr-only"
                         checked={selectedOptions.sort === "good"}
                         onChange={handleOptionChange}
@@ -289,65 +299,60 @@ function CategoryBoard() {
             </div>
 
             {/* 태그 검색 창 */}
-            <div className="mobile:hidden tablet:block relative py-10">
+            <div className="desktop:w-[50%] w-[60%]">
               <label htmlFor="filter" className="sr-only">
                 태그 검색창
               </label>
-              <div className="border py-2 rounded-lg desktop:w-[550px] tablet:w-[300px] flex">
-                <ul className="flex gap-[10px] ml-[7px]">
+              <div
+                className="border py-2 mobile:py-1.55 rounded-md flex relative mobile:text-[10px] cursor-text"
+                onClick={() => {
+                  tagRef.current.focus();
+                }}
+              >
+                <ul className="flex gap-[10px] px-[7px] items-center flex-wrap">
                   {selectedOptions.tags.map((tag, index) => {
                     return (
                       <li key={index} className="text-nowrap">
-                        <div className="bg-gray_2 pl-[10px] pr-[5px] py-[3px] gap-[5px] flex rounded-[5px]">
+                        <div className="bg-gray_8 text-gray_0 pl-[10px] pr-[7px] py-[3px] gap-[5px] flex items-center rounded-lg">
                           <span>{tag}</span>
                           <button
-                            className="w-[14px]"
+                            className="w-[8px]"
                             onClick={() => removeTag(index)}
                           >
-                            <img src={xButton} className="w-full"></img>
+                            <img src={xButton} className="w-full" />
                           </button>
                         </div>
                       </li>
                     );
                   })}
+                  <li>
+                    <input
+                      ref={tagRef}
+                      type="search"
+                      id="filter"
+                      onKeyUp={(e) => {
+                        {
+                          addTags(e);
+                        }
+                      }}
+                      onKeyDown={handleKeyDown}
+                      className="pl-2 outline-none mobile:placeholder:text-[12px]"
+                      autoComplete="off"
+                      placeholder="# 태그를 입력하세요"
+                    />
+                  </li>
                 </ul>
-                <input
-                  type="search"
-                  id="filter"
-                  onKeyUp={(e) => {
-                    {
-                      addTags(e);
-                    }
-                  }}
-                  onKeyDown={handleKeyDown}
-                  className="pl-2 outline-none w-full"
-                  autoComplete="off"
-                  placeholder="# 태그를 입력하세요"
-                />
-                <button className="absolute top-12 right-5">
+
+                <button className="absolute top-2.1 right-4 mobile:top-1 mobile:right-2 mobile:w-5">
                   <img src={filter} alt="필터" />
                 </button>
               </div>
             </div>
-            <div className="hidden mobile:flex flex-col items-center relative">
-              <label htmlFor="search_2" className="sr-only">
-                내용 검색하기
-              </label>
-              <input
-                id="search_2"
-                type="search"
-                placeholder="검색어를 입력하세요"
-                className="border w-[160px] pl-3 py-1 rounded-full placeholder:text-[#121212] placeholder:text-xs"
-              />
-              <button className="absolute top-2 right-2 w-5">
-                <img src={search} alt="검색하기" />
-              </button>
-            </div>
 
             <button
-              className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
+              className="bg-gray_8 text-white text-sm px-6 py-3 mobile:px-2 mobile:py-2 rounded-md mobile:rounded"
               type="button"
-              onClick={(e) => nav(`/post/${param.category}/new`)}
+              onClick={() => nav(`/post/${param.category}/new`)}
             >
               <span className="mobile:hidden tablet:block desktop:block">
                 글쓰기
@@ -364,7 +369,6 @@ function CategoryBoard() {
           {postDatas.map((postData) => {
             return <BoardList key={postData.id} data={postData} />;
           })}
-          {/* <StudyList /> */}
         </div>
         <PageButton pageData={pageData} setPage={setSelectedOptionsPage} />
       </div>

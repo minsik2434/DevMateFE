@@ -7,7 +7,7 @@ import github from "@/assets/icon/github.svg";
 
 function Footer() {
   return (
-    <div className="bg-gray_7 desktop:pl-12 desktop:pb-6 tablet:mt-64 mobile:mt-52 tablet:pl-12 tablet:pb-6 mobile:p-4 ">
+    <div className="bg-gray_7 desktop:pl-12 desktop:pb-6 tablet:pl-12 tablet:pb-6 mobile:p-4 ">
       <div className="mx-auto flex gap-20 static mobile:relative">
         <div className="flex flex-col flex-[0.4] tablet:flex mobile:hidden">
           <img
