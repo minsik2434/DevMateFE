@@ -11,6 +11,7 @@ import useLoginInfoStore from "@/stores/loginInfo";
 import { useCookies } from "react-cookie";
 import Comment from "@/components/detail/Comment";
 import Banner from "@/components/Banner";
+import useLike from "@/stores/useLike";
 function StudyDetail() {
   const param = useParams();
   const [postingData, setPostingData] = useState({});
@@ -24,6 +25,7 @@ function StudyDetail() {
     interests: [],
   });
 
+  const { likeState, setLikeState } = useLike();
   useEffect(() => {
     const getMemberData = async () => {
       try {
@@ -61,6 +63,7 @@ function StudyDetail() {
           await getData(`${import.meta.env.VITE_API_URL}/post/${param.id}`)
         ).data;
         setPostingData(responsePostData);
+        setLikeState(responsePostData);
         const memberResponseData = await (
           await getData(
             `${import.meta.env.VITE_API_URL}/members/${

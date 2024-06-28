@@ -54,7 +54,7 @@ function Landing() {
       try {
         const requestUrl = `${
           import.meta.env.VITE_API_URL
-        }/post/mento/list?sort=view`;
+        }/post/mentoring/list?sort=view`;
         const responseData = (await getData(requestUrl)).data;
         setMentoringPosts(responseData.content);
       } catch (error) {

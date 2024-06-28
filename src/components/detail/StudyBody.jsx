@@ -6,6 +6,7 @@ import { deleteData } from "@/util/Crud";
 import useLoginInfoStore from "@/stores/loginInfo";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import LikeList from "../LikeList";
 
 function StudyBody({ data, writer }) {
   const postingDate = useFormattedDateTime(data.postingDateTime);
@@ -39,9 +40,12 @@ function StudyBody({ data, writer }) {
       <div>
         <div className=" mt-[70px] mobile:mt-[25px]">
           <div className="border-b-2 border-[#9b9b9b] text-nowrap">
-            <h2 className="text-[25px] mobile:text-[18px] font-bold">
-              {data.title}
-            </h2>
+            <div className="flex justify-between">
+              <h2 className="text-[25px] mobile:text-[18px] font-bold">
+                {data.title}
+              </h2>
+              <LikeList />
+            </div>
             <div className="flex py-[12px] justify-between mobile:gap-[12px] text-[15px]">
               <div className="flex items-center gap-[10px]">
                 <div className="flex items-center gap-[5px] border-r pr-[10px] border-[#9b9b9b]">

@@ -64,7 +64,6 @@ function MentoringDetail() {
         const responsePostData = await (
           await getData(`${import.meta.env.VITE_API_URL}/post/${param.id}`)
         ).data;
-        // console.log(responsePostData)
         setPostingData(responsePostData);
         setLikeState(responsePostData);
         const memberResponseData = await (

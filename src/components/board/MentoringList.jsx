@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 function MentoringList({ data }) {
   const nav = useNavigate();
   const onClick = () => {
-    nav(`/board/mentoring/${data.id}`);
+    nav(`/mentoring/${data.id}`);
   };
 
   return (

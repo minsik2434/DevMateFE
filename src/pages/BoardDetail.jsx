@@ -11,6 +11,7 @@ import { useCookies } from "react-cookie";
 import useLoginInfoStore from "@/stores/loginInfo";
 import useMemberStore from "@/stores/memberInfo";
 import Footer from "@/components/Footer";
+import useLike from "@/stores/useLike";
 
 function BoardDetail() {
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -25,7 +26,7 @@ function BoardDetail() {
     interests: [],
   });
   const { setName, setNickName, setImgUrl } = useMemberStore();
-
+  const { likeState, setLikeState } = useLike();
   useEffect(() => {
     const getMemberData = async () => {
       try {
@@ -69,6 +70,7 @@ function BoardDetail() {
           await getData(`${import.meta.env.VITE_API_URL}/post/${param.id}`)
         ).data;
         setPostingData(responsePostData);
+        setLikeState(responsePostData);
         const memberResponseData = await (
           await getData(
             `${import.meta.env.VITE_API_URL}/members/${

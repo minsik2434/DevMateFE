@@ -119,7 +119,7 @@ function Mentoring() {
         });
         const requestUrl = `${
           import.meta.env.VITE_API_URL
-        }/post/mento/list?${params.toString()}`;
+        }/post/mentoring/list?${params.toString()}`;
         const responseData = (await getData(requestUrl)).data;
 
         setPostDatas(responseData.content);
