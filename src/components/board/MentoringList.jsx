@@ -43,7 +43,7 @@ function MentoringList({ data }) {
             <img
               src={view}
               alt="조회 수"
-              className="mobile:w-3 tablet:w-4 desktop:w-4"
+              className="mobile:w-3 tablet:w-4 desktop:w-5"
             />
             <span className="mobile:text-sm">{data.viewCount}</span>
           </li>
@@ -51,7 +51,7 @@ function MentoringList({ data }) {
             <img
               src={comment}
               alt="댓글 수"
-              className="mobile:w-3 tablet:w-4 desktop:w-4"
+              className="mobile:w-3 tablet:w-4 desktop:w-5"
             />
             <span className="mobile:text-sm">{data.commentCount}</span>
           </li>
@@ -60,7 +60,7 @@ function MentoringList({ data }) {
             <img
               src={like}
               alt="추천 수"
-              className="mobile:w-3 tablet:w-4 desktop:w-4"
+              className="mobile:w-3 tablet:w-4 desktop:w-5"
             />
             <span className="mobile:text-sm">{data.goodCount}</span>
           </li>

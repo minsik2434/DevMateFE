@@ -1,5 +1,5 @@
 import React from "react";
-import recommend from "@/assets/icon/recommend.svg";
+import like from "@/assets/icon/like.svg";
 import view from "@/assets/icon/view.svg";
 import comment from "@/assets/icon/comment.svg";
 import formatTimeDifference from "@/util/get_time_current_diff";
@@ -28,7 +28,7 @@ function BoardList({ data }) {
     <button
       type="button"
       onClick={onClick}
-      className="desktop:max-w-[1240px] px-[20px] py-[10px] mobile:py-1 tablet:max-w-[768px] hover:bg-gray_0 border-b border-gray_3 mobile:max-w-[320px] w-full mx-auto"
+      className="desktop:max-w-[1240px] px-[20px] py-[10px] mobile:py-1 hover:bg-gray_0 border-b border-gray_3 w-full mx-auto"
     >
       <div className="flex flex-col p-2">
         <div className="flex items-start desktop:gap-16 tablet:gap-12 mobile:gap-8 font-medium">
@@ -61,7 +61,7 @@ function BoardList({ data }) {
                 return (
                   <li
                     key={index}
-                    className="px-2 rounded-lg text-sm desktop:py-1 tablet:py-1 mobile:py-0.5 mobile:rounded-lg mobile:text-[10px] bg-gray_8 text-gray_0"
+                    className="px-2 rounded-lg text-sm font-bold desktop:py-1 tablet:py-1 mobile:py-0.5 mobile:rounded-lg mobile:text-[10px] bg-gray_8 text-gray_0"
                   >
                     {tag}
                   </li>
@@ -73,15 +73,15 @@ function BoardList({ data }) {
         <div>
           <ul className="flex gap-3 desktop:text-sm mobile:text-[10px]">
             <li className="flex gap-1 items-center">
-              <img src={comment} alt="댓글 수" className="mobile:w-3" />
+              <img src={comment} alt="댓글 수" className="w-5 mobile:w-3" />
               <span>{data.commentCount}</span>
             </li>
             <li className="flex gap-1 items-center">
-              <img src={view} alt="조회 수" className="mobile:w-3" />
+              <img src={view} alt="조회 수" className="w-5 mobile:w-3" />
               <span>{data.viewCount}</span>
             </li>
             <li className="flex gap-1 items-center">
-              <img src={recommend} alt="추천 수" className="mobile:w-3" />
+              <img src={like} alt="추천 수" className="w-4 mobile:w-3" />
               <span>{data.goodCount}</span>
             </li>
           </ul>

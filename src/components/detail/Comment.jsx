@@ -106,7 +106,7 @@ function Comment() {
   const profileImage = accessToken && grantType ? imgUrl : profileDefault;
 
   return (
-    <div className="border-t border-gray_3 mt-[40px] py-[30px] px-[50px] mobile:px-0 flex flex-col items-center">
+    <div className="py-[30px] flex flex-col items-center">
       <div className="w-full px-[30px] py-[20px] border border-gray_3 rounded-lg">
         <form onSubmit={onSubmit}>
           <div className="flex gap-[30px] items-center mobile:gap-[10px]">
@@ -195,7 +195,7 @@ function Comment() {
                         value={editInputs[comment.id] || ""}
                         onChange={(e) => onEditChange(e, comment.id)}
                       />
-                      <div className="flex gap-[15px] justify-end mt-[10px] text-gray_0 outline-none">
+                      <div className="flex gap-[15px] justify-end mt-[10px] mobile:text-[14px] text-gray_0 outline-none">
                         <button
                           className="px-[15px] py-[3px] rounded-md bg-gray_8 hover:bg-gray_9"
                           value={comment.id}

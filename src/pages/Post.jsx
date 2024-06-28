@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Banner from "@/components/post/Banner";
+import Banner from "@/components/Banner";
 import ContentEdit from "@/components/post/ContentEdit";
 import useLoginInfoStore from "@/stores/loginInfo";
 import { getData, postData, patchData } from "@/util/Crud";

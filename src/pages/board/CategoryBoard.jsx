@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Banner from "@/components/board/Banner";
+import Banner from "@/components/Banner";
 import React from "react";
 import { useState } from "react";
 import search from "@/assets/icon/search.svg";
@@ -178,10 +178,10 @@ function CategoryBoard() {
     <div>
       <Header />
       <div className="mx-8 mobile:mx-5 mobile:mb-32">
-        <div>
+        <div className="flex justify-center">
           <Banner heading={heading} exp={exp} style={style} />
         </div>
-        <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto">
+        <div className="max-w-[1240px] mobile:min-w-[280px] m-auto mt-8 mobile:mt-4">
           <div className="flex flex-col items-center relative">
             <label htmlFor="search" className="sr-only">
               내용 검색하기
@@ -207,7 +207,7 @@ function CategoryBoard() {
               <img src={search} alt="검색하기" />
             </button>
           </div>
-          <div className="flex justify-between items-start desktop:gap-7 tablet:gap-7 mobile:mt-[10px] border-b py-10 mobile:pt-1 mobile:pb-5">
+          <div className="flex justify-between items-start desktop:gap-7 tablet:gap-7 mobile:mt-[10px] border-b py-10 mobile:pt-1 mobile:pb-5 text-nowrap">
             <div>
               <div className="mobile:block hidden">
                 <label htmlFor="dropdown" className="sr-only">
@@ -299,17 +299,17 @@ function CategoryBoard() {
             </div>
 
             {/* 태그 검색 창 */}
-            <div className="mobile: tablet:block">
+            <div className="desktop:w-[50%] w-[60%]">
               <label htmlFor="filter" className="sr-only">
                 태그 검색창
               </label>
               <div
-                className="border py-2 mobile:py-1.55 rounded-md desktop:w-[550px] tablet:w-[300px] mobile:w-[200px] flex relative mobile:text-[10px] cursor-text"
+                className="border py-2 mobile:py-1.55 rounded-md flex relative mobile:text-[10px] cursor-text"
                 onClick={() => {
                   tagRef.current.focus();
                 }}
               >
-                <ul className="flex gap-[10px] w-[550px] px-[7px] items-center flex-wrap">
+                <ul className="flex gap-[10px] px-[7px] items-center flex-wrap">
                   {selectedOptions.tags.map((tag, index) => {
                     return (
                       <li key={index} className="text-nowrap">
@@ -350,7 +350,7 @@ function CategoryBoard() {
             </div>
 
             <button
-              className="bg-gray_8 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-3 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
+              className="bg-gray_8 text-white text-sm px-6 py-3 mobile:px-2 mobile:py-2 rounded-md mobile:rounded"
               type="button"
               onClick={() => nav(`/post/${param.category}/new`)}
             >

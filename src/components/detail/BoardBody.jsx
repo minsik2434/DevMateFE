@@ -39,7 +39,7 @@ function BoardBody({ data, writer }) {
       <h1 className="font-bold text-black text-[25px] mobile:text-[15px] break-all whitespace-pre-wrap">
         {data.title}
       </h1>
-      <div className="flex justify-between pr-10 mobile:pr-4 mobile:gap-[20px] text-[14px] mobile:text-[8px] mt-[15px] mobile:mt-[10px]">
+      <div className="flex justify-between pr-10 mobile:pr-4 mobile:gap-[20px] text-[14px] mobile:text-[8px] mt-[15px] mobile:mt-[10px] text-nowrap">
         <div className="flex gap-[30px] mobile:gap-[10px]">
           <span className="font-bold text-[#553e3e]">{postingDate} 작성</span>
           <div>

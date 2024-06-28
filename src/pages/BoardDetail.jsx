@@ -109,7 +109,9 @@ function BoardDetail() {
                 <MobileProfileBox writerData={writerData} />
               </div>
             </div>
-            <Comment />
+            <div className="px-[50px] mt-[40px] mobile:px-0 border-t border-gray_3">
+              <Comment />
+            </div>
           </div>
           <div className="w-[35%] mobile:w-full pt-[30px]">
             <RightBox headerHeight={headerHeight} writerData={writerData} />

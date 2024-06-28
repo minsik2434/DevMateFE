@@ -1,6 +1,6 @@
 import React from "react";
 import commentImg from "@/assets/comment.png";
-import goodImg from "@/assets/good.png";
+import like from "@/assets/icon/like.svg";
 import viewImg from "@/assets/view.png";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -79,21 +79,21 @@ function MiniBoardList() {
                     <li className="flex">
                       <img
                         src={viewImg}
-                        className="w-[10px] mobile:w-[12px] mr-[2px]"
+                        className="w-3 mobile:w-[12px] mr-[2px]"
                       />
                       <span>{item.viewCount}</span>
                     </li>
                     <li className="flex">
                       <img
                         src={commentImg}
-                        className="w-[10px] mobile:w-[12px] mr-[2px]"
+                        className="w-3 mobile:w-[12px] mr-[2px]"
                       />
                       <span>{item.commentCount}</span>
                     </li>
                     <li className="flex">
                       <img
-                        src={goodImg}
-                        className="w-[10px] mobile:w-[12px] mr-[2px]"
+                        src={like}
+                        className="w-3 mobile:w-[12px] mr-[2px]"
                       />
                       <span>{item.goodCount}</span>
                     </li>

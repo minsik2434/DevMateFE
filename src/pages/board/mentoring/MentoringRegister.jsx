@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Banner from "@/components/board/Banner";
+import Banner from "@/components/Banner";
 import TagEdit from "@/components/post/TagEdit";
 import useLoginInfoStore from "@/stores/loginInfo";
 import useLike from "@/stores/useLike";

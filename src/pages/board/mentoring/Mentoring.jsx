@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Banner from "@/components/board/Banner";
+import Banner from "@/components/Banner";
 import React from "react";
 
 import { useState } from "react";
@@ -18,7 +18,6 @@ import { useCookies } from "react-cookie";
 import { useEffect } from "react";
 import xButton from "@/assets/xButton.png";
 import { motion } from "framer-motion";
-
 
 function Mentoring() {
   const [postDatas, setPostDatas] = useState([]);
@@ -159,7 +158,6 @@ function Mentoring() {
             heading="멘토링"
             exp="선배 또는 동료들의 경험을 들어봐요"
             style="bg-banner_mento bg-center bg-cover"
-
           />
         </div>
         <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto my-5">
@@ -360,7 +358,7 @@ function Mentoring() {
         <div className="m-auto desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] tablet:px-10 mobile:px-3">
           <div className="grid desktop:grid-cols-3 desktop:gap-20 tablet:grid-cols-2 tablet:gap-12 mobile:grid-cols-1 mobile:gap-10 mobile:pt-7">
             {postDatas.map((postData) => {
-              return <MentoringList key={postData.id} data={postData}/>;
+              return <MentoringList key={postData.id} data={postData} />;
             })}
           </div>
         </div>

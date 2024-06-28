@@ -38,25 +38,27 @@ function StudyBody({ data, writer }) {
     <>
       <div>
         <div className=" mt-[70px] mobile:mt-[25px]">
-          <div className="border-b-2 border-[#9b9b9b]">
+          <div className="border-b-2 border-[#9b9b9b] text-nowrap">
             <h2 className="text-[25px] mobile:text-[18px] font-bold">
               {data.title}
             </h2>
-            <div className="flex items-center py-[12px] gap-[18px] mobile:gap-[12px] text-[15px]">
-              <div className="flex items-center gap-[5px] border-r pr-[10px] border-[#9b9b9b]">
-                <img
-                  src={writer.imgUrl}
-                  className="w-[35px] mobile:w-[18px]"
-                ></img>
-                <span className="text-[18px] mobile:text-[12px] font-bold">
-                  {writer.nickName}
+            <div className="flex py-[12px] justify-between mobile:gap-[12px] text-[15px]">
+              <div className="flex items-center gap-[10px]">
+                <div className="flex items-center gap-[5px] border-r pr-[10px] border-[#9b9b9b]">
+                  <img
+                    src={writer.imgUrl}
+                    className="w-[35px] mobile:w-[18px]"
+                  ></img>
+                  <span className="text-[18px] mobile:text-[12px] font-bold">
+                    {writer.nickName}
+                  </span>
+                </div>
+                <span className="text-[18px] mobile:text-[12px]">
+                  {postingDate}
                 </span>
               </div>
-              <span className="text-[18px] mobile:text-[12px]">
-                {postingDate}
-              </span>
               {writer.nickName === nickName && (
-                <div className="ml-[10px] flex gap-[15px]">
+                <div className="ml-[10px] flex gap-[15px] mobile:gap-[8px] mobile:text-[12px]">
                   <button type="button" onClick={() => handleEditNav({ data })}>
                     수정
                   </button>
@@ -87,7 +89,7 @@ function StudyBody({ data, writer }) {
                   {Array.isArray(data.tags) &&
                     data.tags.map((tag, index) => (
                       <li key={index}>
-                        <div className="font-bold bg-[#e0e0e0] px-[30px] mobile:px-[8px] py-[6px] mobile:py-[4px] rounded-full">
+                        <div className="font-bold bg-gray_8 text-gray_0 px-[10px] py-1 mobile:px-[5px] text-sm mobile:py-[2px] mobile:text-[10px] rounded-lg">
                           <span>{tag}</span>
                         </div>
                       </li>
