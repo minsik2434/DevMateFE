@@ -7,6 +7,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getData } from "@/util/Crud";
 import { useLayoutEffect } from "react";
+import useIndex from "@/stores/navIndex";
+
+import banner1 from "@/assets/banner/banner_main.jpg";
 
 function Landing() {
   const [qnaPosts, setQnaPosts] = useState([]);
@@ -91,14 +94,19 @@ function Landing() {
     getJobPosts();
   }, []);
 
+  const { navIndex, setNavIndex } = useIndex();
+
+  useEffect(() => {
+    setNavIndex("");
+  }, []);
   return (
     <div className="w-full">
       <Header />
       <div>
         <img
-          src={banner}
+          src={banner1}
           alt="배너 이미지"
-          className="w-full desktop:mx-auto desktop:my-20 tablet:my-16 desktop:h-72 tablet:h-52 mobile:hidden tablet:block"
+          className="w-full desktop:mx-auto desktop:my-20 tablet:my-16 desktop:h-[500px] tablet:h-52 mobile:hidden tablet:block"
         />
       </div>
 

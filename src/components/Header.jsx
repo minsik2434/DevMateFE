@@ -8,13 +8,22 @@ import Signin from "@/pages/Signin";
 import { getData } from "@/util/Crud";
 import useMember from "@/stores/member";
 import { useNavigate } from "react-router-dom";
+import useLike from "@/stores/useLike";
+
+import ml from "@/assets/logo_main.png"
 
 function Header() {
-  const [showModal, setShowModal] = useState(false);
+  const [showModalD, setShowModalD] = useState(false);
+  const [showModalM, setShowModalM] = useState(false);
   const modalBackground = useRef();
 
   const [toggle, setToggle] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+
+  const handleLoginSuccess = () => {
+    setShowModalM(false);
+    setToggle(false);
+  };
 
   const { navIndex, setNavIndex } = useIndex();
 
@@ -49,8 +58,12 @@ function Header() {
       });
 
       localStorage.clear();
+
+      useLike.getState().reset();
+      useLike.persist.clearStorage();
       alert("로그아웃 되었습니다.");
-      setShowModal(false);
+      setShowModalD(false);
+      setShowModalM(false);
       nav("/");
     }
   };
@@ -95,16 +108,16 @@ function Header() {
   return (
     <div
       className={`${
-        isSticky ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm" : ""
+        isSticky ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm" : "bg-white"
       }`}
     >
       {/* desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] */}
-      <div className="mobile:w-[320px] mx-auto py-3">
+      <div className="mx-auto border-b-2 border-b-gray_3 py-2">
         <div className="flex items-center justify-between gap-20 desktop:mx-[7%] tablet:mx-[5%] mobile:mx-3">
           <Link to="/">
             <h1 onClick={() => handleButtonClick("")}>
               <img
-                src={logo}
+                src={ml}
                 alt="데브 메이트 바로가기"
                 className="desktop:w-32 tablet:w-20 mobile:w-20"
               />
@@ -123,7 +136,9 @@ function Header() {
                 <li
                   key={index}
                   onClick={() => handleButtonClick(index)}
-                  className={navIndex === index ? "text-gray_9" : "text-gray_5"}
+                  className={`${
+                    navIndex === index ? "text-gray_9" : "text-gray_5"
+                  } hover:shadow-[0_2px_0_0_rgba(0,0,0,0.5)] transition-shadow duration-300`}
                 >
                   <Link to={item.path}>
                     <button>{item.label}</button>
@@ -135,7 +150,7 @@ function Header() {
 
           <div>
             {accessToken ? (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 tablet:text-sm mobile:hidden">
                 <img
                   src={imgUrl}
                   alt="사용자 프로필"
@@ -144,7 +159,7 @@ function Header() {
                 <div>
                   <span className="underline">{nickName}</span>님
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 ">
                   <Link to="/profile">
                     <button className="hover:opacity-80">MY</button>
                   </Link>
@@ -158,17 +173,17 @@ function Header() {
               <div className="desktop:gap-5 tablet:gap-3 desktop:text-sm tablet:text-[8px] desktop:flex tablet:flex mobile:hidden">
                 <button
                   className="border border-gray_6 desktop:w-20 desktop:py-1 tablet:w-12 tablet:py-0.5 rounded-full hover:opacity-80"
-                  onClick={() => setShowModal(true)}
+                  onClick={() => setShowModalD(true)}
                 >
                   로그인
                 </button>
-                {showModal && (
+                {showModalD && (
                   <div
                     className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-blend-darken bg-black bg-opacity-50 z-50"
                     ref={modalBackground}
                     onClick={(e) => {
                       if (e.target === modalBackground.current) {
-                        setShowModal(false);
+                        setShowModalD(false);
                       }
                     }}
                   >
@@ -184,85 +199,149 @@ function Header() {
               </div>
             )}
           </div>
+
+          {/* 모바일 버전 */}
           <div
             className={`hamburger ${
               toggle ? "toggle" : ""
             } tablet:hidden desktop:hidden`}
-            onClick={() => setToggle(!toggle)}
+            onClick={() => {
+              setToggle(!toggle);
+            }}
           >
             <span className="line line1"></span>
             <span className="line line2"></span>
             <span className="line line3"></span>
             {toggle && (
-              <div className="dropdown-modal rounded-md text-xs font-medium py-2 bg-white">
+              <div className="dropdown-modal rounded text-xs font-medium bg-gray_0">
                 {/* 모달창 내용 */}
-                <div className="flex flex-col px-2">
+                {accessToken ? (
+                  <div className="flex flex-col py-4 gap-4">
+                    <div className="flex gap-2 items-center justify-center">
+                      <img
+                        src={imgUrl}
+                        alt="사용자 프로필"
+                        className="w-8 h-8 rounded-full"
+                      />
+                      <p className="text-lg">
+                        <span className="underline">{nickName}</span>님
+                      </p>
+                    </div>
+                    <div className="flex gap-2 items-center justify-center">
+                      <Link to="/profile">
+                        <button className="hover:opacity-80">My 프로필</button>
+                      </Link>
+                      <span>|</span>
+                      <button
+                        className="hover:opacity-80"
+                        onClick={handleLogout}
+                      >
+                        로그아웃
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-4 text-base text-center">
+                    <span>로그인을 해주세요</span>
+                  </div>
+                )}
+                <hr className="border-2 border-gray_6" />
+                {/* <div className="desktop:gap-5 tablet:gap-3 desktop:text-sm tablet:text-[8px] desktop:flex tablet:flex"></div> */}
+
+                {!accessToken ? (
                   <button
-                    type="button"
-                    className="w-full text-start py-1 border-b pl-2"
-                    onClick={() => setShowModal(true)}
+                    className={`w-full text-start py-2 px-3 hover:bg-gray_3 border-b-2 border-gray_1`}
+                    onClick={() => {
+                      setShowModalM(true);
+                      setToggle(false);
+                    }}
                   >
                     로그인
                   </button>
-                  {showModal && (
-                    <div
-                      className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-blend-darken bg-black bg-opacity-50"
-                      ref={modalBackground}
-                      onClick={(e) => {
-                        if (e.target === modalBackground.current) {
-                          setShowModal(false);
-                        }
-                      }}
-                    >
-                      <Signin />
-                    </div>
-                  )}
-                  <button type="button" className="w-full text-start py-1 pl-2">
+                ) : (
+                  ""
+                )}
+
+                {!accessToken ? (
+                  <Link to="/signup">
+                    <button className="w-full text-start py-2 px-3 hover:bg-gray_3 border-b-2 border-gray_1">
+                      회원가입
+                    </button>
+                  </Link>
+                ) : (
+                  ""
+                )}
+
+                {/* <Link to="/signup">
+                  <button className="w-full text-start py-2 px-3 hover:bg-gray_3 border-b-2 border-gray_1">
                     회원가입
                   </button>
-                </div>
-                <hr className="border-2 border-gray_6 mx-1" />
-                <div className="flex flex-col px-2">
+                </Link> */}
+                <Link to="/board/qna">
                   <button
                     type="button"
-                    className="w-full text-start py-1 border-b pl-2"
+                    className="w-full text-start py-2 px-3 hover:bg-gray_3 border-b-2 border-gray_1"
                   >
                     Q&A
                   </button>
+                </Link>
+                <Link to="/board/community">
                   <button
                     type="button"
-                    className="w-full text-start py-1 border-b pl-2"
+                    className="w-full text-start py-2 px-3 hover:bg-gray_3 border-b-2 border-gray_1"
                   >
                     커뮤니티
                   </button>
+                </Link>
+                <Link to="/board/review">
                   <button
                     type="button"
-                    className="w-full text-start py-1 border-b pl-2"
+                    className="w-full text-start py-2 px-3 hover:bg-gray_3 border-b-2 border-gray_1"
                   >
                     취업후기
                   </button>
+                </Link>
+                <Link to="/board/study">
                   <button
                     type="button"
-                    className="w-full text-start py-1 border-b pl-2"
+                    className="w-full text-start py-2 px-3 hover:bg-gray_3 border-b-2 border-gray_1"
                   >
                     스터디
                   </button>
+                </Link>
+                <Link to="/board/mentoring">
                   <button
                     type="button"
-                    className="w-full text-start py-1 border-b pl-2"
+                    className="w-full text-start py-2 px-3 hover:bg-gray_3 border-b-2 border-gray_1"
                   >
                     멘토링
                   </button>
+                </Link>
+                <Link to="/board/job">
                   <button
                     type="button"
-                    className="w-full text-start py-1 border-b pl-2"
+                    className="w-full text-start py-2 px-3 hover:bg-gray_3"
                   >
                     모집공고
                   </button>
-                </div>
+                </Link>
               </div>
             )}
           </div>
+
+          {showModalM && (
+            <div
+              className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-blend-darken bg-black bg-opacity-50 z-50"
+              ref={modalBackground}
+              onClick={(e) => {
+                if (e.target === modalBackground.current) {
+                  setShowModalM(false);
+                }
+              }}
+            >
+              <Signin onLoginSuccess={handleLoginSuccess} />
+            </div>
+          )}
         </div>
       </div>
     </div>

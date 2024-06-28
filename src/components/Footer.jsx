@@ -35,21 +35,21 @@ function Footer() {
               <img
                 src={instagram}
                 alt="인스타그램 바로가기"
-                className="desktop:w-6 tablet:w-5 mobile:w-4"
+                className="desktop:w-6 tablet:w-5 mobile:w-5"
               />
             </li>
             <li>
               <img
                 src={facebook}
                 alt="페이스북 바로가기"
-                className="desktop:w-6 tablet:w-5 mobile:w-4"
+                className="desktop:w-6 tablet:w-5 mobile:w-5"
               />
             </li>
             <li>
               <img
                 src={github}
                 alt="깃허브 바로가기"
-                className="desktop:w-6 tablet:w-5 mobile:w-4"
+                className="desktop:w-6 tablet:w-5 mobile:w-5"
               />
             </li>
           </ul>

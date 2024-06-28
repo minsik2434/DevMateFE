@@ -11,7 +11,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-function Signin() {
+function Signin({ onLoginSuccess }) {
   const [cookies, setCookie, removeCookie] = useCookies([]);
 
   const nav = useNavigate();
@@ -63,6 +63,10 @@ function Signin() {
       toast.success(`로그인 되었습니다`, {
         duration: 2000,
       });
+
+      if (onLoginSuccess) {
+        onLoginSuccess();
+      }
 
       nav("/");
     } catch (error) {

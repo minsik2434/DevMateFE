@@ -30,12 +30,12 @@ export default {
       },
 
       backgroundImage: {
-        banner_commu: "url('src/assets/banner/banner_commu.svg')", // 원하는 이미지 경로로 변경
-        banner_job: "url('src/assets/banner/banner_job.svg')", // 원하는 이미지 경로로 변경
-        banner_mento: "url('src/assets/banner/banner_mento.svg')", // 원하는 이미지 경로로 변경
-        banner_qna: "url('src/assets/banner/banner_qna.svg')", // 원하는 이미지 경로로 변경
-        banner_review: "url('src/assets/banner/banner_review.svg')", // 원하는 이미지 경로로 변경
-        banner_study: "url('src/assets/banner/banner_study.svg')", // 원하는 이미지 경로로 변경
+        banner_commu: "url('/src/assets/banner/banner_commu.svg')", // 원하는 이미지 경로로 변경
+        banner_job: "url('/src/assets/banner/banner_job.svg')", // 원하는 이미지 경로로 변경
+        banner_mento: "url('/src/assets/banner/banner_mento.svg')", // 원하는 이미지 경로로 변경
+        banner_qna: "url('/src/assets/banner/banner_qna.svg')", // 원하는 이미지 경로로 변경
+        banner_review: "url('/src/assets/banner/banner_review.svg')", // 원하는 이미지 경로로 변경
+        banner_study: "url('/src/assets/banner/banner_study.svg')", // 원하는 이미지 경로로 변경
       },
     },
   },

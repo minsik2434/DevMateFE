@@ -96,12 +96,13 @@ function StudyDetail() {
         <Header />
       </header>
       <section className="flex justify-center py-[50px] mobile:py-[25px]">
-        <div className="w-[80%] mobile:w-[95%]">
+        <div className="w-[80%] mobile:w-[95%] max-w-[1240px]">
           <Banner
             heading="스터디"
             exp="원하는 사람들과 함께 공부해봐요"
-            style="bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED]"
+            style="bg-banner_study bg-cover bg-center w-full"
           />
+
           <div className="px-[18px] mobile:px-[5px]">
             <StudyBody data={postingData} writer={writerData} />
             <div className="mt-[30px] w-full border-t border-gray_3">

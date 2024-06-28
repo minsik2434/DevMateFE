@@ -11,9 +11,14 @@ import { getData, postData } from "@/util/Crud";
 
 import check from "@/assets/icon/check.svg";
 import uncheck from "@/assets/icon/uncheck.svg";
+import Signin from "./Signin";
+import { useRef } from "react";
 
 function Signup() {
   const { interestsInfo, setInterestsInfo } = useInterestStore();
+
+  const [showModal, setShowModal] = useState(false);
+  const modalBackground = useRef();
 
   useLayoutEffect(() => {
     const setInterests = async () => {
@@ -111,14 +116,6 @@ function Signup() {
   const onChange = (e) => {
     const { value, name, type, checked } = e.target;
     debouncedChangeHandler(name, value, type, checked);
-    // if (name === "confirmPassword") {
-    //   setPasswordMismatch(
-    //     inputValues.password &&
-    //       inputValues.confirmPassword &&
-    //       inputValues.password !== value
-    //   );
-    // }
-    // // console.log(inputValues);
   };
 
   const onSubmit = async (e) => {
@@ -134,21 +131,6 @@ function Signup() {
       console.log(error);
     }
   };
-
-  // const checkDuplicate = async (name, value) => {
-  //   try {
-  //     const response = await getData(
-  //       `${import.meta.env.VITE_API_URL}/members/${value}/check?type=${name}`
-  //     );
-
-  //     console.log(response.data);
-  //     if (response.data==="Duplicate") {
-  //       console.log("yes");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const checkDuplicate = async (name, value, callback) => {
     try {
@@ -325,7 +307,7 @@ function Signup() {
               />
               <div
                 onClick={toggleExperienced}
-                className="cursor-pointer desktop:w-[28px] tablet:w-[28px] ml-3"
+                className="cursor-pointer desktop:w-[28px] tablet:w-[28px] mobile:w-[24px] ml-3"
               >
                 {inputValues.experienced ? (
                   <img src={check} alt="Checked" />
@@ -350,11 +332,27 @@ function Signup() {
             <p className="text-[12px] mobile:text-[8px] text-[#868E96]">
               이미 계정이 있으신가요?
             </p>
-            <a href="/">
-              <p className="underline font-bold text-[12px] mobile:text-[8px]">
-                로그인하기
-              </p>
-            </a>
+
+            <button
+              type="button"
+              className="underline font-bold text-[12px] mobile:text-[8px]"
+              onClick={() => setShowModal(true)}
+            >
+              로그인하기
+            </button>
+            {showModal && (
+              <div
+                className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-blend-darken bg-black bg-opacity-50 z-50"
+                ref={modalBackground}
+                onClick={(e) => {
+                  if (e.target === modalBackground.current) {
+                    setShowModal(false);
+                  }
+                }}
+              >
+                <Signin />
+              </div>
+            )}
           </div>
         </div>
       </div>

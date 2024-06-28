@@ -10,6 +10,15 @@ const likeStore = (set) => ({
 
   setLikeState: (likeState) => set({ likeState }),
   setLikes: (likes) => set({ likes }),
+
+  reset: () =>
+    set({
+      likeState: {},
+      likes: {
+        isLike: false,
+        likeId: "",
+      },
+    }),
 });
 
 const useLike = create(
