@@ -4,6 +4,7 @@ import like_empty from "@/assets/icon/like_empty.png";
 import { deleteData, getData, postData } from "@/util/Crud";
 import useLoginInfoStore from "@/stores/loginInfo";
 import useLike from "@/stores/useLike";
+import { toast } from "react-hot-toast";
 
 function LikeList() {
   const { likeState, likes, setLikes } = useLike();
@@ -22,7 +23,12 @@ function LikeList() {
         likeId: response.data["goodId"],
       });
     } catch (error) {
-      setLikes({ isLike: false, likeId: "" });
+      if (!accessToken) {
+        setLikes({ isLike: false, likeId: "" });
+      }
+      if (error.response["status"] === "400") {
+        setLikes({ isLike: false, likeId: "" });
+      }
     }
   };
 
@@ -42,6 +48,10 @@ function LikeList() {
       });
     } catch (error) {
       // console.log(error);
+      toast.error("로그인 후 이용해주세요", {
+        icon: "🙏🏻",
+        duration: 2000, // 2초 동안 토스트 메시지가 보여짐
+      });
     }
   };
 
@@ -59,14 +69,13 @@ function LikeList() {
         likeId: "",
       });
     } catch (error) {
-      // console.log(error);
+      console.log(error.response);
     }
   };
 
   useEffect(() => {
     handleIsLike();
-  
-  }, [likeState.id]);
+  }, [likeState.id, accessToken]);
 
   return (
     <div className="App">

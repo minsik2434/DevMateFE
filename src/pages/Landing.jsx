@@ -8,8 +8,15 @@ import view from "@/assets/icon/view.svg";
 import comment from "@/assets/icon/comment.svg";
 import LandingList from "@/components/landing/LandingList";
 import LandingBoard from "@/components/landing/LandingBoard";
+import useIndex from "@/stores/navIndex";
+import { useEffect } from "react";
 
 function Landing() {
+  const { navIndex, setNavIndex } = useIndex();
+
+  useEffect(() => {
+    setNavIndex("");
+  }, []);
   return (
     <div className="w-full">
       <Header />
