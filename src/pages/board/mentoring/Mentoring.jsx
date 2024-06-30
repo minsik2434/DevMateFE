@@ -119,11 +119,10 @@ function Mentoring() {
         });
         const requestUrl = `${
           import.meta.env.VITE_API_URL
-        }/post/mentoring/list?${params.toString()}`;
+        }/post/mento/list?${params.toString()}`;
         const responseData = (await getData(requestUrl)).data;
 
         setPostDatas(responseData.content);
-
         setCurrentPage(responseData.pageable.pageNumber);
         setTotalPage(responseData.totalPages);
       } catch (error) {

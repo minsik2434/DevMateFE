@@ -118,7 +118,7 @@ function Header() {
             <h1 onClick={() => handleButtonClick("")}>
               <img
                 src={ml}
-                alt="데브 메이트 바로가기"
+                alt="DevMate"
                 className="desktop:w-32 tablet:w-20 mobile:w-20"
               />
             </h1>

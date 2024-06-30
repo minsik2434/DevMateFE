@@ -1,7 +1,7 @@
 import xButton from "@/assets/xButton.png";
 import React from "react";
 import { useRef } from "react";
-function TagEdit({ onTags, tags }) {
+function TagEdit({ onTags, tags, style }) {
   const tagRef = useRef();
   const removeLastTag = () => {
     const updatedTags = tags.slice(0, -1);
@@ -14,12 +14,14 @@ function TagEdit({ onTags, tags }) {
   };
 
   const addTags = (e) => {
+    e.preventDefault();
     if (tags.length >= 4) {
       e.preventDefault();
       return;
     }
     const inputValue = e.target.value;
     if (e.key === "Enter" && inputValue !== "" && !tags.includes(inputValue)) {
+      e.preventDefault();
       e.target.value = "";
       onTags([...tags, inputValue]);
     }
@@ -29,6 +31,8 @@ function TagEdit({ onTags, tags }) {
     const inputValue = e.target.value;
     if (e.key === "Backspace" && inputValue === "") {
       removeLastTag();
+    } else if (e.key === "Enter") {
+      addTags(e);
     }
   };
   return (
@@ -38,7 +42,7 @@ function TagEdit({ onTags, tags }) {
         tagRef.current.focus();
       }}
     >
-      <ul className="flex flex-wrap gap-[10px] items-center">
+      <ul className={`flex flex-wrap gap-[10px] items-center ${style}`}>
         {tags.map((tag, index) => {
           return (
             <li key={index} className="text-nowrap">
@@ -47,6 +51,7 @@ function TagEdit({ onTags, tags }) {
                 <button
                   className="w-[14px] mobile:w-[10px]"
                   onClick={() => removeTag(index)}
+                  type="button"
                 >
                   <img src={xButton} className="w-full"></img>
                 </button>

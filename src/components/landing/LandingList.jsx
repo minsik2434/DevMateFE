@@ -7,7 +7,11 @@ import { useNavigate } from "react-router-dom";
 function LandingList({ post }) {
   const nav = useNavigate();
   const onClick = () => {
-    nav(`/${post.category}/${post.id}`);
+    if (post.category === "Mento") {
+      nav(`/mentoring/${post.id}`);
+    } else {
+      nav(`/${post.category}/${post.id}`);
+    }
   };
   return (
     <button

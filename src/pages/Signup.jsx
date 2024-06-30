@@ -3,16 +3,18 @@ import InputField from "@/components/sign/InputField";
 import SingUpButton from "@/components/sign/SignButton";
 import { useState, useEffect, useCallback, useLayoutEffect } from "react";
 import Interests from "@/components/Interests";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { debounce } from "lodash";
 import useInterestStore from "@/stores/InterestInfo";
 import { getData, postData } from "@/util/Crud";
 
-import check from "@/assets/icon/check.svg";
-import uncheck from "@/assets/icon/uncheck.svg";
+import check from "@/public/icon/check.svg";
+import uncheck from "@/public/icon/uncheck.svg";
+import logo from "@/public/logo_main.png";
 import Signin from "./Signin";
 import { useRef } from "react";
+import { toast } from "react-hot-toast";
 
 function Signup() {
   const { interestsInfo, setInterestsInfo } = useInterestStore();
@@ -20,17 +22,9 @@ function Signup() {
   const [showModal, setShowModal] = useState(false);
   const modalBackground = useRef();
 
-  useLayoutEffect(() => {
-    const setInterests = async () => {
-      const responseData = (
-        await getData(`${import.meta.env.VITE_API_URL}/interests`)
-      ).data;
-      setInterestsInfo(responseData);
-    };
-    setInterests();
-  }, [setInterestsInfo]);
-
   const nav = useNavigate();
+
+  //회원가입 데이터
   const [inputValues, setInputValues] = useState({
     loginId: "",
     password: "",
@@ -41,7 +35,38 @@ function Signup() {
     interests: [],
   });
 
+  //비밀번호확인 유효성 검사
   const [passwordMismatch, setPasswordMismatch] = useState(false);
+
+  const updateSelectedInterests = (value) => {
+    setInputValues((prevInputValues) => ({
+      ...prevInputValues,
+      interests: prevInputValues.interests.includes(value)
+        ? prevInputValues.interests.filter((id) => id != value)
+        : [...prevInputValues.interests, value],
+    }));
+  };
+
+  //유효성 검사
+  const validateLoginId = (loginId) => {
+    const loginIdPattern = /^[a-z0-9_-]{5,20}$/;
+    return loginIdPattern.test(loginId);
+  };
+
+  const validatePassword = (password) => {
+    const passwordPattern = /^[A-Za-z\d!@#$%^&*]{8,16}$/;
+    return passwordPattern.test(password);
+  };
+
+  const validateName = (name) => {
+    const namePattern = /^[A-Za-z가-힣]{2,}$/;
+    return namePattern.test(name);
+  };
+
+  const validateNickName = (nickName) => {
+    const nickNamePattern = /^[A-Za-z가-힣]{2,}$/;
+    return nickNamePattern.test(nickName);
+  };
 
   const debouncedChangeHandler = useCallback(
     debounce((name, value, type, checked) => {
@@ -120,6 +145,19 @@ function Signup() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      inputValues.loginIdError ||
+      inputValues.passwordError ||
+      passwordMismatch ||
+      inputValues.nameError ||
+      inputValues.nickNameError
+    ) {
+      toast.error(`조건에 맞게 입력해주세요`, {
+        duration: 2000,
+      });
+      return;
+    }
     try {
       await postData(
         `${import.meta.env.VITE_API_URL}/members/register`,
@@ -152,41 +190,16 @@ function Signup() {
     }
   };
 
-  const updateSelectedInterests = (value) => {
-    setInputValues((prevInputValues) => ({
-      ...prevInputValues,
-      interests: prevInputValues.interests.includes(value)
-        ? prevInputValues.interests.filter((id) => id != value)
-        : [...prevInputValues.interests, value],
-    }));
-  };
-
-  const [errors, setErrors] = useState({
-    loginId: "",
-    password: "",
-  });
-
-  //유효성 검사
-
-  const validateLoginId = (loginId) => {
-    const loginIdPattern = /^[a-z0-9_-]{5,20}$/;
-    return loginIdPattern.test(loginId);
-  };
-
-  const validatePassword = (password) => {
-    const passwordPattern = /^[A-Za-z\d!@#$%^&*]{8,16}$/;
-    return passwordPattern.test(password);
-  };
-
-  const validateName = (name) => {
-    const namePattern = /^[A-Za-z가-힣]{2,}$/;
-    return namePattern.test(name);
-  };
-
-  const validateNickName = (nickName) => {
-    const nickNamePattern = /^[A-Za-z가-힣]{2,}$/;
-    return nickNamePattern.test(nickName);
-  };
+  //관심 항목 데이터
+  useLayoutEffect(() => {
+    const setInterests = async () => {
+      const responseData = (
+        await getData(`${import.meta.env.VITE_API_URL}/interests`)
+      ).data;
+      setInterestsInfo(responseData);
+    };
+    setInterests();
+  }, [setInterestsInfo]);
 
   // 컴포넌트가 마운트될 때 상태 초기화
   useEffect(() => {
@@ -199,6 +212,7 @@ function Signup() {
         nickName: "",
         experienced: false,
         interests: [],
+        // nickNameError:""
       });
     };
   }, []);
@@ -211,14 +225,23 @@ function Signup() {
     }));
   };
 
+  // console.log(Boolean(inputValues.nickNameError))
   return (
     <div className="flex justify-center py-[50px] mobile:py-[28px]">
       <div className="w-[38%] mobile:w-[80%] mobile:max-w-[400px] desktop:max-w-[470px]">
-        <div className="flex flex-col gap-[16px]">
-          <h2 className="text-center text-[20px] font-bold">Sign up</h2>
+        <div className="flex flex-col items-center desktop:gap-[80px] tablet:gap-[60px] mobile:gap-10">
+          <h2 className="text-center text-[20px] font-bold">
+            <Link to="/">
+              <img
+                src={logo}
+                alt="SignUp"
+                className="desktop:w-56 tablet:w-48 mobile:w-32"
+              />
+            </Link>
+          </h2>
           <form onSubmit={onSubmit}>
             <div>
-              <ul className="flex flex-col gap-[23px] mobile:gap-[13px] text-[14px] mobile:text-[10px]">
+              <ul className="flex flex-col gap-[30px] mobile:gap-[13px] text-[14px] mobile:text-[10px]">
                 <div>
                   <InputField
                     id="id"
@@ -296,8 +319,8 @@ function Signup() {
                 </div>
               </ul>
             </div>
-            <div className="flex items-center mt-5">
-              <p className="text-[14px] mobile:text-[12px]">경력자이신가요?</p>
+            <div className="flex items-center mt-8">
+              <p className="text-[15px] mobile:text-[12px]">경력자이신가요?</p>
               <input
                 type="checkbox"
                 className="ml-2 sr-only"
@@ -316,15 +339,15 @@ function Signup() {
                 )}
               </div>
             </div>
-            <div className="mt-3">
-              <span className="text-[14px] mobile:text-[12px]">관심 분야</span>
+            <div className="mt-8">
+              <span className="text-[15px] mobile:text-[12px]">관심 분야</span>
               <Interests
                 onSelected={updateSelectedInterests}
                 selected={inputValues.interests}
                 type="signUp"
               />
             </div>
-            <div className="mt-[30px] mobile:mt-[18px]">
+            <div className="mt-[60px] mobile:mt-[18px]">
               <SingUpButton text="SIGNUP" type="submit" />
             </div>
           </form>

@@ -4,9 +4,9 @@ import LinkList from "@/components/sign/LinkList";
 import LoginButton from "@/components/sign/SignButton";
 import useLoginInfoStore from "@/stores/loginInfo";
 import useMember from "@/stores/member";
-import { getData, postData } from "@/util/Crud";
+import {postData } from "@/util/Crud";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -70,8 +70,7 @@ function Signin({ onLoginSuccess }) {
 
       nav("/");
     } catch (error) {
-      console.log(error);
-      console.log(error.response);
+      
       toast.error(`아이디 또는 비밀번호가 일치하지 않습니다`, {
         duration: 2000,
       });

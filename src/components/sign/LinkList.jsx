@@ -11,7 +11,7 @@ function LinkList({ links }) {
           </li>
         ))} */}
 
-        <div className="flex gap-2 justify-center font-medium">
+        <div className="flex gap-2 justify-center font-bold">
           {links.slice(0, 1).map(
             (
               link // 첫 번째와 두 번째 링크를 하나의 div로 묶음
@@ -33,7 +33,7 @@ function LinkList({ links }) {
           )}
         </div>
         <div className="flex justify-center gap-2">
-          <span className="text-gray_6">아직 계정이 없으신가요?</span>
+          <span className="text-gray_7">아직 계정이 없으신가요?</span>
           {links.slice(2, 3).map(
             (
               link // 세 번째 링크를 별도의 div로 묶음

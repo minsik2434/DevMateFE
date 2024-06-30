@@ -100,7 +100,7 @@ function MentoringDetail() {
           <Banner
             heading="멘토링"
             exp="선배 또는 동료들의 경험을 들어봐요"
-            style="bg-[#C9DECF]"
+            style="bg-banner_mento bg-center bg-cover"
 
             // className="bg-gradient-to-t from-[#E6E6FA] to-[#EDEDED]"
           />

@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import React from "react";
-import banner from "@/assets/banner_1.png";
+
 import LandingBoard from "@/components/landing/LandingBoard";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -9,7 +9,8 @@ import { getData } from "@/util/Crud";
 import { useLayoutEffect } from "react";
 import useIndex from "@/stores/navIndex";
 
-import banner1 from "@/assets/banner/banner_main.jpg";
+// import banner1 from "/banner/banner_main.jpg";
+import banner1 from "@/public/banner/banner_main.jpg";
 
 function Landing() {
   const [qnaPosts, setQnaPosts] = useState([]);
@@ -57,7 +58,7 @@ function Landing() {
       try {
         const requestUrl = `${
           import.meta.env.VITE_API_URL
-        }/post/mentoring/list?sort=view`;
+        }/post/mento/list?sort=view`;
         const responseData = (await getData(requestUrl)).data;
         setMentoringPosts(responseData.content);
       } catch (error) {
@@ -110,22 +111,21 @@ function Landing() {
         />
       </div>
 
-      <div className="relative desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto mb-[200px]">
+      <div className="desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] m-auto mb-[200px]">
         <div className="grid desktop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 desktop:gap-x-8 desktop:gap-y-56 tablet:gap-x-5 tablet:gap-y-36 mobile:gap-y-24 desktop:mt-32 tablet:mt-28 mobile:mt-20 desktop:pt-20 tablet:pt-16 mobile:pt-12 desktop:px-5 tablet:px-5 mobile:px-3">
-          <p className="absolute desktop:text-3xl tablet:text-2xl mobile:text-xl font-medium desktop:left-5 desktop:top-0 tablet:left-5 tablet:top-[10px] mobile:top-0">
-            소통해요
-          </p>
-          <p className="absolute desktop:text-3xl tablet:text-2xl mobile:text-xl font-medium desktop:left-5 desktop:top-[750px] tablet:left-5 tablet:top-[1250px] mobile:top-[1580px]">
-            사람을 찾아요
-          </p>
+          <div className="desktop:order-1 tablet:order-1 relative">
+            <LandingBoard
+              heading="QnA"
+              type="qna"
+              style="bg-banner_qna bg-center bg-cover"
+              order="desktop:order-1 tablet:order-1"
+              data={qnaPosts}
+            />
+            <p className="absolute desktop:text-3xl tablet:text-2xl mobile:text-xl font-medium -top-16 left-1">
+              소통해요
+            </p>
+          </div>
 
-          <LandingBoard
-            heading="QnA"
-            type="qna"
-            style="bg-banner_qna bg-center bg-cover"
-            order="desktop:order-1 tablet:order-1"
-            data={qnaPosts}
-          />
           <LandingBoard
             heading="커뮤니티"
             type="community"
@@ -141,13 +141,18 @@ function Landing() {
             data={reviewPosts}
           />
 
-          <LandingBoard
-            heading="멘토링"
-            type="mentoring"
-            style="bg-banner_mento bg-center bg-cover"
-            order="desktop:order-4 tablet:order-5"
-            data={mentoringPosts}
-          />
+          <div className="relative desktop:order-4 tablet:order-5">
+            <LandingBoard
+              heading="멘토링"
+              type="mentoring"
+              style="bg-banner_mento bg-center bg-cover"
+              // order="desktop:order-4 tablet:order-5"
+              data={mentoringPosts}
+            />
+            <p className="absolute desktop:text-3xl tablet:text-2xl mobile:text-xl font-medium -top-16 left-1">
+              사람을 찾아요
+            </p>
+          </div>
 
           <LandingBoard
             heading="스터디"
