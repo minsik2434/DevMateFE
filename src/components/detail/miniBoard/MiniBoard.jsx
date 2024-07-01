@@ -8,22 +8,22 @@ function MiniBoard() {
   const bannerElementByCategory = {
     qna: {
       heading: "Q&A",
-      style: "bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA]",
+      style: "bg-banner_qna bg-center bg-cover",
     },
 
     community: {
       heading: "커뮤니티",
-      style: "bg-gradient-to-t from-[#F6A2CC] to-[#FCAAAA]",
+      style: "bg-banner_commu bg-center bg-cover",
     },
 
     job: {
       heading: "모집공고",
-      style: "bg-gradient-to-t from-[#FCE382] to-[#F38181]",
+      style: "bg-banner_job bg-center bg-cover",
     },
 
     review: {
       heading: "취업 후기",
-      style: "bg-gradient-to-t from-[#FDF2F0] to-[#F8DAE2]",
+      style: "bg-banner_review bg-center bg-cover",
     },
   };
   const { heading, style } = bannerElementByCategory[param.category];

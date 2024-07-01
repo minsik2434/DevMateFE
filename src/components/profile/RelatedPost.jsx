@@ -52,23 +52,36 @@ function RelatedPost({ posts }) {
                 </div>
                 <div className="flex justify-between py-[9px]">
                   <div className="flex items-center">
-                    <img src={post.writer.profileImgUrl} className="w-[35px]" />
+                    <img
+                      alt="writerProfileImg"
+                      src={post.writer.profileImgUrl}
+                      className="w-[35px]"
+                    />
                     <span className="text-[15px]">{post.writer.nickName}</span>
                   </div>
                   <ul className="flex gap-[7px] items-center text-[15px] mobile:text-[12px]">
                     <li className="flex">
-                      <img src={viewImg} className="w-[18px] mobile:w-[15px]" />
+                      <img
+                        src={viewImg}
+                        alt="view"
+                        className="w-[18px] mobile:w-[15px]"
+                      />
                       <span>{post.viewCount}</span>
                     </li>
                     <li className="flex">
                       <img
                         src={commentImg}
+                        alt="comment"
                         className="w-[18px] mobile:w-[15px]"
                       />
                       <span>{post.commentCount}</span>
                     </li>
                     <li className="flex">
-                      <img src={goodImg} className="w-[18px] mobile:w-[15px]" />
+                      <img
+                        src={goodImg}
+                        alt="good"
+                        className="w-[18px] mobile:w-[15px]"
+                      />
                       <span>{post.goodCount}</span>
                     </li>
                   </ul>

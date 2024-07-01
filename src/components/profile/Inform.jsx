@@ -1,15 +1,36 @@
 import React from "react";
 import penImg from "@/assets/pen.png";
 import { useNavigate } from "react-router-dom";
-import { deleteData } from "@/util/Crud";
-import useLoginInfoStore from "@/stores/loginInfo";
+import { deleteData, getData } from "@/util/Crud";
 import { useCookies } from "react-cookie";
 import useInterestsInfo from "@/hooks/useInterestsInfo";
-function Inform({ value }) {
+import { useState } from "react";
+import { useLayoutEffect } from "react";
+function Inform() {
+  const [memberInfo, setMemberInfo] = useState({
+    name: "",
+    nickName: "",
+    imgUrl: "test.png",
+    interests: [],
+  });
+  useLayoutEffect(() => {
+    const getMember = async () => {
+      try {
+        const responseData = (
+          await getData(`${import.meta.env.VITE_API_URL}/members`, {
+            Authorization: `${cookies.grantType} ${cookies.accessToken}`,
+          })
+        ).data;
+        setMemberInfo(responseData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getMember();
+  }, []);
   const nav = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies();
-  const { grantType, accessToken } = useLoginInfoStore();
-  const interests = useInterestsInfo(value.interests);
+  const interests = useInterestsInfo(memberInfo.interests);
   const onClick = async () => {
     if (confirm("정말 탈퇴하시겠습니까?") == true) {
       if (
@@ -17,32 +38,35 @@ function Inform({ value }) {
         true
       ) {
         await deleteData(`${import.meta.env.VITE_API_URL}/members`, {
-          Authorization: `${grantType} ${accessToken}`,
+          Authorization: `${cookies.grantType} ${cookies.accessToken}`,
         });
         nav("/");
         removeCookie("grantType");
         removeCookie("accessToken");
         removeCookie("refreshToken");
-        localStorage.clear();
       }
     }
   };
   return (
     <div>
       <h2 className="text-[25px] py-[10px] font-semibold border-b border-[#888484] mt-[10px]">
-        {value.name}님의 프로필
+        {memberInfo.name}님의 프로필
       </h2>
-      <div className="pb-[52px] pt-[10px] px-[10px] mobile:py-[40px] flex gap-[40px] mobile:gap-[13px] bg-white rounded-lg drop-shadow-md shadow-neutral-400 mt-[20px] relative">
-        <div className="min-w-[200px] mobile:min-w-[130px] h-[150px] mobile:h-[78px] px-[40px] py-[10px] rounded-full">
-          <img src={value.imgUrl} className="w-full h-full"></img>
+      <div className="pb-[52px] pt-[10px] px-[10px] mobile:py-[40px] flex gap-[40px] mobile:gap-[13px] bg-white rounded-lg drop-shadow-md shadow-neutral-400 mt-[20px] items-center relative">
+        <div className="px-[40px] py-[10px] rounded-full">
+          <img
+            src={memberInfo.imgUrl}
+            alt="profileImg"
+            className="min-w-[200px] mobile:min-w-[130px] h-[150px] mobile:h-[78px]"
+          ></img>
         </div>
         <div className="flex flex-col justify-center">
           <ul className="flex flex-col gap-[20px] mobile:gap-[8px] text-[18px] mobile:text-[15px]">
             <li>
-              <span>이름 : {value.name}</span>
+              <span>이름 : {memberInfo.name}</span>
             </li>
             <li>
-              <span>닉네임 : {value.nickName}</span>
+              <span>닉네임 : {memberInfo.nickName}</span>
             </li>
             <li className="flex gap-[10px]">
               <span className="text-nowrap">관심기술 : </span>
@@ -62,7 +86,7 @@ function Inform({ value }) {
         </div>
         <button
           onClick={() => nav("/profile/edit")}
-          className="absolute hover:brightness-90 hover:text-white bg-brand_blue rounded-md right-2 px-[10px] mobile:px-[5px] py-[3px] mobile:py-[5px]"
+          className="absolute hover:brightness-90 hover:text-white bg-brand_blue rounded-md right-2 top-6 px-[10px] mobile:px-[5px] py-[3px] mobile:py-[5px]"
         >
           <span className="mobile:hidden">수정하기</span>
           <img
