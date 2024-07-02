@@ -1,23 +1,43 @@
+import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "./pages/RootLayout";
-import Landing from "./pages/Landing";
-import Signup from "./pages/Signup";
-import Board from "./pages/board/Board";
-import Post from "./pages/Post";
-import BoardDetail from "./pages/BoardDetail";
-import Signin from "./pages/Signin";
-import StudyPost from "./pages/StudyPost";
-import StudyDetail from "./pages/StudyDetail";
-import Profile from "./pages/Profile";
-import ProfileEdit from "./pages/ProfileEdit";
-import CategoryBoard from "./pages/board/CategoryBoard";
-import Mentoring from "./pages/board/mentoring/Mentoring";
-import Study from "./pages/board/Study";
-import MentoringDetail from "./pages/board/mentoring/MentoringDetail";
-import MentoringRegister from "./pages/board/mentoring/MentoringRegister";
-import CategoryBoardCheck from "./pages/board/CategoryBoardCheck";
-import Error404 from "./pages/Error404";
-import PostCheck from "./pages/PostCheck";
+import { Suspense } from "react";
+const Landing = React.lazy(() => import("./pages/Landing"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Board = lazy(() => import("./pages/board/Board"));
+// import Board from "./pages/board/Board";
+const BoardDetail = lazy(() => import("./pages/BoardDetail"));
+// import BoardDetail from "./pages/BoardDetail";
+const Signin = lazy(() => import("./pages/Signin"));
+// import Signin from "./pages/Signin";
+const StudyPost = lazy(() => import("./pages/StudyPost"));
+// import StudyPost from "./pages/StudyPost";
+const StudyDetail = lazy(() => import("./pages/StudyDetail"));
+// import StudyDetail from "./pages/StudyDetail";
+const Profile = lazy(() => import("./pages/Profile"));
+// import Profile from "./pages/Profile";
+const ProfileEdit = lazy(() => import("./pages/ProfileEdit"));
+// import ProfileEdit from "./pages/ProfileEdit";
+const Mentoring = lazy(() => import("./pages/board/mentoring/Mentoring"));
+// import Mentoring from "./pages/board/mentoring/Mentoring";
+const Study = lazy(() => import("./pages/board/Study"));
+// import Study from "./pages/board/Study";
+const MentoringDetail = lazy(() =>
+  import("./pages/board/mentoring/MentoringDetail")
+);
+// import MentoringDetail from "./pages/board/mentoring/MentoringDetail";
+const MentoringRegister = lazy(() =>
+  import("./pages/board/mentoring/MentoringRegister")
+);
+// import MentoringRegister from "./pages/board/mentoring/MentoringRegister";
+const CategoryBoardCheck = lazy(() =>
+  import("./pages/board/CategoryBoardCheck")
+);
+// import CategoryBoardCheck from "./pages/board/CategoryBoardCheck";
+const Error404 = lazy(() => import("./pages/Error404"));
+// import Error404 from "./pages/Error404";
+const PostCheck = lazy(() => import("./pages/PostCheck"));
+// import PostCheck from "./pages/PostCheck";
 
 const router = createBrowserRouter([
   {
@@ -26,80 +46,156 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Landing />,
+        element: (
+          <Suspense>
+            <Landing />
+          </Suspense>
+        ),
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: (
+          <Suspense>
+            <Signup />
+          </Suspense>
+        ),
       },
       {
         path: "/signin",
-        element: <Signin />,
+        element: (
+          <Suspense>
+            <Signin />
+          </Suspense>
+        ),
       },
 
       {
         path: "/board",
-        element: <Board />,
+        element: (
+          <Suspense>
+            <Board />
+          </Suspense>
+        ),
       },
       {
         path: "/:category/:id",
-        element: <BoardDetail />,
+        element: (
+          <Suspense>
+            <BoardDetail />
+          </Suspense>
+        ),
       },
       {
         path: "post/:category/new",
-        element: <PostCheck />,
+        element: (
+          <Suspense>
+            <PostCheck />
+          </Suspense>
+        ),
       },
       {
         path: "post/:category/edit",
-        element: <PostCheck />,
+        element: (
+          <Suspense>
+            <PostCheck />
+          </Suspense>
+        ),
       },
       {
         path: "post/study/new",
-        element: <StudyPost />,
+        element: (
+          <Suspense>
+            <StudyPost />
+          </Suspense>
+        ),
       },
       {
         path: "post/study/edit",
-        element: <StudyPost />,
+        element: (
+          <Suspense>
+            <StudyPost />
+          </Suspense>
+        ),
       },
       {
         path: "/study/:id",
-        element: <StudyDetail />,
+        element: (
+          <Suspense>
+            <StudyDetail />
+          </Suspense>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: (
+          <Suspense>
+            <Profile />
+          </Suspense>
+        ),
       },
       {
         path: "/profile/edit",
-        element: <ProfileEdit />,
+        element: (
+          <Suspense>
+            <ProfileEdit />
+          </Suspense>
+        ),
       },
       {
         path: "/board/:category",
-        element: <CategoryBoardCheck />,
+        element: (
+          <Suspense>
+            <CategoryBoardCheck />
+          </Suspense>
+        ),
       },
       {
         path: "/board/mentoring",
-        element: <Mentoring />,
+        element: (
+          <Suspense>
+            <Mentoring />
+          </Suspense>
+        ),
       },
       {
         path: "/board/study",
-        element: <Study />,
+        element: (
+          <Suspense>
+            <Study />
+          </Suspense>
+        ),
       },
       {
         path: "/mentoring/:id",
-        element: <MentoringDetail />,
+        element: (
+          <Suspense>
+            <MentoringDetail />
+          </Suspense>
+        ),
       },
       {
         path: "/board/mentoring/register",
-        element: <MentoringRegister />,
+        element: (
+          <Suspense>
+            <MentoringRegister />
+          </Suspense>
+        ),
       },
       {
         path: "/board/mentoring/edit",
-        element: <MentoringRegister />,
+        element: (
+          <Suspense>
+            <MentoringRegister />
+          </Suspense>
+        ),
       },
       {
         path: "*",
-        element: <Error404 />,
+        element: (
+          <Suspense>
+            <Error404 />
+          </Suspense>
+        ),
       },
     ],
   },

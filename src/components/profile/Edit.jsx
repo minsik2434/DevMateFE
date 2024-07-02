@@ -26,7 +26,7 @@ function Edit({ onChange, onSelected, values, setImgFile }) {
     setImg(values.imgUrl);
   }, [values.imgUrl]);
   return (
-    <ul className="flex flex-col gap-[20px] mobile:gap-[10px] text-[18px] mobile:text-[14px]">
+    <ul className="flex flex-col gap-[30px] mobile:gap-[10px] text-[18px] mobile:text-[14px]">
       <li className="flex flex-col items-center gap-[10px]">
         <img src={img} className="w-[100px] mobile:w-[50px]"></img>
         <button
