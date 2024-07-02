@@ -5,7 +5,7 @@ import ContentEdit from "@/components/post/ContentEdit";
 import useLoginInfoStore from "@/stores/loginInfo";
 import { getData, postData, patchData } from "@/util/Crud";
 import React from "react";
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
