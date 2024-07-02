@@ -124,7 +124,7 @@ function Header() {
             </h1>
           </Link>
           <nav className="mobile:hidden flex items-center justify-center flex-grow">
-            <ul className="flex items-center justify-between desktop:gap-16 desktop:text-base tablet:gap-7 tablet:text-[13px] font-medium">
+            <ul className="flex items-center justify-between desktop:gap-20 desktop:text-base tablet:gap-7 tablet:text-[13px] font-medium">
               {[
                 { path: "/board/qna", label: "Q&A" },
                 { path: "/board/community", label: "커뮤니티" },
@@ -136,8 +136,8 @@ function Header() {
                 <li
                   key={index}
                   onClick={() => handleButtonClick(index)}
-                  className={`${
-                    navIndex === index ? "text-gray_9" : "text-gray_5"
+                  className={`font-semibold ${
+                    navIndex === index ? "text-gray_9" : "text-gray_6"
                   } hover:shadow-[0_2px_0_0_rgba(0,0,0,0.5)] transition-shadow duration-300`}
                 >
                   <Link to={item.path}>

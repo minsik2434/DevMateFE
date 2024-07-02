@@ -14,6 +14,8 @@ import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import debounce from "lodash.debounce";
+
 function MentoringRegister() {
   const [cookies] = useCookies();
   const location = useLocation();
@@ -76,6 +78,7 @@ function MentoringRegister() {
       nav(`/board/mentoring`);
     } catch (error) {
       console.log(error);
+      console.log(error.response);
     }
   };
 
@@ -101,6 +104,103 @@ function MentoringRegister() {
       console.log(error);
     }
   };
+
+  const [emailError, setEmailError] = useState("");
+
+  // const handleInputVal = (e) => {
+  //   const { id, value } = e.target;
+  //   let newValue = value;
+
+  //   if (id === "phoneNumber") {
+  //     // 숫자와 하이픈만 남기고 나머지 문자 제거
+  //     newValue = newValue.replace(/[^\d-]/g, "");
+
+  //     // 하이픈 제거
+  //     const numbers = newValue.replace(/-/g, "");
+  //     if (numbers.startsWith("02")) {
+  //       // 02로 시작하는 경우
+  //       if (numbers.length <= 2) newValue = numbers;
+  //       else if (numbers.length <= 6)
+  //         newValue = `${numbers.slice(0, 2)}-${numbers.slice(2)}`;
+  //       else
+  //         newValue = `${numbers.slice(0, 2)}-${numbers.slice(
+  //           2,
+  //           6
+  //         )}-${numbers.slice(6, 10)}`;
+  //     } else {
+  //       // 그 외의 경우
+  //       if (numbers.length <= 3) newValue = numbers;
+  //       else if (numbers.length <= 7)
+  //         newValue = `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+  //       else
+  //         newValue = `${numbers.slice(0, 3)}-${numbers.slice(
+  //           3,
+  //           7
+  //         )}-${numbers.slice(7, 11)}`;
+  //     }
+  //     // ... (변경 없음)
+  //   } else if (id === "email") {
+  //     // 이메일 유효성 검사
+  //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //     if (!emailRegex.test(value)) {
+  //       setEmailError("올바른 이메일 형식이 아닙니다.");
+  //     } else {
+  //       setEmailError("");
+  //     }
+  //   } else if (id === "career") {
+  //     newValue = newValue.replace(/\D/g, "");
+  //   }
+
+  //   setPostValues((prevValues) => ({
+  //     ...prevValues,
+  //     [id]: newValue,
+  //   }));
+  // };
+
+  // const debouncedHandleInputChange = debounce((e) => handleInputValidate(e), 300);
+
+  function handleInputValidate(e) {
+    const { id, value } = e.target;
+    let newValue = value;
+
+    if (id === "phoneNumber") {
+      newValue = newValue.replace(/[^\d-]/g, "");
+      const numbers = newValue.replace(/-/g, "");
+      if (numbers.startsWith("02")) {
+        if (numbers.length <= 2) newValue = numbers;
+        else if (numbers.length <= 6)
+          newValue = `${numbers.slice(0, 2)}-${numbers.slice(2)}`;
+        else
+          newValue = `${numbers.slice(0, 2)}-${numbers.slice(
+            2,
+            6
+          )}-${numbers.slice(6, 10)}`;
+      } else {
+        if (numbers.length <= 3) newValue = numbers;
+        else if (numbers.length <= 7)
+          newValue = `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+        else
+          newValue = `${numbers.slice(0, 3)}-${numbers.slice(
+            3,
+            7
+          )}-${numbers.slice(7, 11)}`;
+      }
+    } else if (id === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        setEmailError("올바른 이메일 형식이 아닙니다.");
+      } else {
+        setEmailError("");
+      }
+    } else if (id === "career") {
+      newValue = newValue.replace(/\D/g, "");
+    }
+
+    setPostValues((prevValues) => ({
+      ...prevValues,
+      [id]: newValue,
+    }));
+  }
 
   useLayoutEffect(() => {
     const savedTokenInfo = () => {
@@ -185,7 +285,9 @@ function MentoringRegister() {
                 className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded"
                 placeholder="000-0000-0000"
                 value={postValues.phoneNumber}
-                onChange={handleInputChange}
+                // onChange={handleInputChange}
+                onChange={handleInputValidate}
+                required
               />
             </div>
             <div className="flex items-center mobile:text-xs">
@@ -201,8 +303,13 @@ function MentoringRegister() {
                 className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded"
                 placeholder="자주 사용하는 이메일을 입력해주세요"
                 value={postValues.email}
-                onChange={handleInputChange}
+                // onChange={handleInputChange}
+                onChange={handleInputValidate}
+                required
               />
+              {emailError && (
+                <p className="text-red-500 text-xs mt-1">{emailError}</p>
+              )}
             </div>
           </div>
           <div className="desktop:px-5 desktop:py-8 tablet:px-5 tablet:py-8 mobile:px-4 mobile:py-5 flex flex-col gap-7">
@@ -222,7 +329,9 @@ function MentoringRegister() {
                 className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded"
                 placeholder="멘토링 제목을 입력해주세요"
                 value={postValues.title}
-                onChange={handleInputChange}
+                // onChange={handleInputChange}
+                onChange={handleInputValidate}
+                required
               />
             </div>
             <div className="flex items-center mobile:text-xs">
@@ -238,7 +347,9 @@ function MentoringRegister() {
                 className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded"
                 placeholder="ex ) FE 개발자"
                 value={postValues.job}
-                onChange={handleInputChange}
+                // onChange={handleInputChange}
+                onChange={handleInputValidate}
+                required
               />
             </div>
             <div className="flex items-center mobile:text-xs">
@@ -254,7 +365,10 @@ function MentoringRegister() {
                 className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded"
                 placeholder="숫자만 입력해주세요"
                 value={postValues.career}
-                onChange={handleInputChange}
+                // onChange={handleInputChange}
+                // onChange={handleInputVal}
+                onChange={handleInputValidate}
+                required
               />
             </div>
             <div className="flex items-center mobile:text-xs">
@@ -270,7 +384,8 @@ function MentoringRegister() {
                 className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded "
                 placeholder="github or 포트폴리오"
                 value={postValues.githubUrl}
-                onChange={handleInputChange}
+                // onChange={handleInputChange}
+                onChange={handleInputValidate}
               />
             </div>
 
@@ -296,7 +411,9 @@ function MentoringRegister() {
               className="border desktop:h-[400px] desktop:mt-5 tablet:h-[300px] mobile:h-[200px] p-5 mobile:text-xs"
               placeholder="멘토링을 소개할 글을 작성해주세요"
               value={postValues.content}
-              onChange={handleInputChange}
+              // onChange={handleInputChange}
+              onChange={handleInputValidate}
+              required
             ></textarea>
           </div>
 

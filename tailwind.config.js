@@ -26,7 +26,7 @@ export default {
         brand_red: "#F49292",
       },
       fontFamily: {
-        pre: ["Pretendard", "sans-serif"],
+        pre: ["Pretendard Variable", "sans-serif"],
       },
 
       backgroundImage: {
