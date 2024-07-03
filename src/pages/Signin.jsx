@@ -135,7 +135,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-function Signin({ onLoginSuccess }) {
+function Signin({ onLoginSuccess, current, onClose }) {
   const [cookies, setCookie, removeCookie] = useCookies([]);
   const nav = useNavigate();
   const { name, nickName, imgUrl, setImgUrl, setName, setNickName } =
@@ -196,7 +196,12 @@ function Signin({ onLoginSuccess }) {
           onLoginSuccess();
         }
 
-        nav("/");
+        if (current) {
+          onClose();
+          nav(`${current}`);
+        } else {
+          nav("/");
+        }
       } catch (error) {
         toast.error(`아이디 또는 비밀번호가 일치하지 않습니다`, {
           duration: 2000,

@@ -15,6 +15,8 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import debounce from "lodash.debounce";
+import { useCallback } from "react";
+import { useMemo } from "react";
 
 function MentoringRegister() {
   const [cookies] = useCookies();
@@ -157,8 +159,7 @@ function MentoringRegister() {
   //   }));
   // };
 
-  // const debouncedHandleInputChange = debounce((e) => handleInputValidate(e), 300);
-
+  //---------------------------------------------
   function handleInputValidate(e) {
     const { id, value } = e.target;
     let newValue = value;
@@ -187,7 +188,7 @@ function MentoringRegister() {
       }
     } else if (id === "email") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value)) {
+      if (value && !emailRegex.test(value)) {
         setEmailError("올바른 이메일 형식이 아닙니다.");
       } else {
         setEmailError("");
@@ -282,33 +283,38 @@ function MentoringRegister() {
               <input
                 type="text"
                 id="phoneNumber"
-                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded"
+                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded-md"
                 placeholder="000-0000-0000"
                 value={postValues.phoneNumber}
                 // onChange={handleInputChange}
                 onChange={handleInputValidate}
+                // onChange={handleInputValidate}
                 required
               />
             </div>
-            <div className="flex items-center mobile:text-xs">
-              <label
-                htmlFor="email"
-                className="font-semibold desktop:w-[120px] tablet:w-[100px] mobile:w-[70px]"
-              >
-                이메일
-              </label>
-              <input
-                type="text"
-                id="email"
-                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded"
-                placeholder="자주 사용하는 이메일을 입력해주세요"
-                value={postValues.email}
-                // onChange={handleInputChange}
-                onChange={handleInputValidate}
-                required
-              />
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center mobile:text-xs">
+                <label
+                  htmlFor="email"
+                  className="font-semibold desktop:w-[120px] tablet:w-[100px] mobile:w-[70px]"
+                >
+                  이메일
+                </label>
+                <input
+                  type="text"
+                  id="email"
+                  className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded-md"
+                  placeholder="자주 사용하는 이메일을 입력해주세요"
+                  value={postValues.email}
+                  // onChange={handleInputChange}
+                  onChange={handleInputValidate}
+                  required
+                />
+              </div>
               {emailError && (
-                <p className="text-red-500 text-xs mt-1">{emailError}</p>
+                <p className="text-red-500 text-sm mobile:text-xs mt-1 desktop:ml-[125px] tablet:ml-[102px] mobile:ml-[70px]">
+                  {emailError}
+                </p>
               )}
             </div>
           </div>
@@ -326,7 +332,7 @@ function MentoringRegister() {
               <input
                 type="text"
                 id="title"
-                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded"
+                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded-md"
                 placeholder="멘토링 제목을 입력해주세요"
                 value={postValues.title}
                 // onChange={handleInputChange}
@@ -344,7 +350,7 @@ function MentoringRegister() {
               <input
                 type="text"
                 id="job"
-                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded"
+                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded-md"
                 placeholder="ex ) FE 개발자"
                 value={postValues.job}
                 // onChange={handleInputChange}
@@ -362,7 +368,7 @@ function MentoringRegister() {
               <input
                 type="text"
                 id="career"
-                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded"
+                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded-md"
                 placeholder="숫자만 입력해주세요"
                 value={postValues.career}
                 // onChange={handleInputChange}
@@ -381,7 +387,7 @@ function MentoringRegister() {
               <input
                 type="text"
                 id="githubUrl"
-                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded "
+                className="border border-gray_6 pl-2 py-2 w-[350px] mobile:w-[200px] focus:outline-[#00C471] rounded-md "
                 placeholder="github or 포트폴리오"
                 value={postValues.githubUrl}
                 // onChange={handleInputChange}
@@ -408,7 +414,7 @@ function MentoringRegister() {
             <textarea
               name="content"
               id="content"
-              className="border desktop:h-[400px] desktop:mt-5 tablet:h-[300px] mobile:h-[200px] p-5 mobile:text-xs"
+              className="border desktop:h-[400px] desktop:mt-5 tablet:h-[300px] mobile:h-[200px] p-5 mobile:text-xs focus:outline-[#00C471] rounded-md"
               placeholder="멘토링을 소개할 글을 작성해주세요"
               value={postValues.content}
               // onChange={handleInputChange}

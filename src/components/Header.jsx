@@ -10,7 +10,8 @@ import useMember from "@/stores/member";
 import { useNavigate } from "react-router-dom";
 import useLike from "@/stores/useLike";
 
-import ml from "@/assets/logo_main.png"
+import ml from "@/assets/logo_main.png";
+import { useLocation } from "react-router-dom";
 
 function Header() {
   const [showModalD, setShowModalD] = useState(false);
@@ -19,6 +20,8 @@ function Header() {
 
   const [toggle, setToggle] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+
+  const location = useLocation();
 
   const handleLoginSuccess = () => {
     setShowModalM(false);
@@ -108,7 +111,9 @@ function Header() {
   return (
     <div
       className={`${
-        isSticky ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm" : "bg-white"
+        isSticky
+          ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm"
+          : "bg-white"
       }`}
     >
       {/* desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] */}
@@ -187,7 +192,10 @@ function Header() {
                       }
                     }}
                   >
-                    <Signin />
+                    <Signin
+                      current={location.pathname}
+                      onClose={() => setShowModalD(false)}
+                    />
                   </div>
                 )}
 
@@ -339,7 +347,7 @@ function Header() {
                 }
               }}
             >
-              <Signin onLoginSuccess={handleLoginSuccess} />
+              <Signin onLoginSuccess={handleLoginSuccess} current={location.pathname} />
             </div>
           )}
         </div>

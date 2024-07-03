@@ -16,10 +16,14 @@ import { getData } from "@/util/Crud";
 import { useEffect } from "react";
 import xButton from "@/assets/xButton.png";
 import { useRef } from "react";
+import BoardWrite from "@/components/BoardWrite";
+import { useLocation } from "react-router-dom";
 
 function Study() {
   const [postDatas, setPostDatas] = useState([]);
   const nav = useNavigate();
+
+  const location = useLocation();
   const [searchInput, setSearchInput] = useState("");
   const [selectedOptions, setSelectedOptions] = useState({
     sort: "recent",
@@ -312,7 +316,9 @@ function Study() {
               </div>
             </div>
 
-            <button
+            <BoardWrite link="/post/study/new" location={location.pathname} />
+
+            {/* <button
               className="bg-gray_8 text-gray_0 text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
               type="button"
               onClick={() => nav("/post/study/new")}
@@ -325,7 +331,7 @@ function Study() {
                 alt="글쓰기 아이콘"
                 className="desktop:hidden tablet:hidden mobile:w-4"
               />
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="m-auto desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] tablet:px-10 mobile:px-3 mt-8 mobile:mt-1">

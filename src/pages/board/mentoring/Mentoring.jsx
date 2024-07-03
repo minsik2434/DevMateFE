@@ -374,14 +374,16 @@ import React, {
   useCallback,
   useLayoutEffect,
 } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getData } from "@/util/Crud";
 import PageButton from "@/components/board/PageButton";
 import MentoringList from "@/components/board/MentoringList";
 import search from "@/assets/icon/search.svg";
 import filter from "@/assets/icon/filter.svg";
-import pen from "@/assets/pen.png";
+// import pen from "@/assets/pen.png";
 import xButton from "@/assets/xButton.png";
+import BoardWrite from "@/components/BoardWrite";
+import Spinner from "@/components/Spinner";
 
 // Lazy loading을 위한 React.lazy 사용
 const Footer = React.lazy(() => import("@/components/Footer"));
@@ -391,6 +393,8 @@ const Banner = React.lazy(() => import("@/components/Banner"));
 function Mentoring() {
   const [postDatas, setPostDatas] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+
+  const location = useLocation();
   const [selectedOptions, setSelectedOptions] = useState({
     sort: "recent",
     search: "",
@@ -520,12 +524,24 @@ function Mentoring() {
 
   return (
     <div className="bg-gray_0">
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense
+        fallback={
+          <div className="flex items-center justify-center pt-20">
+            <Spinner />
+          </div>
+        }
+      >
         <Header />
       </React.Suspense>
       <div className="mx-8 mobile:mx-5 mobile:mb-32">
         <div className="flex justify-center">
-          <React.Suspense fallback={<div>Loading...</div>}>
+          <React.Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Banner
               heading="멘토링"
               exp="선배 또는 동료들의 경험을 들어봐요"
@@ -692,7 +708,11 @@ function Mentoring() {
               </button>
             </div>
 
-            <button
+            <BoardWrite
+              link="/board/mentoring/register"
+              location={location.pathname}
+            />
+            {/* <button
               className="bg-gray_6 text-white text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 mobile:rounded"
               type="button"
               onClick={() => nav("/board/mentoring/register")}
@@ -705,7 +725,7 @@ function Mentoring() {
                 alt="글쓰기 아이콘"
                 className="desktop:hidden tablet:hidden mobile:w-4"
               />
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="m-auto desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] tablet:px-10 mobile:px-3">

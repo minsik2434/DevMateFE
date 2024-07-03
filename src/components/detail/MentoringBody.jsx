@@ -67,7 +67,7 @@ function MentoringBody({ data, writer }) {
         </div>
         <LikeList postId={data} />
       </div>
-      <div className="border border-gray_5 rounded-2xl desktop:px-5 desktop:py-8 tablet:px-5 tablet:py-8 mobile:px-4 mobile:py-5 flex flex-col gap-5">
+      <div className="border-2 border-gray_3 rounded-2xl desktop:px-5 desktop:py-8 tablet:px-5 tablet:py-8 mobile:px-4 mobile:py-5 flex flex-col gap-5">
         <span className="text-lg mobile:text-sm font-semibold text-gray_6">
           멘토 정보
         </span>
@@ -84,7 +84,7 @@ function MentoringBody({ data, writer }) {
           <span>ewsn0825@naver.com</span>
         </div>
       </div>
-      <div className="border border-gray_5 rounded-2xl desktop:px-5 desktop:py-8 tablet:px-5 tablet:py-8 mobile:px-4 mobile:py-5 flex flex-col gap-5">
+      <div className="border-2 border-gray_3 rounded-2xl desktop:px-5 desktop:py-8 tablet:px-5 tablet:py-8 mobile:px-4 mobile:py-5 flex flex-col gap-5">
         <span className="text-lg mobile:text-sm font-semibold text-gray_6">
           멘토링 정보
         </span>
@@ -113,7 +113,7 @@ function MentoringBody({ data, writer }) {
           <span>{data.githubUrl}</span>
         </div>
       </div>
-      <div className="border border-gray_5 rounded-2xl desktop:px-5 desktop:py-8 tablet:px-5 tablet:py-8 mobile:px-4 mobile:py-5 flex flex-col gap-5">
+      <div className="border-2 border-gray_3 rounded-2xl desktop:px-5 desktop:py-8 tablet:px-5 tablet:py-8 mobile:px-4 mobile:py-5 flex flex-col gap-5">
         <span className="text-lg mobile:text-sm font-semibold text-gray_6">
           멘토링소개
         </span>

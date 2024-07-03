@@ -110,6 +110,7 @@
 import React, { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "./pages/RootLayout";
+import Spinner from "./components/Spinner";
 
 const Landing = lazy(() => import("./pages/Landing"));
 const Signup = lazy(() => import("./pages/Signup"));
@@ -142,7 +143,13 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Landing />
           </Suspense>
         ),
@@ -150,7 +157,13 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Signup />
           </Suspense>
         ),
@@ -158,7 +171,13 @@ const router = createBrowserRouter([
       {
         path: "/signin",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Signin />
           </Suspense>
         ),
@@ -166,7 +185,13 @@ const router = createBrowserRouter([
       {
         path: "/board",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Board />
           </Suspense>
         ),
@@ -174,7 +199,13 @@ const router = createBrowserRouter([
       {
         path: "/:category/:id",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <BoardDetail />
           </Suspense>
         ),
@@ -182,7 +213,13 @@ const router = createBrowserRouter([
       {
         path: "post/:category/new",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <PostCheck />
           </Suspense>
         ),
@@ -190,7 +227,13 @@ const router = createBrowserRouter([
       {
         path: "post/:category/edit",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <PostCheck />
           </Suspense>
         ),
@@ -198,7 +241,13 @@ const router = createBrowserRouter([
       {
         path: "post/study/new",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <StudyPost />
           </Suspense>
         ),
@@ -206,7 +255,13 @@ const router = createBrowserRouter([
       {
         path: "post/study/edit",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <StudyPost />
           </Suspense>
         ),
@@ -214,7 +269,13 @@ const router = createBrowserRouter([
       {
         path: "/study/:id",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <StudyDetail />
           </Suspense>
         ),
@@ -222,7 +283,13 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Profile />
           </Suspense>
         ),
@@ -230,7 +297,13 @@ const router = createBrowserRouter([
       {
         path: "/profile/edit",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <ProfileEdit />
           </Suspense>
         ),
@@ -238,7 +311,13 @@ const router = createBrowserRouter([
       {
         path: "/board/:category",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <CategoryBoardCheck />
           </Suspense>
         ),
@@ -246,7 +325,13 @@ const router = createBrowserRouter([
       {
         path: "/board/mentoring",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Mentoring />
           </Suspense>
         ),
@@ -254,7 +339,13 @@ const router = createBrowserRouter([
       {
         path: "/board/study",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Study />
           </Suspense>
         ),
@@ -262,7 +353,13 @@ const router = createBrowserRouter([
       {
         path: "/mentoring/:id",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <MentoringDetail />
           </Suspense>
         ),
@@ -270,7 +367,13 @@ const router = createBrowserRouter([
       {
         path: "/board/mentoring/register",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <MentoringRegister />
           </Suspense>
         ),
@@ -278,7 +381,13 @@ const router = createBrowserRouter([
       {
         path: "/board/mentoring/edit",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <MentoringRegister />
           </Suspense>
         ),
@@ -286,7 +395,13 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Error404 />
           </Suspense>
         ),
