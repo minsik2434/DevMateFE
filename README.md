@@ -34,9 +34,10 @@
 
 ### FrontEnd
 
+<div>
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fvelog.io%2F%40071yoon%2FTypescript-%25EC%2597%2590%25EC%2584%259C-Zustand-%25EB%25B0%25B0%25EC%259A%25B0%25EA%25B8%25B0&psig=AOvVaw35MoUdl-yCqIAf1ranhrpR&ust=1720085202485000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPjuse7GiocDFQAAAAAdAAAAABAE">
+</div>
