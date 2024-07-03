@@ -1,4 +1,5 @@
-# <center > DevMateFE</center>
+# <center> DevMateFE</center>
+![file](https://github.com/minsik2434/DevMateFE/assets/119111149/f0bb2975-9ee4-4b6f-8da0-ea3758bc848d)
 
 ## 프로젝트 소개
 
