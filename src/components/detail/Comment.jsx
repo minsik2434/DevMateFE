@@ -110,7 +110,7 @@ function Comment() {
       <div className="w-full px-[30px] py-[20px] border border-gray_3 rounded-lg">
         <form onSubmit={onSubmit}>
           <div className="flex gap-[30px] items-center mobile:gap-[10px]">
-            <img src={profileImage} className="w-[50px] mobile:w-[30px]" />
+            <img src={profileImage} alt="사용자 이미지" className="w-[50px] mobile:w-[30px]" />
             <label htmlFor="comment" className="sr-only"></label>
             <textarea
               id="comment"

@@ -1,43 +1,139 @@
-import React, { lazy } from "react";
+// import { createBrowserRouter } from "react-router-dom";
+// import RootLayout from "./pages/RootLayout";
+// import Landing from "./pages/Landing";
+// import Signup from "./pages/Signup";
+// import Board from "./pages/board/Board";
+// import Post from "./pages/Post";
+// import BoardDetail from "./pages/BoardDetail";
+// import Signin from "./pages/Signin";
+// import StudyPost from "./pages/StudyPost";
+// import StudyDetail from "./pages/StudyDetail";
+// import Profile from "./pages/Profile";
+// import ProfileEdit from "./pages/ProfileEdit";
+// import CategoryBoard from "./pages/board/CategoryBoard";
+// import Mentoring from "./pages/board/mentoring/Mentoring";
+// import Study from "./pages/board/Study";
+// import MentoringDetail from "./pages/board/mentoring/MentoringDetail";
+// import MentoringRegister from "./pages/board/mentoring/MentoringRegister";
+// import CategoryBoardCheck from "./pages/board/CategoryBoardCheck";
+// import Error404 from "./pages/Error404";
+// import PostCheck from "./pages/PostCheck";
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <RootLayout />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <Landing />,
+//       },
+//       {
+//         path: "/signup",
+//         element: <Signup />,
+//       },
+//       {
+//         path: "/signin",
+//         element: <Signin />,
+//       },
+
+//       {
+//         path: "/board",
+//         element: <Board />,
+//       },
+//       {
+//         path: "/:category/:id",
+//         element: <BoardDetail />,
+//       },
+//       {
+//         path: "post/:category/new",
+//         element: <PostCheck />,
+//       },
+//       {
+//         path: "post/:category/edit",
+//         element: <PostCheck />,
+//       },
+//       {
+//         path: "post/study/new",
+//         element: <StudyPost />,
+//       },
+//       {
+//         path: "post/study/edit",
+//         element: <StudyPost />,
+//       },
+//       {
+//         path: "/study/:id",
+//         element: <StudyDetail />,
+//       },
+//       {
+//         path: "/profile",
+//         element: <Profile />,
+//       },
+//       {
+//         path: "/profile/edit",
+//         element: <ProfileEdit />,
+//       },
+//       {
+//         path: "/board/:category",
+//         element: <CategoryBoardCheck />,
+//       },
+//       {
+//         path: "/board/mentoring",
+//         element: <Mentoring />,
+//       },
+//       {
+//         path: "/board/study",
+//         element: <Study />,
+//       },
+//       {
+//         path: "/mentoring/:id",
+//         element: <MentoringDetail />,
+//       },
+//       {
+//         path: "/board/mentoring/register",
+//         element: <MentoringRegister />,
+//       },
+//       {
+//         path: "/board/mentoring/edit",
+//         element: <MentoringRegister />,
+//       },
+//       {
+//         path: "*",
+//         element: <Error404 />,
+//       },
+//     ],
+//   },
+// ]);
+
+// export default router;
+
+import React, { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "./pages/RootLayout";
-import { Suspense } from "react";
-const Landing = React.lazy(() => import("./pages/Landing"));
+import Spinner from "./components/Spinner";
+
+const Landing = lazy(() => import("./pages/Landing"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Board = lazy(() => import("./pages/board/Board"));
-// import Board from "./pages/board/Board";
 const BoardDetail = lazy(() => import("./pages/BoardDetail"));
-// import BoardDetail from "./pages/BoardDetail";
 const Signin = lazy(() => import("./pages/Signin"));
-// import Signin from "./pages/Signin";
 const StudyPost = lazy(() => import("./pages/StudyPost"));
-// import StudyPost from "./pages/StudyPost";
 const StudyDetail = lazy(() => import("./pages/StudyDetail"));
-// import StudyDetail from "./pages/StudyDetail";
 const Profile = lazy(() => import("./pages/Profile"));
-// import Profile from "./pages/Profile";
 const ProfileEdit = lazy(() => import("./pages/ProfileEdit"));
-// import ProfileEdit from "./pages/ProfileEdit";
 const Mentoring = lazy(() => import("./pages/board/mentoring/Mentoring"));
-// import Mentoring from "./pages/board/mentoring/Mentoring";
 const Study = lazy(() => import("./pages/board/Study"));
-// import Study from "./pages/board/Study";
 const MentoringDetail = lazy(() =>
   import("./pages/board/mentoring/MentoringDetail")
 );
-// import MentoringDetail from "./pages/board/mentoring/MentoringDetail";
 const MentoringRegister = lazy(() =>
   import("./pages/board/mentoring/MentoringRegister")
 );
-// import MentoringRegister from "./pages/board/mentoring/MentoringRegister";
 const CategoryBoardCheck = lazy(() =>
   import("./pages/board/CategoryBoardCheck")
 );
-// import CategoryBoardCheck from "./pages/board/CategoryBoardCheck";
 const Error404 = lazy(() => import("./pages/Error404"));
-// import Error404 from "./pages/Error404";
 const PostCheck = lazy(() => import("./pages/PostCheck"));
-// import PostCheck from "./pages/PostCheck";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +143,13 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Landing />
           </Suspense>
         ),
@@ -55,7 +157,13 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Signup />
           </Suspense>
         ),
@@ -63,16 +171,27 @@ const router = createBrowserRouter([
       {
         path: "/signin",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Signin />
           </Suspense>
         ),
       },
-
       {
         path: "/board",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Board />
           </Suspense>
         ),
@@ -80,7 +199,13 @@ const router = createBrowserRouter([
       {
         path: "/:category/:id",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <BoardDetail />
           </Suspense>
         ),
@@ -88,7 +213,13 @@ const router = createBrowserRouter([
       {
         path: "post/:category/new",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <PostCheck />
           </Suspense>
         ),
@@ -96,7 +227,13 @@ const router = createBrowserRouter([
       {
         path: "post/:category/edit",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <PostCheck />
           </Suspense>
         ),
@@ -104,7 +241,13 @@ const router = createBrowserRouter([
       {
         path: "post/study/new",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <StudyPost />
           </Suspense>
         ),
@@ -112,7 +255,13 @@ const router = createBrowserRouter([
       {
         path: "post/study/edit",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <StudyPost />
           </Suspense>
         ),
@@ -120,7 +269,13 @@ const router = createBrowserRouter([
       {
         path: "/study/:id",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <StudyDetail />
           </Suspense>
         ),
@@ -128,7 +283,13 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Profile />
           </Suspense>
         ),
@@ -136,7 +297,13 @@ const router = createBrowserRouter([
       {
         path: "/profile/edit",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <ProfileEdit />
           </Suspense>
         ),
@@ -144,7 +311,13 @@ const router = createBrowserRouter([
       {
         path: "/board/:category",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <CategoryBoardCheck />
           </Suspense>
         ),
@@ -152,7 +325,13 @@ const router = createBrowserRouter([
       {
         path: "/board/mentoring",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Mentoring />
           </Suspense>
         ),
@@ -160,7 +339,13 @@ const router = createBrowserRouter([
       {
         path: "/board/study",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Study />
           </Suspense>
         ),
@@ -168,7 +353,13 @@ const router = createBrowserRouter([
       {
         path: "/mentoring/:id",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <MentoringDetail />
           </Suspense>
         ),
@@ -176,7 +367,13 @@ const router = createBrowserRouter([
       {
         path: "/board/mentoring/register",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <MentoringRegister />
           </Suspense>
         ),
@@ -184,7 +381,13 @@ const router = createBrowserRouter([
       {
         path: "/board/mentoring/edit",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <MentoringRegister />
           </Suspense>
         ),
@@ -192,7 +395,13 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
             <Error404 />
           </Suspense>
         ),

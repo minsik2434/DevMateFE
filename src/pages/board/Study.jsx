@@ -16,10 +16,15 @@ import { getData } from "@/util/Crud";
 import { useEffect } from "react";
 import xButton from "@/assets/xButton.png";
 import { useRef } from "react";
+import BoardWrite from "@/components/BoardWrite";
+import { useLocation } from "react-router-dom";
+import { useCallback } from "react";
 
 function Study() {
   const [postDatas, setPostDatas] = useState([]);
   const nav = useNavigate();
+
+  const location = useLocation();
   const [searchInput, setSearchInput] = useState("");
   const [selectedOptions, setSelectedOptions] = useState({
     sort: "recent",
@@ -108,6 +113,15 @@ function Study() {
     onTags(updatedTags);
   };
 
+  const handleSearch = useCallback(
+    (e) => {
+      if (e.key === "Enter") {
+        onSubmit();
+      }
+    },
+    [onSubmit]
+  );
+
   useLayoutEffect(() => {
     const getPostData = async () => {
       try {
@@ -164,6 +178,7 @@ function Study() {
               value={searchInput}
               type="search"
               onChange={handleSearchChange}
+              onKeyDown={handleSearch}
               placeholder="검색어를 입력하세요"
               autoComplete="off"
               className="border w-full pl-8 py-3 rounded-full mobile:pl-4 mobile:text-[12px] mobile:placeholder:text-[12px] mobile:py-1 placeholder:text-[#121212] outline-none"
@@ -277,7 +292,7 @@ function Study() {
                   {selectedOptions.tags.map((tag, index) => {
                     return (
                       <li key={index} className="text-nowrap">
-                        <div className="bg-gray_2 pl-[10px] pr-[5px] py-[3px] gap-[5px] flex rounded-[5px]">
+                        <div className="bg-gray_8 text-white pl-[10px] pr-[5px] py-[3px] gap-[5px] flex rounded-[5px]">
                           <span>{tag}</span>
                           <button
                             className="w-[14px]"
@@ -312,20 +327,7 @@ function Study() {
               </div>
             </div>
 
-            <button
-              className="bg-gray_8 text-gray_0 text-sm desktop:px-6 tablet:px-6 desktop:py-2 tablet:py-2 mobile:px-2 mobile:py-2 desktop:rounded-[5px] mobile:rounded"
-              type="button"
-              onClick={() => nav("/post/study/new")}
-            >
-              <span className="mobile:hidden tablet:block desktop:block">
-                글쓰기
-              </span>
-              <img
-                src={pen}
-                alt="글쓰기 아이콘"
-                className="desktop:hidden tablet:hidden mobile:w-4"
-              />
-            </button>
+            <BoardWrite link="/post/study/new" location={location.pathname} />
           </div>
         </div>
         <div className="m-auto desktop:max-w-[1240px] tablet:max-w-[768px] mobile:max-w-[320px] tablet:px-10 mobile:px-3 mt-8 mobile:mt-1">

@@ -14,10 +14,14 @@ import { getData } from "@/util/Crud";
 import { useParams } from "react-router-dom";
 import xButton from "@/assets/xButton.png";
 import { useRef } from "react";
+import BoardWrite from "@/components/BoardWrite";
+import { useLocation } from "react-router-dom";
 
 function CategoryBoard() {
   const param = useParams();
   const nav = useNavigate();
+
+  const location = useLocation();
   const [searchInput, setSearchInput] = useState("");
   const [selectedOptions, setSelectedOptions] = useState({
     sort: "recent",
@@ -349,7 +353,11 @@ function CategoryBoard() {
               </div>
             </div>
 
-            <button
+            <BoardWrite
+              link={`/post/${param.category}/new`}
+              location={location.pathname}
+            />
+            {/* <button
               className="bg-gray_8 text-white text-sm px-6 py-3 mobile:px-2 mobile:py-2 rounded-md mobile:rounded"
               type="button"
               onClick={() => nav(`/post/${param.category}/new`)}
@@ -362,7 +370,7 @@ function CategoryBoard() {
                 alt="글쓰기 아이콘"
                 className="desktop:hidden tablet:hidden mobile:w-4"
               />
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="m-auto text-center flex flex-col">

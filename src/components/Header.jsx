@@ -8,7 +8,9 @@ import { getData } from "@/util/Crud";
 import useMember from "@/stores/member";
 import { useNavigate } from "react-router-dom";
 import useLike from "@/stores/useLike";
+
 import ml from "@/assets/logo_main.png";
+import { useLocation } from "react-router-dom";
 
 function Header() {
   const [showModalD, setShowModalD] = useState(false);
@@ -17,6 +19,8 @@ function Header() {
 
   const [toggle, setToggle] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+
+  const location = useLocation();
 
   const handleLoginSuccess = () => {
     setShowModalM(false);
@@ -115,13 +119,13 @@ function Header() {
             <h1 onClick={() => handleButtonClick("")}>
               <img
                 src={ml}
-                alt="데브 메이트 바로가기"
+                alt="DevMate"
                 className="desktop:w-32 tablet:w-20 mobile:w-20"
               />
             </h1>
           </Link>
           <nav className="mobile:hidden flex items-center justify-center flex-grow">
-            <ul className="flex items-center justify-between desktop:gap-16 desktop:text-base tablet:gap-7 tablet:text-[13px] font-medium">
+            <ul className="flex items-center justify-between desktop:gap-20 desktop:text-base tablet:gap-7 tablet:text-[13px] font-medium">
               {[
                 { path: "/board/qna", label: "Q&A" },
                 { path: "/board/community", label: "커뮤니티" },
@@ -133,8 +137,8 @@ function Header() {
                 <li
                   key={index}
                   onClick={() => handleButtonClick(index)}
-                  className={`${
-                    navIndex === index ? "text-gray_9" : "text-gray_5"
+                  className={`font-semibold ${
+                    navIndex === index ? "text-gray_9" : "text-gray_6"
                   } hover:shadow-[0_2px_0_0_rgba(0,0,0,0.5)] transition-shadow duration-300`}
                 >
                   <Link to={item.path}>
@@ -184,7 +188,10 @@ function Header() {
                       }
                     }}
                   >
-                    <Signin />
+                    <Signin
+                      current={location.pathname}
+                      onClose={() => setShowModalD(false)}
+                    />
                   </div>
                 )}
 
@@ -336,7 +343,7 @@ function Header() {
                 }
               }}
             >
-              <Signin onLoginSuccess={handleLoginSuccess} />
+              <Signin onLoginSuccess={handleLoginSuccess} current={location.pathname} />
             </div>
           )}
         </div>
