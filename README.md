@@ -46,3 +46,30 @@
 <img src="https://img.shields.io/badge/vite-0055FF?style=for-the-badge&logo=vite&logoColor=white">
 <img src="https://img.shields.io/badge/postcss-DD3A0A?style=for-the-badge&logo=postcss&logoColor=black">
 </div>
+
+### BackEnd
+
+<div>
+<img src="https://img.shields.io/badge/java-cc7623?style=for-the-badge">
+<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=black">
+<img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=black">
+<img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=black">
+<img src="https://img.shields.io/badge/spring data jpa-6DB33F?style=for-the-badge">
+<img src="https://img.shields.io/badge/jpa-b0a271?style=for-the-badge">
+<img src="https://img.shields.io/badge/querydsl-1777c0?style=for-the-badge">
+<img src="https://img.shields.io/badge/mysql-1777c0?style=for-the-badge&logo=mysql&logoColor=black">
+<img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=black">
+<img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=black">  
+<img src="https://img.shields.io/badge/pinpoint-279cf2?style=for-the-badge">  
+</div>
+
+### 디자인
+
+<img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=black">
+
+### ETC
+
+<div>
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=black">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+</div>
