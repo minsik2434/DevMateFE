@@ -37,7 +37,7 @@ function Landing() {
           "/post/qna/list?sort=view",
           "/post/community/list?sort=view",
           "/post/review/list?sort=view",
-          "/post/mento/list?sort=view",
+          "/post/mentoring/list?sort=view",
           "/post/study/list?sort=view",
           "/post/job/list?sort=view",
         ].map((endpoint) => `${import.meta.env.VITE_API_URL}${endpoint}`);

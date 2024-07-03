@@ -497,7 +497,7 @@ function Mentoring() {
         });
         const requestUrl = `${
           import.meta.env.VITE_API_URL
-        }/post/mento/list?${params.toString()}`;
+        }/post/mentoring/list?${params.toString()}`;
         const responseData = (await getData(requestUrl)).data;
 
         setPostDatas(responseData.content);
@@ -664,7 +664,7 @@ function Mentoring() {
                 <ul className="flex gap-[10px] ml-[7px]">
                   {selectedOptions.tags.map((tag, index) => (
                     <li key={index} className="text-nowrap">
-                      <div className="bg-gray_2 pl-[10px] pr-[5px] py-[3px] gap-[5px] flex rounded-[5px]">
+                      <div className="bg-gray_8 text-white pl-[10px] pr-[5px] py-[3px] gap-[5px] flex rounded-[5px]">
                         <span>{tag}</span>
                         <button
                           className="w-[14px]"
@@ -680,7 +680,7 @@ function Mentoring() {
                   type="search"
                   id="filter"
                   onKeyUp={(e) => addTags(e)}
-                  onKeyDown={handleKeyDown}
+                  onKeyDown={handleRemoveLastTag}
                   className="pl-2 outline-none w-full"
                   autoComplete="off"
                   placeholder="# 태그를 입력하세요"

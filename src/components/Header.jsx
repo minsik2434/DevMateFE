@@ -1,10 +1,9 @@
-import React from "react";
-import logo from "@/assets/logo.svg";
+import React, { lazy } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
 import useIndex from "@/stores/navIndex";
-import Signin from "@/pages/Signin";
+const Signin = lazy(async () => await import("@/pages/Signin"));
 import { getData } from "@/util/Crud";
 import useMember from "@/stores/member";
 import { useNavigate } from "react-router-dom";
@@ -40,9 +39,6 @@ function Header() {
 
   const handleButtonClick = (index) => {
     setNavIndex(index);
-    // nav(path);
-
-    // Scroll to top
     window.scrollTo({
       top: 0,
       behavior: "auto",

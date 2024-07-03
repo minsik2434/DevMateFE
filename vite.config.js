@@ -6,7 +6,18 @@ import viteCompression from "vite-plugin-compression";
 
 const __dirname = "src";
 export default defineConfig({
-  plugins: [react(), svgr(), viteCompression({ algorithm: "gzip" })],
+  plugins: [
+    react(),
+    viteCompression({
+      verbose: true,
+      disable: false,
+      deleteOriginFile: false,
+      threshold: 10240,
+      algorithm: "gzip",
+      ext: ".gz",
+    }),
+    svgr(),
+  ],
   resolve: {
     // 절대 경로 설정
     alias: [{ find: "@", replacement: resolve(__dirname) }],

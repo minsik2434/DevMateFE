@@ -5,7 +5,7 @@ import ContentEdit from "@/components/post/ContentEdit";
 import useLoginInfoStore from "@/stores/loginInfo";
 import { getData, postData, patchData } from "@/util/Crud";
 import React from "react";
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -36,25 +36,25 @@ function Post() {
     qna: {
       heading: "Q&A",
       exp: "동료들과 문제를 함께 해결해보아요",
-      style: "bg-gradient-to-t from-[#98D8DB] to-[#6ECEDA]",
+      style: "bg-banner_qna bg-center bg-cover",
     },
 
     community: {
       heading: "커뮤니티",
       exp: "여러분의 이야기를 들려주세요",
-      style: "bg-gradient-to-t from-[#F6A2CC] to-[#FCAAAA]",
+      style: "bg-banner_commu bg-center bg-cover",
     },
 
     job: {
       heading: "모집공고",
       exp: "좋은 회사 또는 직장의 정보를 공유해주세요",
-      style: "bg-gradient-to-t from-[#FCE382] to-[#F38181]",
+      style: "bg-banner_job bg-center bg-cover",
     },
 
     review: {
       heading: "취업 후기",
       exp: "꿈을 이룬 과정을 자라나는 새싹들에게 들려주세요",
-      style: "bg-gradient-to-t from-[#FDF2F0] to-[#F8DAE2]",
+      style: "bg-banner_review bg-center bg-cover",
     },
   };
   const setTitle = (e) => {
