@@ -302,22 +302,6 @@ function Mentoring() {
                   <img src={filter} alt="필터" />
                 </button>
               </div>
-              {/* <input
-                type="search"
-                id="filter"
-                onKeyUp={(e) => {
-                  {
-                    addTags(e);
-                  }
-                }}
-                onKeyDown={handleKeyDown}
-                className="border py-2 rounded-full desktop:w-[550px] tablet:w-[300px] pl-5 outline-none"
-                autoComplete="off"
-                placeholder="# 태그를 입력하세요"
-              />
-              <button className="absolute top-12 right-5">
-                <img src={filter} alt="필터" />
-              </button> */}
             </div>
             <div className="hidden mobile:flex flex-col items-center relative">
               <label htmlFor="search_2" className="sr-only">

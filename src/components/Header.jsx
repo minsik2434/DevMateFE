@@ -1,16 +1,14 @@
-import React from "react";
-import logo from "@/assets/logo.svg";
+import React, { lazy } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
 import useIndex from "@/stores/navIndex";
-import Signin from "@/pages/Signin";
+const Signin = lazy(async () => await import("@/pages/Signin"));
 import { getData } from "@/util/Crud";
 import useMember from "@/stores/member";
 import { useNavigate } from "react-router-dom";
 import useLike from "@/stores/useLike";
-
-import ml from "@/assets/logo_main.png"
+import ml from "@/assets/logo_main.png";
 
 function Header() {
   const [showModalD, setShowModalD] = useState(false);
@@ -37,9 +35,6 @@ function Header() {
 
   const handleButtonClick = (index) => {
     setNavIndex(index);
-    // nav(path);
-
-    // Scroll to top
     window.scrollTo({
       top: 0,
       behavior: "auto",
@@ -108,7 +103,9 @@ function Header() {
   return (
     <div
       className={`${
-        isSticky ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm" : "bg-white"
+        isSticky
+          ? "fixed top-0 left-0 right-0 z-50 bg-white shadow-sm"
+          : "bg-white"
       }`}
     >
       {/* desktop:w-[1240px] tablet:w-[768px] mobile:w-[320px] */}

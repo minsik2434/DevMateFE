@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import Edit from "@/components/profile/Edit";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -17,9 +17,16 @@ function ProfileEdit() {
     interests: [],
   });
 
+  const toggleExperienced = () => {
+    setInputValues((prevInputValues) => ({
+      ...prevInputValues,
+      experienced: !prevInputValues.experienced,
+    }));
+  };
+
   const [imgFile, setImgFile] = useState();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const setInterests = async () => {
       const responseData = (
         await getData(`${import.meta.env.VITE_API_URL}/interests`)
@@ -29,7 +36,7 @@ function ProfileEdit() {
     setInterests();
   }, [setInterestsInfo]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const getMember = async () => {
       try {
         const responseData = (
@@ -115,6 +122,7 @@ function ProfileEdit() {
                 onChange={onChange}
                 onSelected={updateSelectedInterests}
                 values={inputValues}
+                toggle={toggleExperienced}
                 setImgFile={setImgFile}
               />
               <div className="flex justify-center gap-[20px] mt-[50px] mobile:mt-[25px] text-[14px] mobile:text-[12px]">

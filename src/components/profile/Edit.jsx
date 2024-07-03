@@ -3,8 +3,9 @@ import Interests from "@/components/Interests";
 import { useLayoutEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
-
-function Edit({ onChange, onSelected, values, setImgFile }) {
+import check from "@/assets/icon/check.svg";
+import uncheck from "@/assets/icon/uncheck.svg";
+function Edit({ onChange, onSelected, values, setImgFile, toggle }) {
   const [img, setImg] = useState("");
   const fileInputRef = useRef(null);
   const handlebuttonClick = () => {
@@ -26,7 +27,7 @@ function Edit({ onChange, onSelected, values, setImgFile }) {
     setImg(values.imgUrl);
   }, [values.imgUrl]);
   return (
-    <ul className="flex flex-col gap-[20px] mobile:gap-[10px] text-[18px] mobile:text-[14px]">
+    <ul className="flex flex-col gap-[30px] mobile:gap-[10px] text-[18px] mobile:text-[14px]">
       <li className="flex flex-col items-center gap-[10px]">
         <img src={img} className="w-[100px] mobile:w-[50px]"></img>
         <button
@@ -73,11 +74,23 @@ function Edit({ onChange, onSelected, values, setImgFile }) {
       <li className="flex items-center justify-start gap-[10px] mobile:gap-[5px]">
         <span className="min-w-[20%]">경력자이신가요?</span>
         <input
+          className="sr-only"
           type="checkbox"
           name="experienced"
           onChange={onChange}
           checked={values.experienced}
         />
+        <div
+          name="experienced"
+          onClick={toggle}
+          className="cursor-pointer desktop:w-[28px] tablet:w-[28px] mobile:w-[24px] ml-3"
+        >
+          {values.experienced ? (
+            <img src={check} alt="Checked" />
+          ) : (
+            <img src={uncheck} alt="Unchecked" />
+          )}
+        </div>
       </li>
       <li className="flex items-center justify-start gap-[10px] text-[16px]">
         <span className="min-w-[20%]">관심 태그</span>
