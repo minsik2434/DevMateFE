@@ -1,26 +1,139 @@
+// import { createBrowserRouter } from "react-router-dom";
+// import RootLayout from "./pages/RootLayout";
+// import Landing from "./pages/Landing";
+// import Signup from "./pages/Signup";
+// import Board from "./pages/board/Board";
+// import Post from "./pages/Post";
+// import BoardDetail from "./pages/BoardDetail";
+// import Signin from "./pages/Signin";
+// import StudyPost from "./pages/StudyPost";
+// import StudyDetail from "./pages/StudyDetail";
+// import Profile from "./pages/Profile";
+// import ProfileEdit from "./pages/ProfileEdit";
+// import CategoryBoard from "./pages/board/CategoryBoard";
+// import Mentoring from "./pages/board/mentoring/Mentoring";
+// import Study from "./pages/board/Study";
+// import MentoringDetail from "./pages/board/mentoring/MentoringDetail";
+// import MentoringRegister from "./pages/board/mentoring/MentoringRegister";
+// import CategoryBoardCheck from "./pages/board/CategoryBoardCheck";
+// import Error404 from "./pages/Error404";
+// import PostCheck from "./pages/PostCheck";
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <RootLayout />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <Landing />,
+//       },
+//       {
+//         path: "/signup",
+//         element: <Signup />,
+//       },
+//       {
+//         path: "/signin",
+//         element: <Signin />,
+//       },
+
+//       {
+//         path: "/board",
+//         element: <Board />,
+//       },
+//       {
+//         path: "/:category/:id",
+//         element: <BoardDetail />,
+//       },
+//       {
+//         path: "post/:category/new",
+//         element: <PostCheck />,
+//       },
+//       {
+//         path: "post/:category/edit",
+//         element: <PostCheck />,
+//       },
+//       {
+//         path: "post/study/new",
+//         element: <StudyPost />,
+//       },
+//       {
+//         path: "post/study/edit",
+//         element: <StudyPost />,
+//       },
+//       {
+//         path: "/study/:id",
+//         element: <StudyDetail />,
+//       },
+//       {
+//         path: "/profile",
+//         element: <Profile />,
+//       },
+//       {
+//         path: "/profile/edit",
+//         element: <ProfileEdit />,
+//       },
+//       {
+//         path: "/board/:category",
+//         element: <CategoryBoardCheck />,
+//       },
+//       {
+//         path: "/board/mentoring",
+//         element: <Mentoring />,
+//       },
+//       {
+//         path: "/board/study",
+//         element: <Study />,
+//       },
+//       {
+//         path: "/mentoring/:id",
+//         element: <MentoringDetail />,
+//       },
+//       {
+//         path: "/board/mentoring/register",
+//         element: <MentoringRegister />,
+//       },
+//       {
+//         path: "/board/mentoring/edit",
+//         element: <MentoringRegister />,
+//       },
+//       {
+//         path: "*",
+//         element: <Error404 />,
+//       },
+//     ],
+//   },
+// ]);
+
+// export default router;
+
+import React, { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "./pages/RootLayout";
-// import Test from "./pages/Test";
-import Landing from "./pages/Landing";
+import Spinner from "./components/Spinner";
 
-import Test from "./pages/Test";
-import Signup from "./pages/Signup";
-import Board from "./pages/board/Board";
-// import Home from "./pages/Home";
-import Post from "./pages/Post";
-import Home from "./pages/Home";
-import BoardDetail from "./pages/BoardDetail";
-import Signin from "./pages/Signin";
-import StudyPost from "./pages/StudyPost";
-import StudyDetail from "./pages/StudyDetail";
-import Profile from "./pages/Profile";
-import ProfileEdit from "./pages/ProfileEdit";
-import Community from "./pages/board/Community";
-import QnA from "./pages/board/QnA";
-import JobReview from "./pages/board/JobReview";
-import Mentoring from "./pages/board/Mentoring";
-import Study from "./pages/board/Study";
-import JobOpening from "./pages/board/JobOpening";
+const Landing = lazy(() => import("./pages/Landing"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Board = lazy(() => import("./pages/board/Board"));
+const BoardDetail = lazy(() => import("./pages/BoardDetail"));
+const Signin = lazy(() => import("./pages/Signin"));
+const StudyPost = lazy(() => import("./pages/StudyPost"));
+const StudyDetail = lazy(() => import("./pages/StudyDetail"));
+const Profile = lazy(() => import("./pages/Profile"));
+const ProfileEdit = lazy(() => import("./pages/ProfileEdit"));
+const Mentoring = lazy(() => import("./pages/board/mentoring/Mentoring"));
+const Study = lazy(() => import("./pages/board/Study"));
+const MentoringDetail = lazy(() =>
+  import("./pages/board/mentoring/MentoringDetail")
+);
+const MentoringRegister = lazy(() =>
+  import("./pages/board/mentoring/MentoringRegister")
+);
+const CategoryBoardCheck = lazy(() =>
+  import("./pages/board/CategoryBoardCheck")
+);
+const Error404 = lazy(() => import("./pages/Error404"));
+const PostCheck = lazy(() => import("./pages/PostCheck"));
 
 const router = createBrowserRouter([
   {
@@ -29,72 +142,269 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Landing />,
-      },
-      {
-        path: "/test",
-        element: <Test />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <Landing />
+          </Suspense>
+        ),
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <Signup />
+          </Suspense>
+        ),
       },
       {
         path: "/signin",
-        element: <Signin />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <Signin />
+          </Suspense>
+        ),
       },
-
       {
         path: "/board",
-        element: <Board />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <Board />
+          </Suspense>
+        ),
       },
       {
-        path: "/qna/:id",
-        element: <BoardDetail />,
+        path: "/:category/:id",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <BoardDetail />
+          </Suspense>
+        ),
       },
       {
-        path: "post/qna/new",
-        element: <Post />,
+        path: "post/:category/new",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <PostCheck />
+          </Suspense>
+        ),
+      },
+      {
+        path: "post/:category/edit",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <PostCheck />
+          </Suspense>
+        ),
       },
       {
         path: "post/study/new",
-        element: <StudyPost />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <StudyPost />
+          </Suspense>
+        ),
+      },
+      {
+        path: "post/study/edit",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <StudyPost />
+          </Suspense>
+        ),
       },
       {
         path: "/study/:id",
-        element: <StudyDetail />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <StudyDetail />
+          </Suspense>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <Profile />
+          </Suspense>
+        ),
       },
       {
         path: "/profile/edit",
-        element: <ProfileEdit />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <ProfileEdit />
+          </Suspense>
+        ),
       },
       {
-        path: "/borad/community",
-        element: <Community />,
+        path: "/board/:category",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <CategoryBoardCheck />
+          </Suspense>
+        ),
       },
       {
-        path: "/borad/QnA",
-        element: <QnA />,
+        path: "/board/mentoring",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <Mentoring />
+          </Suspense>
+        ),
       },
       {
-        path: "/borad/jobReview",
-        element: <JobReview />,
+        path: "/board/study",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <Study />
+          </Suspense>
+        ),
       },
       {
-        path: "/borad/mentoring",
-        element: <Mentoring />,
+        path: "/mentoring/:id",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <MentoringDetail />
+          </Suspense>
+        ),
       },
       {
-        path: "/borad/study",
-        element: <Study />,
+        path: "/board/mentoring/register",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <MentoringRegister />
+          </Suspense>
+        ),
       },
       {
-        path: "/borad/jobOpening",
-        element: <JobOpening />,
+        path: "/board/mentoring/edit",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <MentoringRegister />
+          </Suspense>
+        ),
+      },
+      {
+        path: "*",
+        element: (
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center pt-20">
+                <Spinner />
+              </div>
+            }
+          >
+            <Error404 />
+          </Suspense>
+        ),
       },
     ],
   },

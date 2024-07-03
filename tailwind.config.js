@@ -23,9 +23,19 @@ export default {
         gray_8: "#343A40",
         gray_9: "#212529",
         brand_blue: "#D2E1FF",
+        brand_red: "#F49292",
       },
       fontFamily: {
-        pre: ["Pretendard", "sans-serif"],
+        pre: ["Pretendard Variable", "sans-serif"],
+      },
+
+      backgroundImage: {
+        banner_commu: "url('/src/public/banner/banner_commu.svg')", // 원하는 이미지 경로로 변경
+        banner_job: "url('/src/public/banner/banner_job.svg')", // 원하는 이미지 경로로 변경
+        banner_mento: "url('/src/public/banner/banner_mento.svg')", // 원하는 이미지 경로로 변경
+        banner_qna: "url('/src/public/banner/banner_qna.svg')", // 원하는 이미지 경로로 변경
+        banner_review: "url('/src/public/banner/banner_review.svg')", // 원하는 이미지 경로로 변경
+        banner_study: "url('/src/public/banner/banner_study.svg')", // 원하는 이미지 경로로 변경
       },
     },
   },

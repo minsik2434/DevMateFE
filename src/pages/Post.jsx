@@ -1,76 +1,200 @@
-import Header from '@/components/Header'
-import ContentEdit from '@/components/post/ContentEdit';
-import useLoginInfoStore from '@/stores/loginInfo';
-import React from 'react'
-import { useEffect,useState,useRef } from 'react';
-import { useCookies } from 'react-cookie';
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import Banner from "@/components/Banner";
+import ContentEdit from "@/components/post/ContentEdit";
+import useLoginInfoStore from "@/stores/loginInfo";
+import { getData, postData, patchData } from "@/util/Crud";
+import React from "react";
+import { useState, useLayoutEffect } from "react";
+import { useCookies } from "react-cookie";
+import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Post() {
-  const editorRef = useRef();
+  const param = useParams();
   const [cookies] = useCookies();
-  const {setGrantType, setAccessToken, setRefreshToken} = useLoginInfoStore();
+  const nav = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const [memberInfo, setMemberInfo] = useState({
+    name: "",
+    nickName: "",
+    imgUrl: "test.png",
+    interests: [],
+  });
+  const postId = searchParams.get("id");
+  const { grantType, accessToken, setGrantType, setAccessToken } =
+    useLoginInfoStore();
   const [postValues, setPostValues] = useState({
-    title : "",
-    tag : [],
-    content : "",
-  })
+    title: "",
+    tags: [],
+    content: "",
+  });
+  const bannerElementByCategory = {
+    qna: {
+      heading: "Q&A",
+      exp: "동료들과 문제를 함께 해결해보아요",
+      style: "bg-banner_qna bg-center bg-cover",
+    },
 
-  const setTitle = (e) =>{
-    setPostValues((prevValues)=>({
-      ...prevValues,
-      title : e.target.value
-    }))
-  }
+    community: {
+      heading: "커뮤니티",
+      exp: "여러분의 이야기를 들려주세요",
+      style: "bg-banner_commu bg-center bg-cover",
+    },
 
-  const onTags = (value)=>{
-    setPostValues((prevValues)=>({
-      ...prevValues,
-      tag : value
-    }))
-  }
+    job: {
+      heading: "모집공고",
+      exp: "좋은 회사 또는 직장의 정보를 공유해주세요",
+      style: "bg-banner_job bg-center bg-cover",
+    },
 
-  const setContent = (value) =>{
-    setPostValues((prevValues) =>({
+    review: {
+      heading: "취업 후기",
+      exp: "꿈을 이룬 과정을 자라나는 새싹들에게 들려주세요",
+      style: "bg-banner_review bg-center bg-cover",
+    },
+  };
+  const setTitle = (e) => {
+    setPostValues((prevValues) => ({
       ...prevValues,
-      content : value
-    })) 
-  }
-  
-  const handleClick = () => {
-    setPostValues((prevValues) =>({
-      ...prevValues,
-      content:editorRef.current.getInstance().getHTML()
-    }))
+      title: e.target.value,
+    }));
   };
 
-  useEffect(()=>{
-    const savedTokenInfo = () =>{
+  const onTags = (value) => {
+    setPostValues((prevValues) => ({
+      ...prevValues,
+      tags: value,
+    }));
+  };
+
+  const setContent = (value) => {
+    setPostValues((prevValues) => ({
+      ...prevValues,
+      content: value,
+    }));
+  };
+
+  const handleRegister = async () => {
+    try {
+      await postData(
+        `${import.meta.env.VITE_API_URL}/post/${param.category}`,
+        postValues,
+        {
+          Authorization: `${grantType} ${accessToken}`,
+        }
+      );
+      alert("게시글 등록 완료");
+      nav(`/board/${param.category}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEdit = async () => {
+    try {
+      await patchData(
+        `${import.meta.env.VITE_API_URL}/post/${postId}/${param.category}`,
+        postValues,
+        {
+          Authorization: `${grantType} ${accessToken}`,
+        }
+      );
+      alert("게시글 수정 완료");
+      nav(`/board/${param.category}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    const savedTokenInfo = () => {
       setGrantType(cookies.grantType);
       setAccessToken(cookies.accessToken);
-    }
+    };
     savedTokenInfo();
-  },[])
-  console.log(postValues);
+  }, [cookies.accessToken, cookies.grantType, setAccessToken, setGrantType]);
+
+  useLayoutEffect(() => {
+    const getMember = async () => {
+      try {
+        const responseData = (
+          await getData(`${import.meta.env.VITE_API_URL}/members`, {
+            Authorization: `${grantType} ${accessToken}`,
+          })
+        ).data;
+        setMemberInfo(responseData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (grantType && accessToken) {
+      getMember();
+    }
+  }, [accessToken, grantType]);
+
+  useLayoutEffect(() => {
+    const getPostData = async () => {
+      try {
+        const responsePostData = await (
+          await getData(`${import.meta.env.VITE_API_URL}/post/${postId}`)
+        ).data;
+        setPostValues({
+          title: responsePostData.title,
+          tags: responsePostData.tags,
+          content: responsePostData.content,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (location.pathname === `/post/${param.category}/new`) {
+      return;
+    }
+    getPostData();
+  }, [location, memberInfo.nickName, nav, param.category, postId]);
+
+  const { heading, exp, style } = bannerElementByCategory[param.category];
+  const handleSubmit =
+    location.pathname === `/post/${param.category}/new`
+      ? handleRegister
+      : handleEdit;
   return (
     <div>
-        <header>
-            <Header />
-        </header>
-        <section className='flex justify-center py-[50px]'>
-          <div className='w-[60%] mobile:w-[95%] max-w-[750px]'>
-            <div className='w-full px-[60px] py-[16px] mobile:px-[16px] mobile:py-[10px] bg-[#6eceda] rounded-lg'>
-              <h2 className='text-[25px] mobile:text-[15px] font-bold'>Q&A</h2>
-              <p className='text-[15px] mobile:text-[10px] font-bold'>동료들과 함께 문제를 해결해보아요</p>
-            </div>
-              <ContentEdit onTags={onTags} setContent={setContent} setTitle={setTitle}/>
-            <div className='flex justify-end gap-[43px] mobile:gap-[18px] mt-[42px] mobile:mt-[20px]'>
-              <button onClick={handleClick} className='px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-[#979797] text-white font-bold rounded-md'>등록</button>
-              <button className='px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] border border-[#979797] text-black font-bold rounded-md'>취소</button>
-            </div>
+      <header>
+        <Header />
+      </header>
+      <section className="flex justify-center pb-[100px]">
+        <div className="w-[60%] mobile:w-[95%] max-w-[750px]">
+          <Banner heading={heading} exp={exp} style={style} />
+          <ContentEdit
+            onTags={onTags}
+            setContent={setContent}
+            setTitle={setTitle}
+            postValues={postValues}
+          />
+          <div className="flex justify-end gap-[43px] mobile:gap-[18px] mt-[42px] mobile:mt-[20px]">
+            <button
+              onClick={handleSubmit}
+              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-gray_8 text-gray_0 hover:bg-gray_9 font-bold rounded-md"
+            >
+              등록
+            </button>
+            <button
+              onClick={() => nav(`/board/${param.category}`)}
+              className="px-[30px] mobile:px-[20px] py-[10px] mobile:py-[6px] bg-gray_1 hover:bg-gray_2 text-gray_8 font-bold rounded-md"
+            >
+              취소
+            </button>
           </div>
-        </section>
+        </div>
+      </section>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default Post
+export default Post;

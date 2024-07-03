@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Banner from "@/components/board/Banner";
+import Banner from "@/components/Banner";
 import React from "react";
 
 import search from "@/assets/icon/search.svg";
@@ -9,6 +9,7 @@ import filter from "@/assets/icon/filter.svg";
 import BoardList from "@/components/board/BoardList";
 import StudyList from "@/components/board/StudyList";
 import pen from "@/assets/pen.png";
+import BoardWrite from "@/components/BoardWrite";
 
 function Board() {
   return (
@@ -138,7 +139,8 @@ function Board() {
               </button>
             </div>
 
-            <button
+            
+            {/* <button
               className="bg-gray_6 text-white text-sm tablet:px-6 tablet:py-2 mobile:px-2 mobile:py-2 mobile:rounded"
               type="button"
             >
@@ -148,7 +150,7 @@ function Board() {
                 alt="글쓰기 아이콘"
                 className="tablet:hidden mobile:w-4"
               />
-            </button>
+            </button> */}
           </div>
         </form>
         <div className="desktop:w-[1240px] m-auto">
@@ -162,7 +164,7 @@ function Board() {
           <BoardList />
           {/* <StudyList /> */}
         </div>
-        <PageButton/>
+        <PageButton />
       </div>
       <Footer />
     </div>

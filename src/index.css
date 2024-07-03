@@ -75,17 +75,17 @@
   position: absolute;
   top: 120%; /* 햄버거 버튼 바로 아래 위치 */
   right: 0;
-  width: 120px; /* 모달창의 너비 */
+  width: 180px; /* 모달창의 너비 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 1000; /* 다른 요소 위에 표시 */
 }
 
-/* header {
-  position: fixed;
-  background: white;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  border-bottom: 1px solid #9b9b9b;
-} */
+/*input 태그 type이 search 인경우  크롬에서 x 버튼 삭제 */
+input {
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+}
