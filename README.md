@@ -59,8 +59,7 @@
 <img src="https://img.shields.io/badge/querydsl-1777c0?style=for-the-badge">
 <img src="https://img.shields.io/badge/mysql-1777c0?style=for-the-badge&logo=mysql&logoColor=black">
 <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=black">
-<img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=black">  
-<img src="https://img.shields.io/badge/pinpoint-279cf2?style=for-the-badge">  
+<img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=black">   
 </div>
 
 ### 디자인
@@ -72,4 +71,7 @@
 <div>
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=black">
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white">
+<img src="https://img.shields.io/badge/pinpoint-279cf2?style=for-the-badge"> 
+<img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"> 
 </div>
