@@ -75,3 +75,8 @@
 <img src="https://img.shields.io/badge/pinpoint-279cf2?style=for-the-badge"> 
 <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"> 
 </div>
+
+
+## 아키텍쳐
+<img width="805" alt="스크린샷 2024-07-03 오후 8 02 44" src="https://github.com/minsik2434/DevMateFE/assets/119111149/b9ae23b3-13cf-4c20-abd5-132ea7048cf7">
+
