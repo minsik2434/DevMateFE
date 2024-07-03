@@ -19,3 +19,24 @@
 ##### 3. 취업 후기나 모집 공고 게시글을 통해 취업 준비나 취업에 대한 정보를 제공
 
 - 취업 성공 후기 공유를 통해 주니어 개발자 및 취업 준비생들이 자신의 목적을 성공적으로 구축하고 발전할 수 있도록 정보를 제공
+
+<br>
+
+# 개요
+
+- 프로젝트 이름 : DevMate
+- 프로젝트 기간 : 2024.05 - 2024.06
+- 팀원 : 최민식, 이재호
+
+<br>
+
+# <center> 기술스택 </center>
+
+### FrontEnd
+
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
+<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fvelog.io%2F%40071yoon%2FTypescript-%25EC%2597%2590%25EC%2584%259C-Zustand-%25EB%25B0%25B0%25EC%259A%25B0%25EA%25B8%25B0&psig=AOvVaw35MoUdl-yCqIAf1ranhrpR&ust=1720085202485000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPjuse7GiocDFQAAAAAdAAAAABAE">
