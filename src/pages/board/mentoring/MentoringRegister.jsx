@@ -109,57 +109,7 @@ function MentoringRegister() {
 
   const [emailError, setEmailError] = useState("");
 
-  // const handleInputVal = (e) => {
-  //   const { id, value } = e.target;
-  //   let newValue = value;
-
-  //   if (id === "phoneNumber") {
-  //     // 숫자와 하이픈만 남기고 나머지 문자 제거
-  //     newValue = newValue.replace(/[^\d-]/g, "");
-
-  //     // 하이픈 제거
-  //     const numbers = newValue.replace(/-/g, "");
-  //     if (numbers.startsWith("02")) {
-  //       // 02로 시작하는 경우
-  //       if (numbers.length <= 2) newValue = numbers;
-  //       else if (numbers.length <= 6)
-  //         newValue = `${numbers.slice(0, 2)}-${numbers.slice(2)}`;
-  //       else
-  //         newValue = `${numbers.slice(0, 2)}-${numbers.slice(
-  //           2,
-  //           6
-  //         )}-${numbers.slice(6, 10)}`;
-  //     } else {
-  //       // 그 외의 경우
-  //       if (numbers.length <= 3) newValue = numbers;
-  //       else if (numbers.length <= 7)
-  //         newValue = `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
-  //       else
-  //         newValue = `${numbers.slice(0, 3)}-${numbers.slice(
-  //           3,
-  //           7
-  //         )}-${numbers.slice(7, 11)}`;
-  //     }
-  //     // ... (변경 없음)
-  //   } else if (id === "email") {
-  //     // 이메일 유효성 검사
-  //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //     if (!emailRegex.test(value)) {
-  //       setEmailError("올바른 이메일 형식이 아닙니다.");
-  //     } else {
-  //       setEmailError("");
-  //     }
-  //   } else if (id === "career") {
-  //     newValue = newValue.replace(/\D/g, "");
-  //   }
-
-  //   setPostValues((prevValues) => ({
-  //     ...prevValues,
-  //     [id]: newValue,
-  //   }));
-  // };
-
-  //---------------------------------------------
+  
   function handleInputValidate(e) {
     const { id, value } = e.target;
     let newValue = value;
@@ -224,7 +174,7 @@ function MentoringRegister() {
           //멘토링소개
           content: responsePostData.content,
           // 태그
-          tags: [],
+          tags: responsePostData.tags,
           // 전화번호
           phoneNumber: responsePostData.phoneNumber,
           // 이메일
