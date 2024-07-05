@@ -81,3 +81,7 @@
 ## 아키텍쳐
 <img width="805" alt="스크린샷 2024-07-03 오후 8 02 44" src="https://github.com/minsik2434/DevMateFE/assets/119111149/b9ae23b3-13cf-4c20-abd5-132ea7048cf7">
 
+
+## ERD
+<img width="551" alt="스크린샷 2024-07-05 오후 6 59 28" src="https://github.com/minsik2434/DevMateFE/assets/119111149/f4df5a1b-1724-4447-80a8-3f5e2b3c537a">
+
