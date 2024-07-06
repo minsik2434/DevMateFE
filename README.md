@@ -28,6 +28,7 @@
 - 프로젝트 이름 : DevMate
 - 프로젝트 기간 : 2024.05 - 2024.06
 - 팀원 : 최민식, 이재호
+- 프로젝트 기획 : https://www.notion.so/DevMate-cd8e323d3c744ad8a3659973e7e77274
 
 <br>
 
