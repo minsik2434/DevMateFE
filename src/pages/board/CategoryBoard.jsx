@@ -357,20 +357,6 @@ function CategoryBoard() {
               link={`/post/${param.category}/new`}
               location={location.pathname}
             />
-            {/* <button
-              className="bg-gray_8 text-white text-sm px-6 py-3 mobile:px-2 mobile:py-2 rounded-md mobile:rounded"
-              type="button"
-              onClick={() => nav(`/post/${param.category}/new`)}
-            >
-              <span className="mobile:hidden tablet:block desktop:block">
-                글쓰기
-              </span>
-              <img
-                src={pen}
-                alt="글쓰기 아이콘"
-                className="desktop:hidden tablet:hidden mobile:w-4"
-              />
-            </button> */}
           </div>
         </div>
         <div className="m-auto text-center flex flex-col">

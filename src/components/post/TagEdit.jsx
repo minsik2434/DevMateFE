@@ -24,6 +24,7 @@ function TagEdit({ onTags, tags, style }) {
       e.preventDefault();
       e.target.value = "";
       onTags([...tags, inputValue]);
+      console.log(tags);
     }
   };
 
@@ -31,8 +32,6 @@ function TagEdit({ onTags, tags, style }) {
     const inputValue = e.target.value;
     if (e.key === "Backspace" && inputValue === "") {
       removeLastTag();
-    } else if (e.key === "Enter") {
-      addTags(e);
     }
   };
   return (
