@@ -30,7 +30,7 @@
 - 팀원 : 최민식, 이재호
 - 프로젝트 기획 : https://www.notion.so/DevMate-cd8e323d3c744ad8a3659973e7e77274
 - 사이트 링크 : https://devmate-fe.vercel.app
-- 사이트 테스트 계정 : 아이디 - test, 비밀번호 : test123
+- 사이트 테스트 계정 아이디 : test, 비밀번호 : test123
 
 <br>
 
