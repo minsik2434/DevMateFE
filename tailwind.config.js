@@ -35,7 +35,7 @@ export default {
         banner_mento: "url('/src/public/banner/banner_mento.svg')", // 원하는 이미지 경로로 변경
         banner_qna: "url('/src/public/banner/banner_qna.svg')", // 원하는 이미지 경로로 변경
         banner_review: "url('/src/public/banner/banner_review.svg')", // 원하는 이미지 경로로 변경
-        banner_study: "url('/src/public/banner/banner_study.svg')", // 원하는 이미지 경로로 변경
+        banner_study: "url('/src/public/banner/banner_study.png')", // 원하는 이미지 경로로 변경
       },
     },
   },

@@ -28,6 +28,9 @@
 - 프로젝트 이름 : DevMate
 - 프로젝트 기간 : 2024.05 - 2024.06
 - 팀원 : 최민식, 이재호
+- 프로젝트 기획 : https://www.notion.so/DevMate-cd8e323d3c744ad8a3659973e7e77274
+- 사이트 링크 : https://devmate-fe.vercel.app
+- 사이트 테스트 계정 아이디 : test, 비밀번호 : test123
 
 <br>
 
@@ -85,3 +88,26 @@
 ## ERD
 <img width="551" alt="스크린샷 2024-07-05 오후 6 59 28" src="https://github.com/minsik2434/DevMateFE/assets/119111149/f4df5a1b-1724-4447-80a8-3f5e2b3c537a">
 
+
+## 주요 기능
+- 메인
+  <img width="1440" alt="스크린샷 2024-07-08 오후 3 33 47" src="https://github.com/minsik2434/DevMateFE/assets/119111149/e03ac9e6-1b3d-4f14-b252-bff3aff5d0f2">
+  - 조회수가 높은 순으로 카테고리별 게시글을 보여줌
+- 게시판
+  <img width="1440" alt="스크린샷 2024-07-08 오후 3 36 09" src="https://github.com/minsik2434/DevMateFE/assets/119111149/3e405b31-e34f-4384-9e17-819e366c0240">
+  <img width="1440" alt="스크린샷 2024-07-08 오후 3 57 49" src="https://github.com/minsik2434/DevMateFE/assets/119111149/892207e9-427c-42ab-9eb9-d7f99932fde5">
+  - 게시글을 조회 및 검색 가능
+  - 해시 태그 기능을 이용해서 필터링 가능
+  - 검색을 이용해서 검색어 게시글로 조회가능
+  - 정렬기준을 최신순, 좋아요순, 댓글 순으로 정렬 가능
+- 게시글
+  <img width="1440" alt="스크린샷 2024-07-08 오후 3 38 03" src="https://github.com/minsik2434/DevMateFE/assets/119111149/75161215-1f45-40b3-bef3-1497702c0e76">
+  - 게시글 상세정보 조회 가능
+  - 하트 버튼을 클릭해서 게시글에 좋아요 가능
+  - 해당 게시글에 댓글 생성 수정 삭제 가능
+  - 자신이 게시한 게시글일 경우 게시글 수정 가능
+- 프로필
+  <img width="1440" alt="스크린샷 2024-07-08 오후 3 56 50" src="https://github.com/minsik2434/DevMateFE/assets/119111149/6376f894-ce6f-413c-9001-219b7bfe5bed">
+  - 자신의 프로필 조회 및 수정
+  - 계정 삭제
+  - 자신이 게시한글, 좋아요한 글, 댓글단 글 조회 가능
