@@ -60,7 +60,10 @@ function EditorBox({ setContent, content }) {
 
   useEffect(() => {
     if (editorRef.current) {
-      editorRef.current.getInstance().setHTML(content);
+      const instance = editorRef.current.getInstance();
+      if (instance.getHTML() !== content) {
+        instance.setHTML(content);
+      }
     }
   }, [content]);
 
