@@ -67,7 +67,7 @@ function MentoringList({ data }) {
         </ul>
       </div>
       <div>
-        <ul className="flex gap-2 text-sm font-bold">
+        <ul className="flex gap-[5px] text-sm text-gray_0 font-bold flex-wrap">
           {/* <li className="bg-brand_blue px-3 py-2 rounded-full">프론트엔드</li> */}
           {data.tags.map((tag, index) => {
             return (
