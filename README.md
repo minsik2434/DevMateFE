@@ -3,11 +3,7 @@
 
 ![file](https://github.com/minsik2434/DevMateFE/assets/119111149/f0bb2975-9ee4-4b6f-8da0-ea3758bc848d)
 
-<<<<<<< HEAD
 ## 📢 프로젝트 소개
-=======
-# 📢 프로젝트 소개
->>>>>>> develop
 
 #### 개발자, 취업준비생 학생 등 을 위한 정보 공유 커뮤니티 웹 사이트
 
@@ -15,11 +11,7 @@
 
 <br>
 
-<<<<<<< HEAD
 ## 🎯 프로젝트 목적
-=======
-# 🎯 프로젝트 목적
->>>>>>> develop
 
 
 
@@ -39,14 +31,9 @@
 
 <br>
 
-<<<<<<< HEAD
 ## 🎨 개요
 
 
-=======
-# 🎨 개요
-
->>>>>>> develop
 <b>프로젝트 이름 : DevMate</b>
 
 <b>프로젝트 기간 : 2024.05 - 2024.06</b>
@@ -120,16 +107,10 @@
 <br>
 <br>
 <br>
-<<<<<<< HEAD
 
 ## 📚 아키텍쳐
 
-<img width="805" alt="스크린샷 2024-07-03 오후 8 02 44" src="https://github.com/minsik2434/DevMateFE/assets/119111149/b9ae23b3-13cf-4c20-abd5-132ea7048cf7">
-=======
-
-## 📚 아키텍쳐
-
-<img width="805" alt="스크린샷 2024-07-03 오후 8 02 44" src="https://github.com/minsik2434/DevMateFE/assets/119111149/b9ae23b3-13cf-4c20-abd5-132ea7048cf7">
+<img width="805" alt="아키텍처 이미지" src="https://github.com/minsik2434/DevMateFE/assets/119111149/b9ae23b3-13cf-4c20-abd5-132ea7048cf7">
 
 <br>
 <br>
@@ -137,17 +118,7 @@
 
 ## 🛢️ ERD
 
-<img width="551" alt="스크린샷 2024-07-05 오후 6 59 28" src="https://github.com/minsik2434/DevMateFE/assets/119111149/f4df5a1b-1724-4447-80a8-3f5e2b3c537a">
->>>>>>> develop
-
-<br>
-<br>
-<br>
-
-## 🛢️ ERD
-
-<<<<<<< HEAD
-<img width="551" alt="스크린샷 2024-07-05 오후 6 59 28" src="https://github.com/minsik2434/DevMateFE/assets/119111149/f4df5a1b-1724-4447-80a8-3f5e2b3c537a">
+<img width="551" alt="ERD 이미지" src="https://github.com/minsik2434/DevMateFE/assets/119111149/f4df5a1b-1724-4447-80a8-3f5e2b3c537a">
 
 
 <br>
@@ -170,28 +141,6 @@
   * 아이디 또는 비밀번호 불일치 시 토스트 출력
 
 
-=======
-<br>
-<br>
-<br>
-
-## 🚀 주요 기능
-
-<br>
-
-<details>
-  <summary>로그인</summary>
-
-  <br>
-  <img width="1440" alt="로그인 페이지" src="https://github.com/minsik2434/DevMateFE/assets/119111149/e03ac9e6-1b3d-4f14-b252-bff3aff5d0f2">
-
-  <hr>
-
-  * 로그인 기능
-  * 아이디 또는 비밀번호 불일치 시 토스트 출력
-
-
->>>>>>> develop
 </details>
 
 <br>
@@ -200,11 +149,7 @@
   <summary>회원가입</summary>
 
   <br>
-<<<<<<< HEAD
   <img width="1440" alt="스크린샷 2024-07-08 오후 3 33 47" src="https://github.com/minsik2434/DevMateFE/assets/119111149/e03ac9e6-1b3d-4f14-b252-bff3aff5d0f2">
-=======
-  <img width="1440" alt="스크린샷 2024-07-08 오후 3 33 47" src="https://github.com/minsik2434/DevMateFE/assets/119111149/e03ac9e6-1b3d-4f14-b252-bff3aff5d0f2">
->>>>>>> develop
 
   <hr>
 
@@ -220,11 +165,7 @@
   <summary>랜딩페이지</summary>
 
   <br>
-<<<<<<< HEAD
   <img width="1440" alt="스크린샷 2024-07-08 오후 3 33 47" src="https://github.com/minsik2434/DevMateFE/assets/119111149/e03ac9e6-1b3d-4f14-b252-bff3aff5d0f2">
-=======
-  <img width="1440" alt="스크린샷 2024-07-08 오후 3 33 47" src="https://github.com/minsik2434/DevMateFE/assets/119111149/e03ac9e6-1b3d-4f14-b252-bff3aff5d0f2">
->>>>>>> develop
 
   <hr>
 
@@ -240,19 +181,11 @@
 
 <br>
 
-<<<<<<< HEAD
   <img width="1440" alt="스크린샷 2024-07-08 오후 3 36 09" src="https://github.com/minsik2434/DevMateFE/assets/119111149/3e405b31-e34f-4384-9e17-819e366c0240">
 
   <br><br>
 
   <img width="1440" alt="스크린샷 2024-07-08 오후 3 57 49" src="https://github.com/minsik2434/DevMateFE/assets/119111149/892207e9-427c-42ab-9eb9-d7f99932fde5">
-=======
-  <img width="1440" alt="스크린샷 2024-07-08 오후 3 36 09" src="https://github.com/minsik2434/DevMateFE/assets/119111149/3e405b31-e34f-4384-9e17-819e366c0240">
-
-  <br><br>
-
-  <img width="1440" alt="스크린샷 2024-07-08 오후 3 57 49" src="https://github.com/minsik2434/DevMateFE/assets/119111149/892207e9-427c-42ab-9eb9-d7f99932fde5">
->>>>>>> develop
 
   <hr>
 
@@ -287,11 +220,7 @@
   <summary>게시글 상세 페이지</summary>
 
   <br>
-<<<<<<< HEAD
   <img width="1440" alt="스크린샷 2024-07-08 오후 3 38 03" src="https://github.com/minsik2434/DevMateFE/assets/119111149/75161215-1f45-40b3-bef3-1497702c0e76">
-=======
-  <img width="1440" alt="스크린샷 2024-07-08 오후 3 38 03" src="https://github.com/minsik2434/DevMateFE/assets/119111149/75161215-1f45-40b3-bef3-1497702c0e76">
->>>>>>> develop
 
   <hr>
 
@@ -341,7 +270,6 @@
 <b>이재호</b>
 
 ``` 
-<<<<<<< HEAD
 
 1. 프로젝트 후기
 
@@ -367,12 +295,3 @@
 - 디바운스 처리가 안 되어있는 폼 컴포넌트가 있습니다. 성능을 위해서 이 또한 디바운스로 처리를 해야합니다.
 
 - 현재 페이지네이션 디자인이 사용자 친화적이지 않기 때문에 불편함을 느낄 수 있습니다. 이를 개선할 필요가 있습니다.
-=======
-내용을 입력해주세요
-```
-
-
- 
-  
-
->>>>>>> develop
