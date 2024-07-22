@@ -48,6 +48,29 @@ function MentoringRegister() {
     githubUrl: "",
   });
 
+  const [errors, setErrors] = useState({
+    title: "",
+    content: "",
+    phoneNumber: "",
+    email: "",
+    job: "",
+    career: "",
+  });
+
+  const validateInputs = () => {
+    const newErrors = {};
+    if (!postValues.title.trim()) newErrors.title = "멘토링명을 입력해주세요.";
+    if (!postValues.content.trim())
+      newErrors.content = "멘토링 소개를 작성해주세요.";
+    if (!postValues.phoneNumber.trim())
+      newErrors.phoneNumber = "연락처를 입력해주세요.";
+    if (!postValues.email.trim()) newErrors.email = "이메일을 입력해주세요.";
+    if (!postValues.job.trim()) newErrors.job = "직무를 입력해주세요.";
+    if (!postValues.career.trim()) newErrors.career = "경력을 입력해주세요.";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const onTags = (value) => {
     setPostValues((prevValues) => ({
       ...prevValues,
@@ -55,19 +78,31 @@ function MentoringRegister() {
     }));
   };
 
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setPostValues((prevValues) => ({
-      ...prevValues,
-      [id]: value,
-    }));
-  };
+  // const handleInputChange = (e) => {
+  //   const { id, value } = e.target;
+  //   setPostValues((prevValues) => ({
+  //     ...prevValues,
+  //     [id]: value,
+  //   }));
+  // };
 
   const handleRegister = async (e) => {
     e.preventDefault(); // 기본 폼 제출 동작 방지
-    if (!accessToken) {
+
+    // if (!postValues.content.trim()) {
+    //   alert("멘토링 소개를 작성해주세요.");
+    //   return;
+    // }
+
+    // if (!accessToken) {
+    //   return;
+    // }
+
+    if (!validateInputs()) {
+      alert("빈 내용을 작성해주세요.");
       return;
     }
+    if (!accessToken) return;
     try {
       const response = await postData(
         `${import.meta.env.VITE_API_URL}/post/mentoring`,
@@ -109,7 +144,6 @@ function MentoringRegister() {
 
   const [emailError, setEmailError] = useState("");
 
-  
   function handleInputValidate(e) {
     const { id, value } = e.target;
     let newValue = value;
@@ -355,7 +389,7 @@ function MentoringRegister() {
           </div>
           <div className="desktop:px-5 desktop:py-8 tablet:px-5 tablet:py-8 mobile:px-4 mobile:py-5 flex flex-col gap-5">
             <span className="text-lg mobile:text-sm font-semibold text-gray_6">
-              멘토링소개
+              멘토링 소개
             </span>
 
             {/* <p className="desktop:h-[450px] desktop:mt-5 tablet:h-[300px] mobile:h-[200px] mobile:text-xs">
@@ -369,7 +403,6 @@ function MentoringRegister() {
               value={postValues.content}
               // onChange={handleInputChange}
               onChange={handleInputValidate}
-              required
             ></textarea>
           </div>
 
