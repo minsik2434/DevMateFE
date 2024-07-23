@@ -46,6 +46,8 @@
 
 <b>사이트 테스트 계정 아이디 : test, 비밀번호 : test123</b>
 
+<b>트러블 슈팅 : https://github.com/minsik2434/DevMateFE/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85 </b>
+
 <br>
 
 # <center>⚙️기술스택 </center>
